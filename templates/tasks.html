@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        .center{
+            text-align: center;
+        }
+
+        #taskDiv{
+            margin: auto;
+            width: 50%;
+            padding: 20px;
+            border: 5px solid #000;
+            border-radius: 15px;
+            text-align: center;
+        }
+        button{
+            margin: 20px;
+            padding: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="taskDiv" class=center>
+        <h1>Task Manager</h1>
+        
+            <input type="radio" id="feedbackSesh" value="Feedback Session">
+                <label for="feedbackSesh">Feedback Session</label><br>
+            <input type="radio" id="careerDev" value="Career Development">
+                <label for="careerDev">Career Development</label><br>
+            <input type="radio" id="planning" value="Planning">
+                <label for="planning">Planning</label><br>
+            <input type="radio" id="custom" value="Custom">
+                <label for="custom">Custom</label><br>
+      
+    
+        <h1>Assigned By:</h1>
+        <input type="radio" id="assignMentee" value="Mentee">
+            <label for="assignMentee">Mentee</label><br>
+        <input type="radio" id="assignMentor" value="Mentor">
+        <label for="assignMentor">Mentor</label><br>
+
+        <button>Add Task</button>
+    </div>
+    
+</body>
+</html>
