@@ -1,0 +1,52 @@
+.message {
+  font-weight: 600;
+  color: blue;
+
+}
+
+#appTitleId{
+color: darkcyan;
+
+}
+
+.center {
+    margin: auto;
+    display: table;
+  }
+
+  input {
+    text-align: left;
+    font-family: monospace;
+    font-size: 1.2em;
+    width: 15em;
+    height: 1.5em;
+
+  }
+
+  
+  input::placeholder {
+    font-family: sans-serif;
+    text-align: left;
+  }
+
+input:invalid {
+    border: 2px solid #A00000;
+  }
+
+  input:valid {
+    border: 2px solid #00A000;
+  }
+
+  input:focus:invalid {
+    color: red;
+  }
+
+  input:focus:valid {
+    color: black;
+  }
+
+button {
+    font-size: 1.2em;
+    margin: 12px;
+    width: 5.0em;
+  }
