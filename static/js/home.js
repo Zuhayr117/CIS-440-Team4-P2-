@@ -1,17 +1,18 @@
+/// function to get tasks and their saved data from mysql
 async function getTasks() {
-    localStorage.setItem("currentUserId", 2); // Set the value for the "currentUserId" key
+    // once login page is set up, these two lines will need to change
+    localStorage.setItem("currentUserId", 2);
     let currentUserId = localStorage.getItem("currentUserId");
     
     try {
+        // get info from mysql
         let response = await fetch(`/getGoals?userId=${currentUserId}`);
         let data = await response.json();
 
-        console.log(data); // Now 'data' is a JavaScript object
-        console.log(data["data3"]);
-
+        // this is the data to use
         let tasks = data["data3"];
-        console.log(tasks);
 
+        // this is the object to put the tasks from mysql in
         let taskListBox = document.getElementById('taskListId');
         console.log(taskListBox);
         for (let i = 0; i < tasks.length; i++) {
@@ -34,6 +35,9 @@ async function getTasks() {
             taskList.appendChild(taskLabel);
             taskListBox.appendChild(taskList);
         }
+
+        // finally, initialize progress bar
+        updateProgressBar()
     } catch (error) {
         console.error('Error fetching data:', error);
         let taskListBox = document.getElementById('taskListId');
@@ -41,15 +45,11 @@ async function getTasks() {
     }
 }
 
+/// function that marks a task as complete, or undoes a completion and
+/// saves it to mysql
 function updateTask(id) {
-    console.log("updateTask");
-    console.log(id);
     let taskObject = document.getElementById(id);
-    console.log(taskObject);
-    console.log(taskObject.checked);
     let goalId = id.match(/\d+/);
-    console.log(goalId[0]);
-    
     // Create an object with the data you want to send
     let data = {
         currentComplete: taskObject.checked ? 1 : 0,
@@ -66,6 +66,7 @@ function updateTask(id) {
     .then(response => {
         if (response.ok) {
             console.log("Task updated successfully.");
+            updateProgressBar();
         } else {
             console.error("Error updating the task.");
         }
@@ -73,4 +74,23 @@ function updateTask(id) {
     .catch(error => {
         console.error("Fetch error:", error);
     });
+}
+
+/// function to update the progressBar
+function updateProgressBar() {
+    let progressBar = document.getElementById("progressMeterId");
+    let taskListBox = document.getElementById("taskListId");
+    let listItemElements = taskListBox.querySelectorAll("input");
+    let totalTasks = listItemElements.length;
+    let totalTasksCompleted = 0;
+    listItemElements.forEach(function (checkbox) {
+        if (checkbox.checked) {
+          totalTasksCompleted = totalTasksCompleted + 1;
+        }
+      });
+    let percentTasksCompleted = totalTasksCompleted / totalTasks * 100;
+    let progressMeter = document.getElementById("progressId");
+    // hardcoded 200 because that is the width of the progress-meter on home.html
+    let newWidth = percentTasksCompleted / 100 * 200;
+    progressMeter.style.width = newWidth + "px";
 }

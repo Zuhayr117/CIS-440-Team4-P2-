@@ -34,6 +34,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+
         }
 
         .progress-meter {
@@ -41,6 +42,11 @@
             height: 20px;
             background-color: lightgray;
             border: 2px solid blue;
+        }
+        .progress-inside {
+            width: 0px;
+            height: 20px;
+            background-color: green;
         }
 
         .roadmap {
@@ -97,7 +103,8 @@
         </div>
         <div class="box progress-container">
             <div class="header">Progress</div>
-            <div class="progress-meter">
+            <div class="progress-meter" id="progressMeterId">
+                <div class="progress-inside" id="progressId"></div>
                 <!-- Leave here ill put JavaScript to make the meter work-->
             </div>
             <div id="taskListId">

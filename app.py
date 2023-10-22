@@ -29,7 +29,7 @@ def home():
 def tasks():
     return render_template('tasks.html')
 
-# SQL queries
+# SQL query to get goal info
 @app.route('/getGoals')
 def getGoals():
     stored_id = request.args.get('userId')
@@ -100,6 +100,7 @@ def getGoals():
 
     return jsonify(result)
 
+# SQL query to set goal info
 @app.route('/setTask', methods=['POST'])
 def setTask():
     data = request.get_json()
