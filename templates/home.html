@@ -79,9 +79,14 @@
 .active {
     color: #333333;
 }
+
+#taskListId li {
+    list-style: none;
+}
     </style>
 </head>
-<body>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<body onload="getTasks()">
     <div class="container">
         <div class="box">
             <div class="header">Reminders</div>
@@ -95,6 +100,8 @@
             <div class="progress-meter">
                 <!-- Leave here ill put JavaScript to make the meter work-->
             </div>
+            <div id="taskListId">
+            </div>
             <div class="roadmap">
                 <p>Roadmap: Upcoming meetings to address the progress meter.</p>
                 <p>Meeting 1</p>
@@ -106,19 +113,19 @@
     </div>
     <nav class="navbar">
         <a class="nav-item active" href="#">
-            <img src="../images/active-home.jpeg" alt="home link">
+            <img src="{{ url_for('static', filename='images/active-home.jpeg') }}" alt="home link">
             <p>Home</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="../images/inactive-leaderboard.jpeg" alt="leaderboard link">
+            <img src="{{ url_for('static', filename='images/inactive-leaderboard.jpeg') }}" alt="leaderboard link">
             <p>Leaderboard</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="../images/inactive-resources.jpeg" alt="resources link">
+            <img src="{{ url_for('static', filename='images/inactive-resources.jpeg') }}" alt="resources link">
             <p>Resources</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="../images/inactive-tasks.jpeg" alt="tasks link">
+            <img src="{{ url_for('static', filename='images/inactive-tasks.jpeg') }}" alt="contact link">
             <p>Contact</p>
         </a>
     </nav>
