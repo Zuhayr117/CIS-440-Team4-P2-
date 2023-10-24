@@ -6,48 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
     <style>
+       body {
+            font-family: Arial, sans-serif;
+        }
         .center{
             text-align: center;
         }
-
         #taskDiv{
             margin: auto;
             width: 50%;
             padding: 20px;
-            border: 5px solid #000;
+            border: 3px solid #2694ab;
             border-radius: 15px;
             text-align: center;
+        }
+        .taskOpt{
+            margin: auto;
+            text-align: left;
+            padding-left: 40%;
         }
         button{
             margin: 20px;
             padding: 5px;
         }
-
-
     </style>
 </head>
 <body>
     <div id="taskDiv" class=center>
         <h1>Task Manager</h1>
-        
-            <input type="radio" id="feedbackSesh" value="Feedback Session">
+            <div class="taskOpt">
+            <input type="radio" name="task" id="feedbackSesh" value="Feedback Session">
                 <label for="feedbackSesh">Feedback Session</label><br>
-            <input type="radio" id="careerDev" value="Career Development">
+            <input type="radio" name="task" id="careerDev" value="Career Development">
                 <label for="careerDev">Career Development</label><br>
-            <input type="radio" id="planning" value="Planning">
+            <input type="radio" name="task" id="planning" value="Planning">
                 <label for="planning">Planning</label><br>
-            <input type="radio" id="custom" value="Custom">
+            <input type="radio" name="task" id="custom" value="Custom">
                 <label for="custom">Custom</label><br>
+            </div>
       
-    
         <h1>Assigned By:</h1>
-        <input type="radio" id="assignMentee" value="Mentee">
-            <label for="assignMentee">Mentee</label><br>
-        <input type="radio" id="assignMentor" value="Mentor">
-        <label for="assignMentor">Mentor</label><br>
-
-        <button>Add Task</button>
-    </div>
+            <div class="taskOpt">
+            <input type="radio" name="assigner" id="assignMentee" value="Mentee">
+                <label for="assignMentee">Mentee</label><br>
+            <input type="radio" name="assigner" id="assignMentor" value="Mentor">
+            <label for="assignMentor">Mentor</label><br>
+            <button>Add Task</button>
+        </div>
+        </div>
     
 </body>
 </html>
