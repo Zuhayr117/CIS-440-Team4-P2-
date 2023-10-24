@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'css/homePage.css')}}">
     <title>Marina</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
     <a href="{{ url_for('home') }}">Home</a>
 <a href="{{ url_for('tasks') }}">Tasks</a>
-    <div class="center">
+   
+<div id="loginvis">
+<div class="center">
 <img src="../static/images/LogInHome.png">
     </div>
+
+
 
  <!-- Title of app  -->
     <h1 id="appTitleId" class="center">MARINA</h1>
@@ -27,7 +32,7 @@
 <td>
     <label for="inputUserName"> User: </label>
     <br>
-    <input id="inputUserName" placeholder="Enter an email">
+    <input id="inputUserName" type="text" name="Username" placeholder="Enter an email" required>
 </td>
 </tr>
 
@@ -35,17 +40,112 @@
     <td>
         <label for="inputPassword"> Password: </label>
         <br>
-        <input id="inputPassword">
+        <input id="inputPassword" type="password" name="Password" required>
     </td>    
 </tr>
  </table>
 
  <!-- buttons under input  -->
 <div id="buttonDivId" class="center">
-    <button type="button" onclick="log_on_employees()"> Login </button>
+    <input type="submit" onclick="LogOnEmployees()" value="Login"> 
 </div>
 
 
 </form>
+<p id="loginStatus"></p>
+</div>
+<br>
+<br>
+<br>
+<div id="signupvis">
+<!-- form for request account -->
+
+ <form id="signupForm" onsubmit="RequestAccountEmployee($('#newName').val(), $('#newUsername').val(), $('#newPassword').val());">
+     <div class="center">
+         
+        <div class="center">Request Account</div>
+             <div>
+                 <label for="newName">Name:</label>
+                 <br>
+                 <input type="text" id="newName" name="newName" required><br>
+             </div>
+             <div>
+                 <label for="newUsername">New Username:</label>
+                 <br>
+                 <input type="text" id="newUsername" name="newUsername" required><br>
+             </div>
+             <div>
+                 <label for="newPassword">New Password:</label>
+                 <br>
+                 <input type="password" id="newPassword" name="newPassword" required><br>
+             </div>
+             <div>
+                 <input type="submit" value="Sign Up" onclick="RequestAccountEmployee()">
+             </div>
+       
+ </div>
+</div>
+     </form>
+
+
+
+
+
+    <!--    LogOnEmployees -->
+
+    <script type="text/javascript">
+        function LogOnEmployees() {
+            var userId = document.getElementById("inputUserName").value;
+            var pass = document.getElementById("inputPassword").value;
+
+            var webMethod = "app.py/LogOnEmployees"; // which function we are using
+            var parameters = "{\"id\":\"" + encodeURI(userId) + "\",\"password\":\"" + encodeURI(pass) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+           
+                    document.getElementById("loginStatus").textContent = "Login successful!";
+                    window.location.href = "index.html";
+                    window.location.href = "home.html";
+                },
+                error: function (e) {
+                   
+                    document.getElementById("loginStatus").textContent = "Invalid username or password.";
+                }
+            });
+
+        }
+
+
+       
+
+        // request account employees
+        function RequestAccountEmployee(employeeName, employeeUsername, employeePassword) {
+
+
+            var webMethod = "app.py/RequestAccountEmployee"; // which function we are using
+            var parameters = "{\"newName\":\"" + encodeURI(employeeName) + "\",\"newUsername\":\"" + encodeURI(employeeUsername) + "\",\"newPassword\":\"" + encodeURI(employeePassword) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+                    var responseFromServer = msg.d;
+                    alert(responseFromServer);
+                    window.location.href = "index.html";
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
