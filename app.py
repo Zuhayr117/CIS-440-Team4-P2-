@@ -132,70 +132,20 @@ def setTask():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# login code
-@app.route('/LogOnEmployees', methods=['POST'])
-def log_on_employees():
-    uid = request.form['id']
-    pass_value = request.form['password']
+@app.route('/getUser')
+def getUser():
+    storedUsername = request.args.get('username')
+    print(storedUsername)
+    cursor = mysql.cursor(dictionary=True)
 
-    cursor = mysql.connection.cursor()
+    data = []
 
-    sqlSelect = "SELECT id, role FROM Users WHERE username=%s and password=%s"
-    cursor.execute(sqlSelect, (uid, pass_value))
-    result = cursor.fetchone()
+    query1 = "SELECT * FROM Users AS u WHERE u.username = %s"
+    cursor.execute(query1, (storedUsername,))
+    data = cursor.fetchall()
 
-    if result:
-        # Store the employee_id and admin status in the session
-        session['id'] = result['id']
-        session['role'] = result['role']
-        success = True
-    else:
-        success = False
-
-    cursor.close()
-
-    return str(success)
-
-# request new account code
-
-@app.route('/RequestAccount', methods=['POST'])
-def request_account():
-    userName = request.form['name']
-    userUsername = request.form['userUsername']
-    userPasswordd = request.form['password']
-    userrole = request.form['role']
-    userphone = request.form['phone_number']
-    useremail = request.form['email']
-    
-
-    # Replace these values with your MySQL database connection details
-    db_connection = mysql.connector.connect(
-        host="107.180.1.16",
-        user="fall2023team4",
-        password="fall2023team4",
-        database="fall2023team4"
-    )
-
-    cursor = db_connection.cursor()
-
-    sqlSelect = "INSERT INTO Users (name, userUsername, customer_password, password, " \
-                "role, phone_number, email) " \
-                "VALUES (%s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID();"
-
-    values = (userName, userUsername, userPasswordd, userrole, userphone, useremail)
-
-    cursor.execute(sqlSelect, values)
-    db_connection.commit()
-
-    # Fetch the last inserted ID
-    cursor.execute("SELECT LAST_INSERT_ID();")
-    accountID = cursor.fetchone()[0]
-
-    cursor.close()
-    db_connection.close()
-
-    # You can use the accountID for further queries here
-    return str(accountID)
+    # You can return all sets of data as needed
+    return jsonify(data)
     
 
 if __name__ == '__main__':
