@@ -14,7 +14,6 @@ async function getTasks() {
 
         // this is the object to put the tasks from mysql in
         let taskListBox = document.getElementById('taskListId');
-        console.log(taskListBox);
         for (let i = 0; i < tasks.length; i++) {
             let taskList = document.createElement('li');
             let taskInput = document.createElement('input');
@@ -78,7 +77,6 @@ function updateTask(id) {
 
 /// function to update the progressBar
 function updateProgressBar() {
-    let progressBar = document.getElementById("progressMeterId");
     let taskListBox = document.getElementById("taskListId");
     let listItemElements = taskListBox.querySelectorAll("input");
     let totalTasks = listItemElements.length;
@@ -93,4 +91,18 @@ function updateProgressBar() {
     // hardcoded 200 because that is the width of the progress-meter on home.html
     let newWidth = percentTasksCompleted / 100 * 200;
     progressMeter.style.width = newWidth + "px";
+    updateDisabled(listItemElements, totalTasksCompleted);
+}
+
+function updateDisabled(taskCheckBoxes, currentTaskId) {
+    for (let i=0; i < taskCheckBoxes.length; i++) {
+        if (i == currentTaskId) {
+            if (i != 0) {
+                taskCheckBoxes[i-1].disabled = false;
+            }
+            taskCheckBoxes[i].disabled = false;
+        } else {
+            taskCheckBoxes[i].disabled = true;
+        }
+    }
 }

@@ -29,6 +29,21 @@ def home():
 def tasks():
     return render_template('tasks.html')
 
+@app.route('/getUser')
+def getUser():
+    storedUsername = request.args.get('username')
+    print(storedUsername)
+    cursor = mysql.cursor(dictionary=True)
+
+    data = []
+
+    query1 = "SELECT * FROM Users AS u WHERE u.username = %s"
+    cursor.execute(query1, (storedUsername,))
+    data = cursor.fetchall()
+
+    # You can return all sets of data as needed
+    return jsonify(data)
+
 # SQL query to get goal info
 @app.route('/getGoals')
 def getGoals():
