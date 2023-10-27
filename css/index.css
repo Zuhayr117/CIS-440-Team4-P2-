@@ -1,52 +1,116 @@
+body {
+  margin: 0;
+  background-position: 0 0;
+  /* Top-left corner is always visible */
+  background-image: url("/images/login.jpg");
+  background-size: cover;
+  /* Image covers the entire background */
+  background-attachment: fixed;
+}
+
+img {
+  max-width: 90%;
+  height: auto; /* Maintain the aspect ratio */
+  display: block; /* Make the image a block element for margin: auto to work */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+hr {
+  border: 10px dashed rgba(0, 0, 0, 0.5);
+  width: 90%;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  text-align: left;
+  margin: 0;
+}
+
+/* Style the login and signup buttons */
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0; /* Adjust padding as needed for height and width */
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  line-height: 1.5; /* Adjust line height as needed */
+  text-align: center;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#logoImage {
+  margin: 0;
+}
+
+#loginElements {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 50px;
+  max-width: 250px;
+  width: 75%;
+}
+
+#loginvis {
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+}
+
 .message {
   font-weight: 600;
   color: blue;
 
 }
 
-#appTitleId{
-color: darkcyan;
-
+#appTitleId {
+  color: darkcyan;
+  text-align: center;
 }
 
 .center {
-    margin: auto;
-    display: table;
-  }
+  margin: auto;
+  display: table;
+}
 
-  input {
-    text-align: left;
-    font-family: monospace;
-    font-size: 1.2em;
-    width: 15em;
-    height: 1.5em;
+input {
+  text-align: left;
+  font-family: monospace;
+  font-size: 1.2em;
+  width: 15em;
+  height: 1.5em;
 
-  }
+}
 
-  
-  input::placeholder {
-    font-family: sans-serif;
-    text-align: left;
-  }
+input::placeholder {
+  font-family: sans-serif;
+  text-align: left;
+}
 
-input:invalid {
-    border: 2px solid #A00000;
-  }
+/*input:invalid {
+  border: 2px solid #A00000;
+}*/
 
-  input:valid {
-    border: 2px solid #00A000;
-  }
+/*input:valid {
+  border: 2px solid #00A000;
+}*/
 
-  input:focus:invalid {
-    color: red;
-  }
+/*input:focus:invalid {
+  color: red;
+}*/
 
-  input:focus:valid {
-    color: black;
-  }
+input:focus:valid {
+  color: black;
+}
 
 button {
-    font-size: 1.2em;
-    margin: 12px;
-    width: 5.0em;
-  }
+  font-size: 1.2em;
+  margin: 12px;
+  width: 5.0em;
+}
