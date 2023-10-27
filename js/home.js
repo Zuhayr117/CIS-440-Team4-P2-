@@ -1,9 +1,9 @@
 /// function to get tasks and their saved data from mysql
 async function getTasks() {
-    // Replace this line with your actual login functionality
-    localStorage.setItem("currentUserId", 2);
-    let currentUserId = localStorage.getItem("currentUserId");
-
+    // get the currentUserId
+    let currentUserInfo = localStorage.getItem("userInfo");
+    let userInfoObject = JSON.parse(currentUserInfo);
+    let currentUserId = userInfoObject[0].id;
     try {
         // Make an HTTP request to your Node.js server
         let response = await fetch(`/getGoals?userId=${currentUserId}`);
@@ -17,27 +17,32 @@ async function getTasks() {
             // Clear the taskListBox before adding new tasks
             taskListBox.innerHTML = "";
             
-            for (let i = 0; i < tasks.length; i++) {
-                let taskList = document.createElement('li');
-                let taskInput = document.createElement('input');
-                taskInput.type = "checkbox";
-                taskInput.checked = tasks[i]["complete"] > 0;
-                taskInput.setAttribute("id", "task-item-" + tasks[i]["goal_id"]);
-                taskInput.addEventListener("change", function () {
-                    updateTask(this.id);
-                });
-
-                let taskLabel = document.createElement('label');
-                taskLabel.innerHTML = tasks[i]["info"];
-                taskLabel.setAttribute("for", "task-item-" + tasks[i]["goal_id"]);
-
-                taskList.appendChild(taskInput);
-                taskList.appendChild(taskLabel);
-                taskListBox.appendChild(taskList);
+            if (tasks.length > 0) {
+                for (let i = 0; i < tasks.length; i++) {
+                    let taskList = document.createElement('li');
+                    let taskInput = document.createElement('input');
+                    taskInput.type = "checkbox";
+                    taskInput.checked = tasks[i]["complete"] > 0;
+                    taskInput.setAttribute("id", "task-item-" + tasks[i]["goal_id"]);
+                    taskInput.addEventListener("change", function () {
+                        updateTask(this.id);
+                    });
+    
+                    let taskLabel = document.createElement('label');
+                    taskLabel.innerHTML = tasks[i]["info"];
+                    taskLabel.setAttribute("for", "task-item-" + tasks[i]["goal_id"]);
+    
+                    taskList.appendChild(taskInput);
+                    taskList.appendChild(taskLabel);
+                    taskListBox.appendChild(taskList);
+                }
+    
+                // Finally, initialize the progress bar
+                updateProgressBar();
+            } else {
+                taskListBox.innerHTML = "No tasks assigned.";
             }
 
-            // Finally, initialize the progress bar
-            updateProgressBar();
         } else {
             console.error('Error fetching data:', response.statusText);
             let taskListBox = document.getElementById('taskListId');
