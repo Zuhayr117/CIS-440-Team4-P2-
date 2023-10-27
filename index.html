@@ -11,8 +11,11 @@
 </head>
 
 <body>
-    <a href="./html/home.html">Home</a>
-    <a href="./html/tasks.html">Tasks</a>
+    <nav>
+        <a href="./html/home.html">Home</a>
+        <a href="./html/tasks.html">Tasks</a>
+    </nav>
+    
 
     <div class="center" id="loginElements">
         <div id="loginvis">
@@ -27,7 +30,7 @@
                 <table id="inputTableId" class="center">
                     <tr>
                         <td>
-                            <label for="inputUserName"> User: </label>
+                            <label for="inputUserName"> Username: </label>
                             <br>
                             <input id="inputUserName" type="text" name="Username" required>
                         </td>
@@ -43,10 +46,11 @@
                 <br>
                 <!-- buttons under input  -->
                 <div id="buttonDivId" class="center">
-                    <input type="submit" onclick="logInUser()" value="Login">
+                    <input type="button" onclick="logInUser()" value="Login">
                 </div>
+                <p id="loginStatus">placeholder</p>
             </form>
-            <p id="loginStatus"></p>
+            <br>
         </div>
         <br>
         <hr>
@@ -71,10 +75,19 @@
                         <br>
                         <input type="password" id="newPassword" name="newPassword" required><br>
                     </div>
+                    <div>
+                        <label for="mentorRole">Role:</label><br>
+                        <input type="radio" id="mentorRole" name="role" value="mentor" required>
+                        <label for="mentorRole">Mentor</label>
+                        
+                        <input type="radio" id="menteeRole" name="role" value="mentee" required>
+                        <label for="menteeRole">Mentee</label>
+                    </div>
                     <br>
                     <div class="center">
                         <input type="submit" value="Sign Up" onclick="addUser()">
                     </div>
+                    <p id="signUpStatus">placeholder</p>
                 </div>
         </div>
         </form>

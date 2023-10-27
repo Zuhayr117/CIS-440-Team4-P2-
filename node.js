@@ -35,18 +35,33 @@ app.post('/insertUser', function (req, res) {
     let newName = req.body.user_name;
     let newUsername = req.body.user_username;
     let newPassword = req.body.user_password;
-    let userRole = "Mentor";
+    let userRole = req.body.user_role;
 
-    // Define your SQL query to insert data
-    let myQuery = "INSERT INTO Users (name, username, password, role) VALUES (?, ?, ?, ?)";
-    
-    con.query(myQuery, [newName, newUsername, newPassword, userRole], function(err, result){
+    // Define your SQL query to check if the username already exists
+    let usernameQuery = "SELECT COUNT(*) AS count FROM Users WHERE username = ?";
+    con.query(usernameQuery, [newUsername], function(err, result) {
         if (err) {
-            console.error("Error adding a new user: " + err);
-            res.status(500).send("Error adding a new user");
+            console.error("Error checking for duplicate username: " + err);
+            res.status(500).send("Error checking for duplicate username");
         } else {
-            console.log("New user added to the database");
-            res.status(200).send("New user added to the database");
+            if (result[0].count > 0) {
+                // Username is already taken, send an error response
+                console.log("Username is already taken.");
+                res.status(400).send("Username is already taken");
+            } else {
+                // Username is not taken, proceed to insert the new user
+                // Define your SQL query to insert data
+                let insertQuery = "INSERT INTO Users (name, username, password, role) VALUES (?, ?, ?, ?)";
+                con.query(insertQuery, [newName, newUsername, newPassword, userRole], function(err, insertResult) {
+                    if (err) {
+                        console.error("Error adding a new user: " + err);
+                        res.status(500).send("Error adding a new user");
+                    } else {
+                        console.log("New user added to the database");
+                        res.status(200).send("New user added to the database");
+                    }
+                });
+            }
         }
     });
 });

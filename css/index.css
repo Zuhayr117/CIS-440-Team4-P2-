@@ -9,7 +9,7 @@ body {
 }
 
 img {
-  max-width: 90%;
+  max-width: 80%;
   height: auto; /* Maintain the aspect ratio */
   display: block; /* Make the image a block element for margin: auto to work */
   margin: 0 auto; /* Center the image horizontally */
@@ -49,6 +49,7 @@ input[type="submit"]:hover {
 }
 
 #loginElements {
+  margin-top: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 5px;
@@ -85,12 +86,17 @@ input {
   font-size: 1.2em;
   width: 15em;
   height: 1.5em;
-
 }
 
 input::placeholder {
   font-family: sans-serif;
   text-align: left;
+}
+
+input[type=text], input[type=password] {
+  border-radius: 5px;
+  border-color: 1px solid #000000;
+  box-shadow: none;
 }
 
 /*input:invalid {
@@ -109,8 +115,27 @@ input:focus:valid {
   color: black;
 }
 
+input[type="radio"] {
+  font-size: 1em;
+  font-family: sans-serif;
+  width: auto; /* Set to "auto" to revert to default width */
+  height: auto; /* Set to "auto" to revert to default height */
+}
+
 button {
   font-size: 1.2em;
   margin: 12px;
   width: 5.0em;
+}
+
+nav {
+  float: left;
+}
+
+#signUpStatus, #loginStatus {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  visibility: hidden;
 }
