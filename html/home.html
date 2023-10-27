@@ -2,96 +2,10 @@
 <html>
 <head>
     <title>Marina - Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .box {
-            border: 2px solid blue;
-            padding: 20px;
-            text-align: center;
-            margin: 10px;
-        }
-
-        .header {
-            font-size: 24px;
-        }
-
-        .meeting-box {
-            font-size: 18px;
-        }
-
-        .progress-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-        }
-
-        .progress-meter {
-            width: 200px;
-            height: 20px;
-            background-color: lightgray;
-            border: 2px solid blue;
-        }
-        .progress-inside {
-            width: 0px;
-            height: 20px;
-            background-color: green;
-        }
-
-        .roadmap {
-            margin-top: 10px;
-        }
-        
-        .navbar {
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
-    padding: 10px;
-}
-
-.nav-item {
-    text-align: center;
-    color: #777777;
-    text-decoration: none;
-}
-
-.nav-item:hover {
-    background-color: lightgray;
-}
-
-.nav-item img {
-    width: 100px; /* Adjust the width as needed */
-    height: 100px; /* Adjust the height as needed */
-    display: block;
-    margin: 0 auto;
-}
-
-.nav-item p {
-    margin: 5px 0;
-    padding-top: 5px;
-}
-
-.active {
-    color: #333333;
-}
-
-#taskListId li {
-    list-style: none;
-}
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <script src="../js/home.js"></script>
 </head>
-<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
 <body onload="getTasks()">
     <div class="container">
         <div class="box">
@@ -120,19 +34,19 @@
     </div>
     <nav class="navbar">
         <a class="nav-item active" href="#">
-            <img src="{{ url_for('static', filename='images/active-home.jpeg') }}" alt="home link">
+            <img src="../images/active-home.jpeg" alt="home link">
             <p>Home</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="{{ url_for('static', filename='images/inactive-leaderboard.jpeg') }}" alt="leaderboard link">
+            <img src="../images/inactive-leaderboard.jpeg" alt="leaderboard link">
             <p>Leaderboard</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="{{ url_for('static', filename='images/inactive-resources.jpeg') }}" alt="resources link">
+            <img src="../images/inactive-resources.jpeg" alt="resources link">
             <p>Resources</p>
         </a>
         <a class="nav-item" href="#">
-            <img src="{{ url_for('static', filename='images/inactive-tasks.jpeg') }}" alt="contact link">
+            <img src="../images/inactive-tasks.jpeg" alt="contact link">
             <p>Contact</p>
         </a>
     </nav>

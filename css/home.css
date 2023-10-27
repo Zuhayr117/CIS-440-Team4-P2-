@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.box {
+    border: 2px solid blue;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+.header {
+    font-size: 24px;
+}
+
+.meeting-box {
+    font-size: 18px;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.progress-meter {
+    width: 200px;
+    height: 20px;
+    background-color: lightgray;
+    border: 2px solid blue;
+}
+
+.progress-inside {
+    width: 0px;
+    height: 20px;
+    background-color: green;
+}
+
+.roadmap {
+    margin-top: 10px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+.nav-item img {
+    width: 100px;
+    /* Adjust the width as needed */
+    height: 100px;
+    /* Adjust the height as needed */
+    display: block;
+    margin: 0 auto;
+}
+
+.nav-item p {
+    margin: 5px 0;
+    padding-top: 5px;
+}
+
+.active {
+    color: #333333;
+}
+
+#taskListId li {
+    list-style: none;
+}

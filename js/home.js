@@ -1,46 +1,52 @@
 /// function to get tasks and their saved data from mysql
 async function getTasks() {
-    // once login page is set up, these two lines will need to change
+    // Replace this line with your actual login functionality
     localStorage.setItem("currentUserId", 2);
     let currentUserId = localStorage.getItem("currentUserId");
-    
+
     try {
-        // get info from mysql
+        // Make an HTTP request to your Node.js server
         let response = await fetch(`/getGoals?userId=${currentUserId}`);
-        let data = await response.json();
+        if (response.ok) {
+            let data = await response.json();
 
-        // this is the data to use
-        let tasks = data["data3"];
-
-        // this is the object to put the tasks from mysql in
-        let taskListBox = document.getElementById('taskListId');
-        for (let i = 0; i < tasks.length; i++) {
-            let taskList = document.createElement('li');
-            let taskInput = document.createElement('input');
-            taskInput.type = "checkbox";
-            if (tasks[i]["complete"] > 0) {
-                taskInput.checked = true;
-            } else {
-                taskInput.checked = false;
-            }
-            
-            taskInput.setAttribute("id", "task-item-" + tasks[i]["goal_id"]);
-            taskInput.setAttribute("onchange", "updateTask(this.id)");
-            let taskLabel = document.createElement('label');
-            taskLabel.innerHTML = tasks[i]["info"];
-            taskLabel.setAttribute("for", "task-item-" + tasks[i]["goal_id"]);
-            taskList.appendChild(taskInput);
+            // Process the data and update your DOM as needed
+            let tasks = data["data3"];
             let taskListBox = document.getElementById('taskListId');
-            taskList.appendChild(taskLabel);
-            taskListBox.appendChild(taskList);
-        }
+            
+            // Clear the taskListBox before adding new tasks
+            taskListBox.innerHTML = "";
+            
+            for (let i = 0; i < tasks.length; i++) {
+                let taskList = document.createElement('li');
+                let taskInput = document.createElement('input');
+                taskInput.type = "checkbox";
+                taskInput.checked = tasks[i]["complete"] > 0;
+                taskInput.setAttribute("id", "task-item-" + tasks[i]["goal_id"]);
+                taskInput.addEventListener("change", function () {
+                    updateTask(this.id);
+                });
 
-        // finally, initialize progress bar
-        updateProgressBar()
+                let taskLabel = document.createElement('label');
+                taskLabel.innerHTML = tasks[i]["info"];
+                taskLabel.setAttribute("for", "task-item-" + tasks[i]["goal_id"]);
+
+                taskList.appendChild(taskInput);
+                taskList.appendChild(taskLabel);
+                taskListBox.appendChild(taskList);
+            }
+
+            // Finally, initialize the progress bar
+            updateProgressBar();
+        } else {
+            console.error('Error fetching data:', response.statusText);
+            let taskListBox = document.getElementById('taskListId');
+            taskListBox.innerHTML = "Likely need to reload the server";
+        }
     } catch (error) {
         console.error('Error fetching data:', error);
         let taskListBox = document.getElementById('taskListId');
-        taskListBox.innerHTML = "Likely need to reload server";
+        taskListBox.innerHTML = "Likely need to reload the server";
     }
 }
 

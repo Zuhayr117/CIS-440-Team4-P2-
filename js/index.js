@@ -9,38 +9,31 @@ function logInUser() {
         console.error("Error fetching users: " + error);
     });
 }
-/*function logInUser(form) {
-    // Access the username and password input elements by their IDs
-    const userNameInput = form.querySelector("#inputUserName");
-    const passwordInput = form.querySelector("#inputPassword");
 
-    // Get the values entered by the user
-    const username = userNameInput.value;
-    const password = passwordInput.value;
+function addUser() {
+    var newName = $("#newName").val();
+    var newUsername = $("#newUsername").val();
+    var newPassword = $("#newPassword").val();
 
-    // Example: Log the values to the console
-    console.log("Username: " + username);
-    console.log("Password: " + password);
+    // Create an object to send in the POST request
+    var newRow = {
+        user_name: newName,
+        user_username: newUsername,
+        user_password: newPassword
+    };
 
-    try {
-        fetch(`/getUser?username=${username}&password=${password}`, {
-            method: 'GET',  // Use 'GET' for retrieving data
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Assuming the response is JSON
-            } else {
-                console.error("Error retrieving user.");
-            }
-        })
-        .then(data => {
-            // Handle the retrieved data here
-            console.log(data);
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}*/
+    // Send an AJAX POST request to update the server-side database with the new data
+    $.ajax({
+        type: "POST",
+        url: "/insertUser",
+        contentType: "application/json", // Set content type to JSON
+        data: JSON.stringify(newRow), // Convert the JavaScript object to JSON
+        success: function (response) {
+            console.log("New row added to the database");
+            $("#loginStatus").text("Account created. Proceed to login.");
+        },
+        error: function (error) {
+            console.error("Error adding a new row: " + error.responseText);
+        }
+    });
+}
