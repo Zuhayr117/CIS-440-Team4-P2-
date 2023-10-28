@@ -1,10 +1,8 @@
 body {
   margin: 0;
   background-position: 0 0;
-  /* Top-left corner is always visible */
   background-image: url("/images/login.jpg");
   background-size: cover;
-  /* Image covers the entire background */
   background-attachment: fixed;
 }
 

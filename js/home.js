@@ -99,9 +99,13 @@ function updateProgressBar() {
       });
     let percentTasksCompleted = totalTasksCompleted / totalTasks * 100;
     let progressMeter = document.getElementById("progressId");
-    // hardcoded 200 because that is the width of the progress-meter on home.html
-    let newWidth = percentTasksCompleted / 100 * 200;
-    progressMeter.style.width = newWidth + "px";
+    let newWidth = percentTasksCompleted / 100;
+    newWidth = Math.ceil(newWidth * 0.95 * 100); // Round up to the nearest integer
+    if (newWidth != 0)
+    {
+        newWidth = newWidth + 5;
+    }
+    progressMeter.style.width = newWidth + "%";
     updateDisabled(listItemElements, totalTasksCompleted);
 }
 
@@ -115,5 +119,9 @@ function updateDisabled(taskCheckBoxes, currentTaskId) {
         } else {
             taskCheckBoxes[i].disabled = true;
         }
+    }
+    if (currentTaskId == taskCheckBoxes.length)
+    {
+        taskCheckBoxes[currentTaskId - 1].disabled = false;
     }
 }
