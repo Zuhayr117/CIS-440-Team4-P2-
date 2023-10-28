@@ -129,36 +129,3 @@ function logout (){
 
 window.location.href = "/index.html";// changes page to login page after logging out
 }
-
-
-
-/// function that marks a task as complete, or undoes a completion and
-/// saves it to mysql
-function addTask(id) {
-    let taskObject = document.getElementById(id);
-    let goalId = id.match(/\d+/);
-    // Create an object with the data you want to send
-    let data = {
-        currentComplete: taskObject.checked ? 1 : 0,
-        goalId: parseInt(goalId[0])
-    };
-    
-    fetch('/addTask', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log("Task updated successfully.");
-            updateProgressBar();
-        } else {
-            console.error("Error updating the task.");
-        }
-    })
-    .catch(error => {
-        console.error("Fetch error:", error);
-    });
-}

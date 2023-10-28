@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
     <link rel="stylesheet" type="text/css" href="../css/tasks.css">
+    <script src="../js/tasks.js"></script>
 </head>
 <body>
+    <nav>
+        <a href="/index.html">Login</a>
+        <a href="./home.html">Home</a>
+    </nav>
     <div id="taskDiv" class=center>
         <h1>Task Manager</h1>
             <div class="taskOpt">
@@ -28,8 +33,52 @@
             <input type="radio" name="assigner" id="assignMentor" value="Mentor">
             <label for="assignMentor">Mentor</label><br>
             <button>Add Task</button>
+            <button type="submit" id="unhide" onclick="unhide()">Create Task</button>
         </div>
         </div>
-    
+
+        <br>
+        <div id="taskAdd" class=center>
+        <form id="taskForm">
+            <h1>Add Task</h1>
+            <table id="table">
+                <tr><th>
+            <input type="text" id="relationshipId" placeholder="Relationship ID" class="center">
+            </td>
+        </th>
+        <td>
+            <input type="text" id="priority" placeholder="Priority" class="center">
+        </td>
+        
+        <td>
+            <input type="text" id="deadlineDate" placeholder="Deadline Date" class="center">
+        </td>
+        </tr>
+            <tr><td>
+            <input type="text" id="info" placeholder="Task information" class="center">
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <input type="text" id="createdBy" placeholder="Created By" class="center">
+        </td>
+        </tr> 
+            <tr>
+                <td>
+                    <label for="currentComplete">Is task complete?</label>
+                </td>
+            <td>
+            <input type="checkbox" id="currentComplete" class="left" value="1">
+        </td>
+        
+     
+        </tr>
+            <br> 
+          
+        </table>
+        <button type="button" id="addTaskButton" class="center">Add Task</button>
+          </form>
+          
+        </div>
 </body>
 </html>

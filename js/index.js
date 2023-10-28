@@ -124,3 +124,8 @@ function addUser() {
         }
     });
 }
+
+function unhide(){
+document.getElementById('hide').style.visibility = 'visible';
+document.getElementById('unhide').style.visibility = 'hidden';
+}

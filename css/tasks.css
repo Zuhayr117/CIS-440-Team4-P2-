@@ -1,10 +1,27 @@
 body {
     font-family: Arial, sans-serif;
 }
+tbody{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
 
 .center {
     text-align: center;
 }
+
+.left{
+float: left;
+
+}
+
+.right{
+float: right;
+
+}
+
 
 #taskDiv {
     margin: auto;
@@ -13,6 +30,17 @@ body {
     border: 3px solid #2694ab;
     border-radius: 15px;
     text-align: center;
+}
+
+
+#taskAdd {
+    margin: auto;
+    width: 50%;
+    padding: 20px;
+    border: 3px solid #2694ab;
+    border-radius: 15px;
+    box-sizing: border-box;
+    visibility: hidden;
 }
 
 .taskOpt {
@@ -25,3 +53,17 @@ button {
     margin: 20px;
     padding: 5px;
 }
+
+#info{
+width: 300%;
+height: 90%;
+
+}
+
+#table{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
