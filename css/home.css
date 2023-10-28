@@ -87,3 +87,8 @@ body {
 #taskListId li {
     list-style: none;
 }
+
+#logout {
+float: right;
+
+}

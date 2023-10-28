@@ -112,3 +112,20 @@ function updateDisabled(taskCheckBoxes, currentTaskId) {
         }
     }
 }
+
+
+function logout (){
+
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+       
+
+    }
+    
+)
+
+window.location.href = "/index.html";
+}
