@@ -125,3 +125,14 @@ function updateDisabled(taskCheckBoxes, currentTaskId) {
         taskCheckBoxes[currentTaskId - 1].disabled = false;
     }
 }
+// log out
+function logout (){
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }
+);
+window.location.href = "/index.html";// changes page to login page after logging out
+}

@@ -191,4 +191,7 @@ label {
 
 #tasks-container {
     float: left;
+
+#logout {
+float: right;
 }

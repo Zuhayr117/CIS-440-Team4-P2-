@@ -9,7 +9,7 @@
 </head>
 
 <body onload="getTasks()">
-    <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar">
         <a class="nav-item active" href="#">
             <img src="../images/active-home.jpeg" alt="home link">
             <p>Home</p>
@@ -26,7 +26,7 @@
             <img src="../images/inactive-tasks.jpeg" alt="contact link">
             <p>Contact</p>
         </a>
-        <button type="button">Logout</button>
+        <button id="logout" type="button" onclick="logout()">Logout</button>
     </nav>
     <div id="miniLeaderboard" class="container left-container top-container">
         <!--TODO: Populate from database-->
@@ -74,7 +74,5 @@
         <p>October 25, 2023</p>
         <p>October 29, 2023</p>
     </div>
-
 </body>
-
 </html>

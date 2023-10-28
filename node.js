@@ -171,6 +171,89 @@ app.post('/setTask', (req, res) => {
     });
   });
 
+
+
+  app.get('logout', (req, res)=>{
+
+    req.session.destroy();
+
+    res.redirect('/login')
+  })
+
+// add tasks
+  app.post('/addTask', (req, res) => {
+    const data = req.body;
+
+    const relationshipId = data.relationshipId;
+    const priority = data.priority;
+    const info = data.info;
+    const currentComplete = data.currentComplete;
+    const deadlineDate = data.deadlineDate;
+    const completeDate = data.completeDate;
+    const createdBy = data.createdBy;
+
+    const addGoalQuery = "INSERT INTO Goals (relationship_id, priority, info, complete, deadline_date, complete_date, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const params = [relationshipId, priority, info, currentComplete, deadlineDate, completeDate, createdBy];
+
+    con.query(addGoalQuery, params, (err, result) => {
+        if (err) {
+            console.error('Error updating goal: ' + err);
+            return res.status(500).json({ error: 'Error updating goal' });
+        }
+
+        if (currentComplete === 1) {
+            // Get the current date
+            const current_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+            // Update the complete_date column with the formatted date
+            const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
+            const dateParams = [current_date, result.insertId];
+
+            con.query(updateDateQuery, dateParams, (dateErr, dateResult) => {
+                if (dateErr) {
+                    console.error('Error adding goal complete_date: ' + dateErr);
+                    return res.status(500).json({ error: 'Error adding goal complete_date' });
+                }
+
+                return res.json({ message: 'Task added successfully' });
+            });
+        } else {
+            // Set complete_date to NULL
+            const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
+            const clearDateParams = [result.insertId];
+
+            con.query(clearDateQuery, clearDateParams, (clearDateErr, clearDateResult) => {
+                if (clearDateErr) {
+                    console.error('Error clearing goal complete_date: ' + clearDateErr);
+                    return res.status(500).json({ error: 'Error clearing goal complete_date' });
+                }
+
+                return res.json({ message: 'Task added successfully' });
+            });
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Serve static files (HTML, CSS, JavaScript)
 app.use(express.static(__dirname));
 

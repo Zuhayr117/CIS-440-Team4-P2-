@@ -137,3 +137,7 @@ nav {
   text-align: center;
   visibility: hidden;
 }
+
+#hide{
+  visibility: hidden;
+}
