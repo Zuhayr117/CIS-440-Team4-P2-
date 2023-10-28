@@ -27,9 +27,11 @@ function logInUser() {
             $("#loginStatus").css("color", "#A00000");
             $("#loginStatus").css("visibility", "visible");
         } else { // username and password match
-            $("#loginStatus").text("Logging in...");
-            $("#loginStatus").css("color", "#00A000");
-            $("#loginStatus").css("visibility", "visible");
+            $("#loginStatus").text("placeholder");
+            $("#loginStatus").css("visibility", "hidden");
+            $("signupStatus").text("placeholder");
+            $("#signupStatus").css("visibility", "hidden");
+            
             localStorage.setItem("userInfo", JSON.stringify(users));
             window.location.href = "./html/home.html";
         }

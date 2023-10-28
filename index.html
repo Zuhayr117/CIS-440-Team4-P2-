@@ -12,12 +12,12 @@
 
 <body>
     <nav>
-        <a href="./home.html">Home</a>
-        <a href="./tasks.html">Tasks</a>
+        <a href="./html/home.html">Home</a>
+        <a href="./html/tasks.html">Tasks</a>
     </nav>
     
 
-    <div class="center" id="loginElements"> <!-- is this supposed to encompus all of the login and sign up functions????? -->
+    <div class="center" id="loginElements">
         <div id="loginvis">
             <div id="logoImage" class="center">
                 <img src="./images/marina.png">
@@ -43,20 +43,18 @@
                         </td>
                     </tr>
                 </table>
-                <br>
                 <!-- buttons under input  -->
                 <div id="buttonDivId" class="center">
-                    <input type="submit" onclick="logInUser()" value="Login">
+                    <button type="button" id="loginButton" onclick="logInUser()">Login</button>
                 </div>
                 <p id="loginStatus">placeholder</p>
             </form>
             <br>
         </div>
-        <div id="hide">
         <br>
         <hr>
         <br>
-        <div id="signupvis"> <!-- Is this a typo? -->
+        <div id="signupvis">
             <!-- form for request account -->
             <form id="signupForm">
                 <div class="center">
@@ -84,15 +82,13 @@
                         <input type="radio" id="menteeRole" name="role" value="mentee" required>
                         <label for="menteeRole">Mentee</label>
                     </div>
-                    <br>
                     <div class="center">
-                        <input type="submit" value="Sign Up" onclick="addUser()">
+                        <button type="button" onclick="addUser()">Sign Up</button>
                     </div>
                     <p id="signUpStatus">placeholder</p>
                 </div>
         </div>
         </form>
-    </div>
     </div>
 </body>
 

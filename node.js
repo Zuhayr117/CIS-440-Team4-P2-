@@ -173,7 +173,7 @@ app.post('/setTask', (req, res) => {
 
 
 
-  app.get('logout', (req, res)=>{
+  app.get('logOut', (req, res)=>{
 
     req.session.destroy();
 

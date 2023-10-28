@@ -41,6 +41,11 @@ async function getTasks() {
                 updateProgressBar();
             } else {
                 taskListBox.innerHTML = "No tasks assigned.";
+                taskListBox.style.marginLeft = "20px";
+                taskListBox.style.marginTop = "20px";
+
+                let noProgress = document.getElementById("progressId");
+                noProgress.style.width = 0;
             }
 
         } else {
@@ -126,13 +131,14 @@ function updateDisabled(taskCheckBoxes, currentTaskId) {
     }
 }
 // log out
-function logout (){
-    fetch('/logout', {
+function logOut (){
+    fetch('/logOut', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
     }
-);
-window.location.href = "/index.html";// changes page to login page after logging out
+    );
+    localStorage.clear();
+    window.location.href = "/index.html";// changes page to login page after logging out
 }
