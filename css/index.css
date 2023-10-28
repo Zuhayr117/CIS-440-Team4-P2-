@@ -1,10 +1,8 @@
 body {
   margin: 0;
   background-position: 0 0;
-  /* Top-left corner is always visible */
   background-image: url("/images/login.jpg");
   background-size: cover;
-  /* Image covers the entire background */
   background-attachment: fixed;
 }
 
@@ -49,7 +47,7 @@ input[type="submit"]:hover {
 }
 
 #loginElements {
-  margin-top: 20px;
+  margin-top: 15px;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 5px;

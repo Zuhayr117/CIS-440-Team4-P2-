@@ -1,44 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Marina - Home</title>
     <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/home.js"></script>
 </head>
 
 <body onload="getTasks()">
-     <nav>
-        <a href="/index.html">Login</a>
-        <a href="./tasks.html">Tasks</a>
-    </nav>
-    <input id="logout" type="button" onclick="logout()" value="logout">
-    <div class="container">
-        <div class="box">
-            <div class="header">Reminders</div>
-            <div class="meeting-box">
-                <p>Upcoming Meeting: October 25, 2023</p>
-                <p>Upcoming Meeting: October 29, 2023</p>
-            </div>
-        </div>
-        <div class="box progress-container">
-            <div class="header">Progress</div>
-            <div class="progress-meter" id="progressMeterId">
-                <div class="progress-inside" id="progressId"></div>
-                <!-- Leave here ill put JavaScript to make the meter work-->
-            </div>
-            <div id="taskListId">
-            </div>
-            <input type="button" value="add task" onclick="addTask()" >
-            <div class="roadmap">
-                <p>Roadmap: Upcoming meetings to address the progress meter.</p>
-                <p>Meeting 1</p>
-                <p>Meeting 2</p>
-                <p>Meeting 3</p>
-                <p>Meeting 4</p>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar">
+      <nav id="navbar" class="navbar">
         <a class="nav-item active" href="#">
             <img src="../images/active-home.jpeg" alt="home link">
             <p>Home</p>
@@ -55,6 +26,53 @@
             <img src="../images/inactive-tasks.jpeg" alt="contact link">
             <p>Contact</p>
         </a>
+        <button id="logout" type="button" onclick="logout()">Logout</button>
     </nav>
+    <div id="miniLeaderboard" class="container left-container top-container">
+        <!--TODO: Populate from database-->
+        <h2>Leaderboard</h2>
+        <h4>Top Five Mentors</h4>
+        <ol id="topFiveMentors">
+            <li>Bruce Wayne: 50 points</li>
+            <li>Diana Prince: 45 points</li>
+            <li>Clark Kent: 40 points</li>
+            <li>Oliver Queen: 30 points</li>
+            <li>Barry Allen: 10 points</li>
+        </ol>
+        <h4>Top Five Mentees</h4>
+        <ol id="topFiveMentees">
+            <li>Roy Harper: 40 points</li>
+            <li>Kara Danvers: 35 points</li>
+            <li>Dick Grayson: 34 points</li>
+            <li>Wally West: 25 points</li>
+            <li>Donna Troy: 15 points</li>
+        </ol>
+    </div>
+    <div id="roadmap" class="top-container container right-container">
+        <h2>Roadmap</h2>
+        <h4>Upcoming meetings to address the progress meter:</h4>
+        <p>Meeting 1</p>
+        <p>Meeting 2</p>
+        <p>Meeting 3</p>
+        <p>Meeting 4</p>
+    </div>
+    <div id="progress" class="container top-container">
+        <h1>Progress</h1>
+        <br>
+        <div class="progress-meter" id="progressMeterId">
+            <div class="progress-inside" id="progressId"></div>
+        </div>
+        <br>
+        <div id="tasks-container">
+            <h1>Tasks</h1>
+            <div id="taskListId">
+            </div>
+        </div>
+    </div>
+    <div id="reminders" class="container left-container">
+        <h2>Upcoming Meetings</h2>
+        <p>October 25, 2023</p>
+        <p>October 29, 2023</p>
+    </div>
 </body>
 </html>
