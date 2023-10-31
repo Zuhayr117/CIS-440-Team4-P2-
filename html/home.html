@@ -140,11 +140,28 @@
     </div>
     <div id="roadmap" class="top-container container right-container">
         <h2>Roadmap</h2>
-        <h4>Upcoming meetings to address the progress meter:</h4>
-        <p>Meeting 1</p>
-        <p>Meeting 2</p>
-        <p>Meeting 3</p>
-        <p>Meeting 4</p>
+        <div class="container">
+            <div class="box">
+                <div class="roadmap">
+                    <div class="meeting self-reflection" onclick="openPopup('Self-reflection')">Self-reflection</div>
+                    <div class="meeting establishment" onclick="openPopup('Establishment')" style="pointer-events: none;">Establishment</div>
+                    <div class="meeting maintenance" onclick="openPopup('Maintenance')" style="pointer-events: none;">Maintenance</div>
+                    <div class="meeting moving-ahead" onclick="openPopup('Moving ahead')" style="pointer-events: none;">Moving ahead</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup for each stage -->
+        <div id="popup" class="popup">
+            <h2>Timeline for <span id="meetingName"></span></h2>
+            <label><input type="checkbox" id="task1" onclick="completeTask('task1')"> Did you do what you needed too?</label><br>
+            <label><input type="checkbox" id="task2" onclick="completeTask('task2')"> Did you plan for next week</label><br>
+            <!-- Add more tasks for each stage -->
+            <br>
+            <button onclick="saveMeetingDetails()">Save</button>
+            <button onclick="closePopup()">Cancel</button>
+        </div>
+ 
     </div>
     <div id="progress" class="container top-container">
         <h1>Progress</h1>
@@ -159,10 +176,161 @@
             </div>
         </div>
     </div>
-    <div id="reminders" class="container left-container">
-        <h2>Upcoming Meetings</h2>
-        <p>October 25, 2023</p>
-        <p>October 29, 2023</p>
-    </div>
+   <!-- Upcoming Meetings Section -->
+   <div id="upcomingMeetings" class="container left-container">
+    <h2>Upcoming Meetings</h2>
+    <div class="meeting" onclick="openMeetingPopup('October 25, 2023')">October 25, 2023</div>
+    <div class="meeting" onclick="openMeetingPopup('October 29, 2023')">October 29, 2023</div>
+</div>
+
+<!-- Popup for Meeting Notes -->
+<div id="meetingPopup" class="popup">
+    <h2>Meeting notes for <span id="meetingDate"></span></h2>
+    <textarea id="meetingNotes" rows="4" cols="50" placeholder="Add meeting notes..."></textarea>
+    <br>
+    <button onclick="saveMeetingNotes()">Save</button>
+    <button onclick="closeMeetingPopup()">Cancel</button>
+</div>
+</div>
+
+<script src="../js/home.js"></script>
+<script>
+
+function openPopup(meetingName) {
+    // Remaining functionality for the progress timeline
+}
+
+function closePopup() {
+    // Remaining functionality for the progress timeline
+}
+
+function completeTask(taskId) {
+    // Remaining functionality for task completion and stage unlocking
+}
+
+function saveMeetingDetails() {
+    // Remaining functionality for saving meeting details
+}
+
+function openMeetingPopup(meetingDate) {
+    const meetingPopup = document.getElementById('meetingPopup');
+    meetingPopup.style.display = 'block';
+    document.getElementById('meetingDate').innerText = meetingDate;
+}
+
+function closeMeetingPopup() {
+    const meetingPopup = document.getElementById('meetingPopup');
+    meetingPopup.style.display = 'none';
+}
+
+function saveMeetingNotes() {
+    const meetingNotes = document.getElementById('meetingNotes').value;
+    const meetingDate = document.getElementById('meetingDate').innerText;
+    // Save meeting notes using JS or send to server
+
+    // For demonstration, log meeting date and notes to console
+    console.log(`Meeting Date: ${meetingDate}, Notes: ${meetingNotes}`);
+
+    closeMeetingPopup();
+}
+
+function getTasks() {
+    // Simulated function for getting tasks
+}
+
+// Simulated function for getting tasks
+function getTasks() {
+const tasks = document.getElementById('taskListId');
+const taskItems = [
+'Feedback Session',
+'Career Development',
+'Planning',
+'Custom',
+'Other'
+];
+
+taskItems.forEach(task => {
+const taskElement = document.createElement('div');
+taskElement.textContent = task;
+taskElement.classList.add('task');
+
+
+taskElement.addEventListener('click', () => {
+taskElement.classList.toggle('completed');
+updateProgress();
+});
+
+
+tasks.appendChild(taskElement);
+});
+}
+
+
+function openPopup() {
+const popup = document.getElementById('popup');
+popup.style.display = 'block';
+}
+
+
+function closePopup() {
+const popup = document.getElementById('popup');
+popup.style.display = 'none';
+}
+
+
+function saveMeetingDetails() {
+const meetingNotes = document.getElementById('meetingNotes').value;
+// Save meeting notes using JS or send to server
+closePopup();
+}
+
+// Function to update the progress bar
+function updateProgress() {
+const tasks = document.querySelectorAll('.task');
+const completedTasks = document.querySelectorAll('.task.completed');
+const progress = document.getElementById('progressId');
+
+
+const percentage = (completedTasks.length / tasks.length) * 100;
+progress.style.width = percentage + '%';
+
+
+if (completedTasks.length === tasks.length) {
+// All tasks are completed
+alert('Congratulations! All tasks are done!');
+}
+}
+
+
+function openPopup(meetingName) {
+const popup = document.getElementById('popup');
+const meetingNotes = document.getElementById('meetingNotes');
+meetingNotes.value = ''; // Clear any previous notes
+popup.style.display = 'block';
+meetingNotes.setAttribute('data-meeting-name', meetingName);
+}
+
+
+function closePopup() {
+const popup = document.getElementById('popup');
+popup.style.display = 'none';
+}
+
+
+function saveMeetingDetails() {
+const meetingNotes = document.getElementById('meetingNotes').value;
+const meetingName = document.getElementById('meetingNotes').getAttribute('data-meeting-name');
+// Save meeting notes using JS or send to server
+
+
+// For demonstration, log meeting name and notes to console
+console.log(`Meeting: ${meetingName}, Notes: ${meetingNotes}`);
+
+
+closePopup();
+}
+
+</script>
+
 </body>
 </html>

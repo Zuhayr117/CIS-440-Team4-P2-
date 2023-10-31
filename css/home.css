@@ -196,3 +196,133 @@ label {
 #logout {
 float: right;
 }
+
+
+#navbar {
+display: flex;
+justify-content: space-around;
+background-color: #f2f2f2;
+padding: 10px;
+width: 100%;
+box-sizing: border-box;
+}
+
+
+.nav-item {
+text-align: center;
+color: #777777;
+text-decoration: none;
+}
+
+
+.nav-item:hover {
+background-color: lightgray;
+}
+
+
+.nav-item img {
+width: 100px;
+height: 100px;
+display: block;
+margin: 0 auto;
+}
+
+
+.nav-item p {
+margin: 5px 0;
+padding-top: 5px;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    }
+    
+
+.left-container {
+    align-self: flex-start;
+    }
+    
+    
+    .right-container {
+    align-self: flex-end;
+    }
+
+
+
+
+
+
+
+#progress {
+    overflow-y: auto;
+    max-height: 50vh;
+    }
+
+
+.task {
+cursor: pointer;
+}
+
+
+
+.completed {
+    text-decoration: line-through;
+    color: #888;
+    }
+
+.roadmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid lightblue;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    max-width: 400px;
+    }
+    
+
+
+.meeting {
+cursor: pointer;
+border: 2px solid lightblue;
+padding: 10px;
+margin: 10px;
+border-radius: 5px;
+position: relative;
+margin-bottom: 20px;
+}
+
+
+.meeting::before {
+content: "";
+position: absolute;
+width: 2px;
+background: lightblue;
+top: 100%;
+left: 50%;
+transform: translateX(-50%);
+z-index: -1;
+
+
+}
+
+
+.popup {
+display: none;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 20px;
+background: #fff;
+border: 2px solid lightblue;
+border-radius: 5px;
+z-index: 999;
+}
+
