@@ -6,6 +6,96 @@
     <link rel="stylesheet" type="text/css" href="../css/home.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/home.js"></script>
+    <script>
+
+        function openPopup(meetingName) {
+            // Remaining functionality for the progress timeline
+        }
+        
+        function closePopup() {
+            // Remaining functionality for the progress timeline
+        }
+        
+        function completeTask(taskId) {
+            // Remaining functionality for task completion and stage unlocking
+        }
+        
+        function saveMeetingDetails() {
+            // Remaining functionality for saving meeting details
+        }
+        
+        function openMeetingPopup(meetingDate) {
+            const meetingPopup = document.getElementById('meetingPopup');
+            meetingPopup.style.display = 'block';
+            document.getElementById('meetingDate').innerText = meetingDate;
+        }
+        
+        function closeMeetingPopup() {
+            const meetingPopup = document.getElementById('meetingPopup');
+            meetingPopup.style.display = 'none';
+        }
+        
+        function saveMeetingNotes() {
+            const meetingNotes = document.getElementById('meetingNotes').value;
+            const meetingDate = document.getElementById('meetingDate').innerText;
+            // Save meeting notes using JS or send to server
+        
+            // For demonstration, log meeting date and notes to console
+            console.log(`Meeting Date: ${meetingDate}, Notes: ${meetingNotes}`);
+        
+            closeMeetingPopup();
+        }
+        
+        
+        
+        function openPopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'block';
+        }
+        
+        
+        function closePopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'none';
+        }
+        
+        
+        function saveMeetingDetails() {
+        const meetingNotes = document.getElementById('meetingNotes').value;
+        // Save meeting notes using JS or send to server
+        closePopup();
+        }
+        
+        
+        function openPopup(meetingName) {
+        const popup = document.getElementById('popup');
+        const meetingNotes = document.getElementById('meetingNotes');
+        meetingNotes.value = ''; // Clear any previous notes
+        popup.style.display = 'block';
+        meetingNotes.setAttribute('data-meeting-name', meetingName);
+        }
+        
+        
+        function closePopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'none';
+        }
+        
+        
+        function saveMeetingDetails() {
+        const meetingNotes = document.getElementById('meetingNotes').value;
+        const meetingName = document.getElementById('meetingNotes').getAttribute('data-meeting-name');
+        // Save meeting notes using JS or send to server
+        
+        
+        // For demonstration, log meeting name and notes to console
+        console.log(`Meeting: ${meetingName}, Notes: ${meetingNotes}`);
+        
+        
+        closePopup();
+        }
+        
+        </script>
 </head>
 
 <body onload="getTasks()">
