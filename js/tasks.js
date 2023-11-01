@@ -39,3 +39,7 @@ function unhide(){
     document.getElementById('taskAdd').style.visibility = 'visible';
 }
   
+
+function unhideCustom(){
+  document.getElementById('unhide').style.visibility = 'visible';
+}
