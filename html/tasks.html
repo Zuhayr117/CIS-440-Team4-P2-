@@ -32,15 +32,15 @@
                 <label for="assignMentee">Mentee</label><br>
             <input type="radio" name="assigner" id="assignMentor" value="Mentor">
             <label for="assignMentor">Mentor</label><br>
-            <button>Add Task</button>
-            <button type="submit" id="unhide" onclick="unhide()">Create Task</button>
+            <button type="submit" id="addTaskButton" onclick="unhideCustom()">Add Task</button>
+            <button type="submit" id="unhide" onclick="unhide()">Create Custom Task</button>
         </div>
         </div>
 
         <br>
         <div id="taskAdd" class=center>
         <form id="taskForm">
-            <h1>Add Task</h1>
+            <h1>Custom Task</h1>
             <table id="table">
                 <tr><th>
             <input type="text" id="relationshipId" placeholder="Relationship ID" class="center">
