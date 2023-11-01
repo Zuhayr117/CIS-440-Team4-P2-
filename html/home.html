@@ -48,15 +48,15 @@
             <li>Donna Troy: 15 points</li>
         </ol>
     </div>
-    <div id="roadmap" class="top-container container right-container">
-        <h2>Roadmap</h2>
-        <h4>Upcoming meetings to address the progress meter:</h4>
-        <p>Meeting 1</p>
-        <p>Meeting 2</p>
-        <p>Meeting 3</p>
-        <p>Meeting 4</p>
-    </div>
     <div id="progress" class="container top-container">
+        <div id="relationshipOptions">
+            <label for="relationshipDropdown" id="selectedRelationship"><strong>Current Mentorship:</strong></label>
+            <select id="relationshipDropdown">
+                <option value="1"><em>Bruce Wayne</em> (Mentor) and <em>Dick Grayson</em> (Mentee)</option>
+                <option value="2"><em>Clark Kent</em> (Mentor) and <em>Kara Danvers</em> (Mentee)</option>
+                <option value="0">Initiate New Relationship...</option>
+            </select>
+          </div>
         <h1>Progress</h1>
         <br>
         <div class="progress-meter" id="progressMeterId">
@@ -70,9 +70,40 @@
         </div>
     </div>
     <div id="reminders" class="container left-container">
-        <h2>Upcoming Meetings</h2>
-        <p>October 25, 2023</p>
-        <p>October 29, 2023</p>
+        <h2>Roadmap</h2>
+        <div>
+            <h4>Self-Reflection</h4>
+                <ul id="roadMap-q1">
+                    <li>What do I need?</li>
+                    <li>When do I need it?</li>
+                    <li>Where/in what area?</li>
+                    <li>Where can I find it?</li>
+                </ul>
+        </div>
+        <div>
+            <h4>Establishment</h4>
+                <ul id="roadMap-q2">
+                    <li>What is the framework?</li>
+                    <li>Frequency of meeting?</li>
+                    <li>Goals of meeting / interaction?</li>
+                    <li>Expectations?</li>
+                </ul>
+        </div>
+        <div>
+            <h4>Maintenance</h4>
+                <ul id="roadMap-q3">
+                    <li>Framework?</li>
+                    <li>Nurture bilateral interactions</li>
+                </ul>
+        </div>
+        <div>
+            <h4>Moving Ahead</h4>
+                <ul id="roadMap-q4">
+                    <li>Periodic review of goals</li>
+                    <li>Renegotiation</li>
+                    <li>Is it complete?</li>
+                </ul>
+        </div>
     </div>
 </body>
 </html>

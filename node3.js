@@ -1,33 +1,58 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mysql = require("mysql");
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 
-// Configure body-parser middleware to parse JSON data
 app.use(bodyParser.json());
 
-// Your MySQL configuration
-var con = mysql.createConnection({
+// Create a MySQL connection with reconnection logic
+const con = mysql.createPool({
     host: "107.180.1.16",
     user: "fall2023team4",
     password: "fall2023team4",
-    database: "fall2023team4"
+    database: "fall2023team4",
+  waitForConnections: true,
+  connectionLimit: 100, // Adjust this limit as needed
+  queueLimit: 0,
 });
-con.connect();
 
-app.get('/getUser', function (req, res) {
-    const username = req.query.username; // Get the username from the query parameter
-    const myQuery = "SELECT * FROM Users AS u WHERE u.username = ?"; // Use a parameterized query
+// Function to handle reconnection
+function handleReconnection() {
+  console.log('Reconnecting to MySQL...');
+  con.getConnection((err, connection) => {
+    if (err) {
+      console.error('Reconnection failed:', err);
+      setTimeout(handleReconnection, 2000); // Attempt reconnection after 2 seconds
+    } else {
+      console.log('Reconnected to MySQL');
+      connection.release();
+    }
+  });
+}
 
-    con.query(myQuery, [username], function(err, result, fields) {
-        if (err) {
-            console.error("Error fetching users: " + err);
-            res.status(500).send("Error fetching users");
-        } else {
-            console.log("Fetched users from the database");
-            res.status(200).json(result);
-        }
-    });
+// Set up a reconnection mechanism
+con.on('connection', () => {
+  console.log('Connected to MySQL');
+});
+
+con.on('error', (err) => {
+  console.error('MySQL con error:', err);
+  handleReconnection();
+});
+
+app.get('/getUser', (req, res) => {
+  const username = req.query.username;
+  const myQuery = 'SELECT * FROM Users AS u WHERE u.username = ?';
+
+  con.query(myQuery, [username], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching users: ' + err);
+      res.status(500).send('Error fetching users');
+    } else {
+      console.log('Fetched users from the database');
+      res.status(200).json(result);
+    }
+  });
 });
 
 app.post('/insertUser', function (req, res) {
@@ -234,9 +259,8 @@ app.post('/setTask', (req, res) => {
     });
 });
 
-// Serve static files (HTML, CSS, JavaScript)
+// Define other routes and handlers as needed
 app.use(express.static(__dirname));
-
-app.listen(8000, function() {
-    console.log("\nThe Web server is alive!!!\n" + "It's listening on http://127.0.0.1:8000 or http://localhost:8000");
+app.listen(8000, () => {
+  console.log('The Web server is running on http://localhost:8000');
 });

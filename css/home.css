@@ -5,7 +5,6 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     background-position: 0 0;
     background-image: url("/images/login.jpg");
     background-size: cover;
@@ -56,7 +55,7 @@ img {
     list-style: none;
 }
 
-button {
+nav button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -72,7 +71,7 @@ button {
     float: right;
 }
 
-button:hover {
+nav button:hover {
     background-color: #0056b3;
 }
 
@@ -118,6 +117,17 @@ h4 {
     margin-right: 10px;
 }
 
+.white {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.top {
+    margin: 10px 0;
+}
+
 .container {
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
@@ -130,24 +140,34 @@ h4 {
     padding: 10px;
 }
 
-#reminders p {
+#reminders div {
     word-wrap: break-word; 
     background-color: rgba(0, 123, 255, 0.5);
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
+    text-align: center;
 }
 
-#roadmap {
-    float: right;
+#reminders div ul li {
+    font-size: small;
+    text-align: left;
 }
 
 #progress {
     float: right;
-    width: 65vw;
+    width: calc(100% - 279px);
     height: 86vh;
     margin-right: 10px;
+    margin-left: 0;
     padding: 0;
+}
+
+#roadMap-q1,
+#roadMap-q2,
+#roadMap-q3,
+#roadMap-q4 {
+    display: none;
 }
 
 .progress-meter {
@@ -195,4 +215,20 @@ label {
 
 #logout {
 float: right;
+}
+
+#relationshipOptions {
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#relationshipOptions, #relationshipDropdown {
+    background-color: rgba(0, 123, 255, 0.5);
+    font-size: 1em;
+}
+#relationshipDropdown {
+    background-color: transparent;
+    border: 0px;
+    font-size: 1.5em;
 }
