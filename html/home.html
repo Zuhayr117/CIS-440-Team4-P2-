@@ -8,7 +8,7 @@
     <script src="../js/home.js"></script>
 </head>
 
-<body onload="getTasks()">
+<body onload="getRelationships()">
       <nav id="navbar" class="navbar">
         <a class="nav-item active" href="#">
             <img src="../images/active-home.jpeg" alt="home link">
@@ -51,10 +51,7 @@
     <div id="progress" class="container top-container">
         <div id="relationshipOptions">
             <label for="relationshipDropdown" id="selectedRelationship"><strong>Current Mentorship:</strong></label>
-            <select id="relationshipDropdown">
-                <option value="1"><em>Bruce Wayne</em> (Mentor) and <em>Dick Grayson</em> (Mentee)</option>
-                <option value="2"><em>Clark Kent</em> (Mentor) and <em>Kara Danvers</em> (Mentee)</option>
-                <option value="0">Initiate New Relationship...</option>
+            <select id="relationshipDropdown" onchange="dropdownChanged(this.value)">
             </select>
           </div>
         <h1>Progress</h1>
