@@ -1,33 +1,58 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mysql = require("mysql");
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 
-// Configure body-parser middleware to parse JSON data
 app.use(bodyParser.json());
 
-// Your MySQL configuration
-var con = mysql.createConnection({
+// Create a MySQL connection with reconnection logic
+const con = mysql.createPool({
     host: "107.180.1.16",
     user: "fall2023team4",
     password: "fall2023team4",
-    database: "fall2023team4"
+    database: "fall2023team4",
+  waitForConnections: true,
+  connectionLimit: 100, // Adjust this limit as needed
+  queueLimit: 0,
 });
-con.connect();
 
-app.get('/getUser', function (req, res) {
-    const username = req.query.username; // Get the username from the query parameter
-    const myQuery = "SELECT * FROM Users AS u WHERE u.username = ?"; // Use a parameterized query
+// Function to handle reconnection
+function handleReconnection() {
+  console.log('Reconnecting to MySQL...');
+  con.getConnection((err, connection) => {
+    if (err) {
+      console.error('Reconnection failed:', err);
+      setTimeout(handleReconnection, 2000); // Attempt reconnection after 2 seconds
+    } else {
+      console.log('Reconnected to MySQL');
+      connection.release();
+    }
+  });
+}
 
-    con.query(myQuery, [username], function(err, result, fields) {
-        if (err) {
-            console.error("Error fetching users: " + err);
-            res.status(500).send("Error fetching users");
-        } else {
-            console.log("Fetched users from the database");
-            res.status(200).json(result);
-        }
-    });
+// Set up a reconnection mechanism
+con.on('connection', () => {
+  console.log('Connected to MySQL');
+});
+
+con.on('error', (err) => {
+  console.error('MySQL con error:', err);
+  handleReconnection();
+});
+
+app.get('/getUser', (req, res) => {
+  const username = req.query.username;
+  const myQuery = 'SELECT * FROM Users AS u WHERE u.username = ?';
+
+  con.query(myQuery, [username], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching users: ' + err);
+      res.status(500).send('Error fetching users');
+    } else {
+      console.log('Fetched users from the database');
+      res.status(200).json(result);
+    }
+  });
 });
 
 app.post('/insertUser', function (req, res) {
@@ -66,63 +91,82 @@ app.post('/insertUser', function (req, res) {
     });
 });
 
-app.get('/getGoals', (req, res) => {
-    const stored_id = req.query.userId;
-    console.log("stored_id: ", stored_id);
+app.get('/getRelationships', (req, res) => {
+    const userId = req.query.userId;
+    const userRole = req.query.userRole;
 
-    const checkQuery = 'SELECT role FROM Users WHERE id = ?';
+    let myQuery1 = "";
 
-    con.query(checkQuery, [stored_id], (err, data2) => {
+    if (userRole == "mentor") {
+        myQuery1 = "SELECT id FROM Mentors WHERE user_id = ?";
+    } else if (userRole == "mentee") {
+        myQuery1 = "SELECT id FROM Mentees WHERE user_id = ?";
+    }
+
+    con.query(myQuery1, [userId], (err, result) => {
         if (err) {
-            console.error('Error executing checkQuery: ' + err);
-            return res.status(500).json({ error: 'Error fetching data' });
-        }
-
-        let check = '';
-
-        if (data2.length > 0) {
-            check = data2[0].role;
-
-            let query1 = `
-              SELECT g.id AS goal_id, g.complete, g.priority, g.info, r.mentee_id, r.mentor_id
-              FROM Goals AS g
-              JOIN Relationships AS r ON g.relationship_id = r.id
-              ORDER BY mentee_id, priority;
-            `;
-
-            con.query(query1, (err, data1) => {
-                if (err) {
-                    console.error('Error executing query1: ' + err);
-                    return res.status(500).json({ error: 'Error fetching data' });
-                }
-
-                // Filter the data based on 'check' and 'stored_id' in JavaScript
-                const data3 = data1.filter(item => {
-                    if (check === 'mentee') {
-                        return item.mentee_id == stored_id;
-                    } else if (check === 'mentor') {
-                        return item.mentor_id == stored_id;
-                    }
-                    return false;
-                });
-
-                const result = {
-                    data1,
-                    data2,
-                    data3,
-                };
-
-                return res.json(result);
-            });
+            console.error('Error fetching user role: ' + err);
+            res.status(500).send('Error fetching user role');
         } else {
-            return res.json({
-                data1: [],
-                data2: [],
-                data3: [],
+            const roleId = result[0].id;
+
+            let myQuery2 = "";
+
+            if (userRole === "mentor") {
+                myQuery2 = 'SELECT r.id,\
+                m.name AS mentee_name, tees.id AS \
+                mentee_id, tors.id AS mentor_id, t.name AS\
+                mentor_name\
+                FROM Relationships AS r\
+                JOIN Mentees AS tees ON r.mentee_id = tees.id\
+                JOIN Mentors AS tors ON r.mentor_id = tors.id\
+                JOIN Users AS m ON m.id = tees.user_id\
+                JOIN Users AS t ON t.id = tors.user_id\
+                WHERE tors.id = ?';
+            } else if (userRole === "mentee") {
+                myQuery2 = 'SELECT r.id,\
+                m.name AS mentee_name, tees.id AS \
+                mentee_id, tors.id AS mentor_id, t.name AS\
+                mentor_name\
+                FROM Relationships AS r\
+                JOIN Mentees AS tees ON r.mentee_id = tees.id\
+                JOIN Mentors AS tors ON r.mentor_id = tors.id\
+                JOIN Users AS m ON m.id = tees.user_id\
+                JOIN Users AS t ON t.id = tors.user_id\
+                WHERE tees.id = ?';
+            }
+
+            con.query(myQuery2, [roleId], (err, result) => {
+                if (err) {
+                    console.error('Error fetching relationships: ' + err);
+                    res.status(500).send('Error fetching relationships');
+                } else {
+                    console.log('Fetched relationships from the database');
+                    res.status(200).json(result);
+                }
             });
         }
     });
 });
+
+app.get('/getGoals', (req, res) => {
+  const stored_id = req.query.relationship_id;
+  console.log("stored_id: ", stored_id);
+
+  const checkQuery = 'SELECT * FROM Goals WHERE \
+                      relationship_id = ? ORDER BY priority;';
+
+  con.query(checkQuery, [stored_id], (err, result) => {
+      if (err) {
+          console.error('Error fetching relationships: ' + err);
+          res.status(500).send('Error fetching relationships');
+      } else {
+          console.log('Fetched goals from the database');
+          res.status(200).json(result); // Use data2 instead of result
+      }
+  });
+});
+
 
 app.post('/setTask', (req, res) => {
     const data = req.body;
@@ -234,29 +278,8 @@ app.post('/setTask', (req, res) => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Serve static files (HTML, CSS, JavaScript)
+// Define other routes and handlers as needed
 app.use(express.static(__dirname));
-
-app.listen(8000, function() {
-    console.log("\nThe Web server is alive!!!\n" + "It's listening on http://127.0.0.1:8000 or http://localhost:8000");
+app.listen(8000, () => {
+  console.log('The Web server is running on http://localhost:8000');
 });
