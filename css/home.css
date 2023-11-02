@@ -150,7 +150,7 @@ h4 {
 }
 
 #reminders div ul li {
-    font-size: small;
+    font-size: medium;
     text-align: left;
 }
 
@@ -168,6 +168,13 @@ h4 {
 #roadMap-q3,
 #roadMap-q4 {
     display: none;
+}
+
+#reminders div:hover #roadMap-q1,
+#reminders div:hover #roadMap-q2,
+#reminders div:hover #roadMap-q3,
+#reminders div:hover #roadMap-q4 {
+    display: block;
 }
 
 .progress-meter {
