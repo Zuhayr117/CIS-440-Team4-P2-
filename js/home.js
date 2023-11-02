@@ -137,6 +137,34 @@ function logOut (){
     window.location.href = "/index.html";// changes page to login page after logging out
 }
 
+function hideProgress(role) {
+    let progressChildren = document.getElementById("progress").children;
+    console.log(progressChildren);
+    // To hide child elements
+    for (var i = 0; i < progressChildren.length; i++) {
+        progressChildren[i].style.display = "none";
+    }
+
+    let noRelationshipsElement = "";
+    if (role == "mentor") {
+        noRelationshipsElement = document.getElementById("mentorNoRelationships");
+    } else if (role == "mentee") {
+        noRelationshipsElement = document.getElementById("menteeNoRelationships");
+    }
+    console.log(noRelationshipsElement);
+    noRelationshipsElement.style.display = "block";
+}
+
+function showProgress(role) {
+    // TODO create after initiate relationships function complete
+    let progressChildren = document.getElementById("progress").children;
+    console.log(progressChildren);
+    // To hide child elements
+    for (var i = 0; i < progressChildren.length; i++) {
+        progressChildren[i].style.display = "block";
+    }
+}
+
 async function getRelationships() {
     console.log("current user info: ");
     console.log(localStorage.getItem("userInfo"));
@@ -166,9 +194,15 @@ async function getRelationships() {
                 relationshipParser.value = relationshipId;
                 relationshipDropdown.appendChild(relationshipParser);
             }
+            // if no relationship...
+            if (data.length == 0) {
+                console.log("No registered relationships");
+                hideProgress(currentRole);
+                return;
+            }
             if (currentRole == "mentor") {
                 let addNewRelationship = document.createElement("option");
-                addNewRelationship.innerHTML = "Initiate New Relationship..."
+                addNewRelationship.innerHTML = "Initiate New Mentorship..."
                 addNewRelationship.value = 0;
                 relationshipDropdown.appendChild(addNewRelationship);
             }
@@ -183,11 +217,15 @@ async function getRelationships() {
     initializeRoadmap(relationshipId);
 }
 
+function initiateRelationship() {
+     // TODO Write the code to initiate a new relationship
+     console.log("code to be written to intitate new relationship");
+}
+
 function dropdownChanged(value) {
     if (value == 0) {
-        console.log("initiate a new relationship -- to be written");
         // initiate a new relationship
-        // TODO Write the code to initiate a new relationship
+        initiateRelationship();
        // Change the selected option to the first one (index 0)
        let relationshipDropdown = document.getElementById("relationshipDropdown");
        relationshipDropdown.selectedIndex = 0;
