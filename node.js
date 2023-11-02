@@ -91,6 +91,21 @@ app.post('/insertUser', function (req, res) {
     });
 });
 
+app.get('/getRelationship', (req, res) => {
+  const relationshipId = req.query.relationshipId;
+  const myQuery = 'SELECT r.start_date, r.end_date FROM Relationships AS r WHERE r.id = ?';
+
+  con.query(myQuery, [relationshipId], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching users: ' + err);
+      res.status(500).send('Error fetching users');
+    } else {
+      console.log('Fetched users from the database');
+      res.status(200).json(result);
+    }
+  });
+});
+
 app.get('/getRelationships', (req, res) => {
     const userId = req.query.userId;
     const userRole = req.query.userRole;

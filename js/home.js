@@ -137,6 +137,34 @@ function logOut (){
     window.location.href = "/index.html";// changes page to login page after logging out
 }
 
+function hideProgress(role) {
+    let progressChildren = document.getElementById("progress").children;
+    console.log(progressChildren);
+    // To hide child elements
+    for (var i = 0; i < progressChildren.length; i++) {
+        progressChildren[i].style.display = "none";
+    }
+
+    let noRelationshipsElement = "";
+    if (role == "mentor") {
+        noRelationshipsElement = document.getElementById("mentorNoRelationships");
+    } else if (role == "mentee") {
+        noRelationshipsElement = document.getElementById("menteeNoRelationships");
+    }
+    console.log(noRelationshipsElement);
+    noRelationshipsElement.style.display = "block";
+}
+
+function showProgress(role) {
+    // TODO create after initiate relationships function complete
+    let progressChildren = document.getElementById("progress").children;
+    console.log(progressChildren);
+    // To hide child elements
+    for (var i = 0; i < progressChildren.length; i++) {
+        progressChildren[i].style.display = "block";
+    }
+}
+
 async function getRelationships() {
     console.log("current user info: ");
     console.log(localStorage.getItem("userInfo"));
@@ -150,8 +178,8 @@ async function getRelationships() {
         let response = await fetch(`/getRelationships?userId=${currentUserId}&userRole=${currentRole}`);
         if (response.ok) {
             let data = await response.json(); // Await the JSON parsing
-            console.log("relationships retrieved");
-            console.log(data);
+            /*console.log("relationships retrieved");
+            console.log(data);*/
             let relationshipDropdown = document.getElementById("relationshipDropdown");
             relationshipDropdown.innerHTML = "";
             for (let i = 0; i < data.length; i++) {
@@ -166,9 +194,15 @@ async function getRelationships() {
                 relationshipParser.value = relationshipId;
                 relationshipDropdown.appendChild(relationshipParser);
             }
+            // if no relationship...
+            if (data.length == 0) {
+                console.log("No registered relationships");
+                hideProgress(currentRole);
+                return;
+            }
             if (currentRole == "mentor") {
                 let addNewRelationship = document.createElement("option");
-                addNewRelationship.innerHTML = "Initiate New Relationship..."
+                addNewRelationship.innerHTML = "Initiate New Mentorship..."
                 addNewRelationship.value = 0;
                 relationshipDropdown.appendChild(addNewRelationship);
             }
@@ -178,19 +212,104 @@ async function getRelationships() {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
-    getTasks(localStorage.getItem("currentRelationshipId"));
+    let relationshipId = localStorage.getItem("currentRelationshipId");
+    getTasks(relationshipId);
+    initializeRoadmap(relationshipId);
+}
+
+function initiateRelationship() {
+     // TODO Write the code to initiate a new relationship
+     console.log("code to be written to intitate new relationship");
 }
 
 function dropdownChanged(value) {
     if (value == 0) {
-        console.log("initiate a new relationship -- to be written");
         // initiate a new relationship
-        // TODO Write the code to initiate a new relationship
+        initiateRelationship();
        // Change the selected option to the first one (index 0)
        let relationshipDropdown = document.getElementById("relationshipDropdown");
        relationshipDropdown.selectedIndex = 0;
     } else {
         localStorage.setItem("currentRelationshipId", value);
         getTasks(localStorage.getItem("currentRelationshipId"));
+    }
+}
+
+async function initializeRoadmap(relationshipId) {
+    //console.log("printing relationship_id for roadmap: ", relationshipId);
+    try {
+        // Make an HTTP request to your Node.js server
+        let response = await fetch(`/getRelationship?relationshipId=${relationshipId}`);
+        if (response.ok) {
+            let data = await response.json();
+            /*console.log("printing single relationship:");
+            console.log(data);
+            console.log(data[0]);*/
+            let startDate = data[0].start_date;
+            let endDate = data[0].end_date;
+            startDate = new Date(startDate);
+            endDate = new Date(endDate);
+            // Calculate the time difference in milliseconds
+            const timeDifference = endDate - startDate;
+
+            // Calculate the number of days
+            const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+            //console.log("Number of days between the dates: ", daysDifference);
+            const quarterLength = (daysDifference / 4).toFixed(0);
+            //console.log("Split into four: ", quarterLength);
+
+            // Calculate the starting date for each quarter
+            const quarterStartDates = [];
+            for (let i = 0; i < 4; i++) {
+            const quarterStartDate = new Date(startDate.getTime() + i * quarterLength * 24 * 60 * 60 * 1000);
+            quarterStartDates.push(quarterStartDate.toISOString().split('T')[0]);
+            }
+
+            //console.log("Starting dates for each quarter: ", quarterStartDates);
+            let currentDate = Date.now();
+            for (let i = 0; i < quarterStartDates.length; i++) {
+                if (currentDate >= new Date(quarterStartDates[i])) {
+                  currentQuarter = i + 1;
+                } else {
+                  break;  // Stop checking once we find the correct quarter
+                }
+              }
+              
+              //console.log("Current date falls into Quarter: ", currentQuarter);
+              let roadMapInfoDiv;
+              let roadMapColorDiv;
+              switch(currentQuarter) {
+
+                case 3:
+                    roadMapInfoDiv = document.getElementById("roadMap-q3");
+                    roadMapInfoDiv.style.display = "block";
+                    roadMapColorDiv = document.getElementById("roadMap-3");
+                    roadMapColorDiv.style.backgroundColor = "green";
+                    break;
+                case 2:
+                    roadMapInfoDiv = document.getElementById("roadMap-q2")
+                    roadMapInfoDiv.style.display = "block";
+                    roadMapColorDiv = document.getElementById("roadMap-2");
+                    roadMapColorDiv.style.backgroundColor = "green";
+                    break;
+                case 1:
+                case 0:
+                    roadMapInfoDiv = document.getElementById("roadMap-q1")
+                    roadMapInfoDiv.style.display = "block";
+                    roadMapColorDiv = document.getElementById("roadMap-1");
+                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
+                    break;
+                case 4:
+                default:
+                    roadMapInfoDiv = document.getElementById("roadMap-q4")
+                    roadMapInfoDiv.style.display = "block";
+                    roadMapColorDiv = document.getElementById("roadMap-4");
+                    roadMapColorDiv.style.backgroundColor = "green";
+              }
+
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 }

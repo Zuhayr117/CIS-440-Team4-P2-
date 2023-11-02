@@ -55,7 +55,7 @@ img {
     list-style: none;
 }
 
-nav button {
+nav button, #progress button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -71,7 +71,7 @@ nav button {
     float: right;
 }
 
-nav button:hover {
+nav button:hover, #progress button:hover {
     background-color: #0056b3;
 }
 
@@ -150,7 +150,7 @@ h4 {
 }
 
 #reminders div ul li {
-    font-size: small;
+    font-size: medium;
     text-align: left;
 }
 
@@ -168,6 +168,13 @@ h4 {
 #roadMap-q3,
 #roadMap-q4 {
     display: none;
+}
+
+#reminders div:hover #roadMap-q1,
+#reminders div:hover #roadMap-q2,
+#reminders div:hover #roadMap-q3,
+#reminders div:hover #roadMap-q4 {
+    display: block;
 }
 
 .progress-meter {
@@ -231,4 +238,27 @@ float: right;
     background-color: transparent;
     border: 0px;
     font-size: 1.5em;
+}
+
+#mentorNoRelationships, #menteeNoRelationships {
+    display: none;
+}
+
+#progress button {
+    float: left;
+    width: 98.5%;
+    height: 83.5vh;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: xx-large;
+}
+
+#menteeNoRelationships {
+    background-color: transparent;
+    margin: auto;
+    text-align: center;
+    font-size: xx-large;
+    margin: 10px;
+    margin-top: calc(76vh / 2);
 }
