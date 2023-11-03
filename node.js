@@ -361,36 +361,62 @@ app.post('/setTask', (req, res) => {
             return res.status(500).json({ error: 'Error updating goal' });
         }
 
-        if (currentComplete === 1) {
-            // Get the current date
-            const current_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-            // Update the complete_date column with the formatted date
-            const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
-            const dateParams = [current_date, result.insertId];
 
-            con.query(updateDateQuery, dateParams, (dateErr, dateResult) => {
-                if (dateErr) {
-                    console.error('Error adding goal complete_date: ' + dateErr);
-                    return res.status(500).json({ error: 'Error adding goal complete_date' });
-                }
 
-                return res.json({ message: 'Task added successfully' });
-            });
-        } else {
-            // Set complete_date to NULL
-            const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
-            const clearDateParams = [result.insertId];
+ // Function to update complete_date or clear it
+ const updateCompleteDate = (taskId, completeStatus) => {
+    const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-            con.query(clearDateQuery, clearDateParams, (clearDateErr, clearDateResult) => {
-                if (clearDateErr) {
-                    console.error('Error clearing goal complete_date: ' + clearDateErr);
-                    return res.status(500).json({ error: 'Error clearing goal complete_date' });
-                }
+    const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
+    const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
 
-                return res.json({ message: 'Task added successfully' });
-            });
+    const dateParams = [currentDate, taskId];
+
+    const query = completeStatus === 1 ? updateDateQuery : clearDateQuery;
+    con.query(query, dateParams, (dateErr, dateResult) => {
+        if (dateErr) {
+            console.error(`Error ${completeStatus ? 'adding' : 'clearing'} goal complete_date: ${dateErr}`);
+            return res.status(500).json({ error: `Error ${completeStatus ? 'adding' : 'clearing'} goal complete_date` });
         }
+
+        return res.json({ message: 'Task added successfully' });
+    });
+};
+
+
+
+
+    //     if (currentComplete === 1) {
+    //         // Get the current date
+    //         const current_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    //         // Update the complete_date column with the formatted date
+    //         const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
+    //         const dateParams = [current_date, result.insertId];
+
+    //         con.query(updateDateQuery, dateParams, (dateErr, dateResult) => {
+    //             if (dateErr) {
+    //                 console.error('Error adding goal complete_date: ' + dateErr);
+    //                 return res.status(500).json({ error: 'Error adding goal complete_date' });
+    //             }
+
+    //             return res.json({ message: 'Task added successfully' });
+    //         });
+    //     } else {
+    //         // Set complete_date to NULL
+    //         const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
+    //         const clearDateParams = [result.insertId];
+
+    //         con.query(clearDateQuery, clearDateParams, (clearDateErr, clearDateResult) => {
+    //             if (clearDateErr) {
+    //                 console.error('Error clearing goal complete_date: ' + clearDateErr);
+    //                 return res.status(500).json({ error: 'Error clearing goal complete_date' });
+    //             }
+
+    //             return res.json({ message: 'Task added successfully' });
+    //         });
+    //     }
     });
 });
 
