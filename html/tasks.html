@@ -33,7 +33,7 @@
             <input type="radio" name="assigner" id="assignMentor" value="Mentor">
             <label for="assignMentor">Mentor</label><br>
             <button type="submit" id="addTaskButton" onclick="unhideCustom()">Add Task</button>
-            <button type="submit" id="unhide" onclick="unhide()">Create Custom Task</button>
+            <button type="button" id="unhide" onclick="unhide()">Create Custom Task</button>
         </div>
         </div>
 
@@ -42,10 +42,7 @@
         <form id="taskForm">
             <h1>Custom Task</h1>
             <table id="table">
-                <tr><th>
-            <input type="text" id="relationshipId" placeholder="Relationship ID" class="center">
-            </td>
-        </th>
+        <tr>
         <td>
             <input type="text" id="priority" placeholder="Priority" class="center">
         </td>
@@ -59,9 +56,7 @@
         </td>
         </tr>
         <tr>
-        <td>
-            <input type="text" id="createdBy" placeholder="Created By" class="center">
-        </td>
+        
         </tr> 
             <tr>
                 <td>
@@ -76,7 +71,7 @@
             <br> 
           
         </table>
-        <button type="button" id="addTaskButton" class="center">Add Task</button>
+        <button type="submit" id="addCustomTaskButton" class="center" onclick="addCustomTaskButton()">Add Custom Task</button>
           </form>
           
         </div>
