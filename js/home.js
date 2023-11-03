@@ -165,7 +165,7 @@ function showProgress(role) {
     }
 }
 
-async function getRelationships() {
+async function getRelationships(selectedId) {
     /*console.log("current user info: ");
     console.log(localStorage.getItem("userInfo"));*/
     let currentUserInfo = localStorage.getItem("userInfo");
@@ -212,6 +212,16 @@ async function getRelationships() {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    if (selectedId > 0) {
+        console.log("selectedId not 0");
+        setDropdown(selectedId);
+        localStorage.setItem("currentRelationshipId", selectedId);
+        let confirmationMessage = `Would you like to set up tasks for this mentorship now?`;
+        let confirm = window.confirm(confirmationMessage);
+        if(confirm) {
+            window.location.href = "./tasks.html";
+        }
+    }
     let relationshipId = localStorage.getItem("currentRelationshipId");
     getTasks(relationshipId);
     initializeRoadmap(relationshipId);
@@ -243,13 +253,18 @@ function dropdownChanged(value) {
        relationshipDropdown.selectedIndex = 0;
     } else {
         localStorage.setItem("currentRelationshipId", value);
-        getTasks(localStorage.getItem("currentRelationshipId"));
+        let newRelationshipId = localStorage.getItem("currentRelationshipId");
+        console.log("newRelationshipId", newRelationshipId);
+        getTasks(newRelationshipId);
+        initializeRoadmap(newRelationshipId);
     }
 }
 
 async function initializeRoadmap(relationshipId) {
     //console.log("printing relationship_id for roadmap: ", relationshipId);
+    let currentQuarter = 0;
     try {
+        //console.log(relationshipId);
         // Make an HTTP request to your Node.js server
         let response = await fetch(`/getRelationship?relationshipId=${relationshipId}`);
         if (response.ok) {
@@ -274,36 +289,61 @@ async function initializeRoadmap(relationshipId) {
             // Calculate the starting date for each quarter
             const quarterStartDates = [];
             for (let i = 0; i < 4; i++) {
-            const quarterStartDate = new Date(startDate.getTime() + i * quarterLength * 24 * 60 * 60 * 1000);
-            quarterStartDates.push(quarterStartDate.toISOString().split('T')[0]);
+                const quarterStartDate = new Date(startDate.getTime() + i * quarterLength * 24 * 60 * 60 * 1000);
+                quarterStartDates.push(quarterStartDate.toISOString().split('T')[0]);
             }
 
             //console.log("Starting dates for each quarter: ", quarterStartDates);
             let currentDate = Date.now();
             for (let i = 0; i < quarterStartDates.length; i++) {
                 if (currentDate >= new Date(quarterStartDates[i])) {
-                  currentQuarter = i + 1;
+                    currentQuarter = i + 1;
                 } else {
-                  break;  // Stop checking once we find the correct quarter
+                    break;  // Stop checking once we find the correct quarter
                 }
-              }
-              
-              //console.log("Current date falls into Quarter: ", currentQuarter);
-              let roadMapInfoDiv;
-              let roadMapColorDiv;
-              switch(currentQuarter) {
+            }
 
+            //console.log("Current date falls into Quarter: ", currentQuarter);
+            let roadMapInfoDiv;
+            let roadMapColorDiv;
+            //console.log('currentQuarter: ', currentQuarter);
+            // reset colors
+            // Get references to the elements
+            const roadMap1 = document.getElementById('roadMap-1');
+            const roadMap2 = document.getElementById('roadMap-2');
+            const roadMap3 = document.getElementById('roadMap-3');
+            const roadMap4 = document.getElementById('roadMap-4');
+
+            const roadMapQ1 = document.getElementById('roadMap-q1');
+            const roadMapQ2 = document.getElementById('roadMap-q2');
+            const roadMapQ3 = document.getElementById('roadMap-q3');
+            const roadMapQ4 = document.getElementById('roadMap-q4');
+
+            // Set background color for roadMap-1, roadMap-2, roadMap-3, roadMap-4
+            roadMap1.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
+            roadMap2.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
+            roadMap3.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
+            roadMap4.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
+
+            // Set display style for roadMap-q1, roadMap-q2, roadMap-q3, roadMap-q4
+            roadMapQ1.style.display = 'none';
+            roadMapQ2.style.display = 'none';
+            roadMapQ3.style.display = 'none';
+            roadMapQ4.style.display = 'none';
+            // change colors
+            console.log("currentQuarter: ", currentQuarter);
+            switch (currentQuarter) {
                 case 3:
                     roadMapInfoDiv = document.getElementById("roadMap-q3");
                     roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-3");
-                    roadMapColorDiv.style.backgroundColor = "green";
+                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
                     break;
                 case 2:
                     roadMapInfoDiv = document.getElementById("roadMap-q2")
                     roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-2");
-                    roadMapColorDiv.style.backgroundColor = "green";
+                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
                     break;
                 case 1:
                 case 0:
@@ -317,8 +357,8 @@ async function initializeRoadmap(relationshipId) {
                     roadMapInfoDiv = document.getElementById("roadMap-q4")
                     roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-4");
-                    roadMapColorDiv.style.backgroundColor = "green";
-              }
+                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
+            }
 
         }
     } catch (error) {
@@ -327,7 +367,7 @@ async function initializeRoadmap(relationshipId) {
 }
 
 async function initializeMenteeOptions() {
-    console.log("inside initializeMenteeOptions");
+    //console.log("inside initializeMenteeOptions");
     try {
         let currentUserInfo = localStorage.getItem("userInfo");
         let userInfoObject = JSON.parse(currentUserInfo);
@@ -365,8 +405,8 @@ async function initializeMenteeOptions() {
 
 function insertMenteeOptions(mentees) {
     let menteeOptionsBox = document.getElementById("menteesRegistered");
-    console.log("mentee: ");
-    console.log(mentees);
+    /*console.log("mentee: ");
+    console.log(mentees);*/
     /*if (mentees.length == 0) {
         let noOption = document.createElement("option");
         noOption.innerHTML = "No Mentees";
@@ -381,18 +421,18 @@ function insertMenteeOptions(mentees) {
     }
 }
 
-function addMentorship(form) {
+async function addMentorship(form) {
+    let selectedMenteeId = form.menteesRegistered.options[form.menteesRegistered.selectedIndex].value;
     let selectedMentee = form.menteesRegistered.options[form.menteesRegistered.selectedIndex].text;
     let startDate = form.startDate.value;
     let endDate = form.endDate.value;
 
-    if (form.startDate.value == "" || form.endDate.value == "")
-    {
+    if (form.startDate.value == "" || form.endDate.value == "") {
         alert("Missing date(s) or date(s) are invalid.");
     }
     else if (form.menteesRegistered.value === "0") {
         alert("Please select a mentee.");
-    } 
+    }
     else if (form.startDate.value > form.endDate.value) {
         alert("End date CANNOT preclude start date");
     }
@@ -400,8 +440,45 @@ function addMentorship(form) {
         let confirmationMessage = `Are you sure you wish to set sail with ${selectedMentee} from ${startDate} to ${endDate}?`;
         let confirm = window.confirm(confirmationMessage);
         if (confirm) {
-            console.log("Will add the relationship to the database");
-            //TODO Add relationship with info
+            let currentUserInfo = localStorage.getItem("userInfo");
+            let userInfoObject = JSON.parse(currentUserInfo);
+            let currentUserId = userInfoObject[0].id;
+            try {
+                let response = await fetch(`/getMentor?userId=${currentUserId}`);
+                if (response.ok) {
+                    let mentorData = await response.json();
+                    let mentorId = mentorData[0].mentor_id;
+                    let newRow = {
+                        mentor_id: mentorId,
+                        mentee_id: selectedMenteeId,
+                        start_date: startDate,
+                        end_date: endDate
+                    };
+                    // Send an AJAX POST request to update the server-side database with the new data
+                    $.ajax({
+                        type: "POST",
+                        url: "/insertRelationship",
+                        contentType: "application/json", // Set content type to JSON
+                        data: JSON.stringify(newRow), // Convert the JavaScript object to JSON
+                        success: function (response) {
+                            console.log("New mentorship added to the database");
+                            //TODO change currentRelationshipId and switch to tasks.html
+                            let modal = document.getElementById('popupModal');
+                            modal.style.display = "none";
+                            console.log(response);
+                            let newRelationshipId = response.lastId;
+                            console.log(newRelationshipId);
+                            getRelationships(newRelationshipId);
+                        },
+                        error: function (error) {
+                            console.error("Error adding a new mentorship: "
+                                + error.responseText);
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Error fetching data:', err);
+            }
         }
         else {
             console.log("cancelling...");
@@ -409,4 +486,18 @@ function addMentorship(form) {
     }
 }
 
+function setDropdown(value) {
+    console.log('inside setDropdown');
+    let dropdown = document.getElementById("relationshipDropdown");
+
+    for (let option of dropdown.options) {
+        if (option.value == value) {
+            option.selected = true;
+        } else {
+            option.selected = false;
+        }
+    }
+}
+
 document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
+document.addEventListener("DOMContentLoaded", getRelationships(-1));
