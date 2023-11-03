@@ -166,8 +166,8 @@ function showProgress(role) {
 }
 
 async function getRelationships() {
-    console.log("current user info: ");
-    console.log(localStorage.getItem("userInfo"));
+    /*console.log("current user info: ");
+    console.log(localStorage.getItem("userInfo"));*/
     let currentUserInfo = localStorage.getItem("userInfo");
     let userInfoObject = JSON.parse(currentUserInfo);
     let currentUserId = userInfoObject[0].id;
@@ -218,8 +218,20 @@ async function getRelationships() {
 }
 
 function initiateRelationship() {
-     // TODO Write the code to initiate a new relationship
-     console.log("code to be written to intitate new relationship");
+    let modal = document.getElementById('popupModal');
+    let span = document.getElementsByClassName('close')[0];
+
+    modal.style.display = 'block';
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
 }
 
 function dropdownChanged(value) {
@@ -314,23 +326,87 @@ async function initializeRoadmap(relationshipId) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var modal = document.getElementById('popupModal');
-    var btn = document.getElementById('contactBtn');
-    var span = document.getElementsByClassName('close')[0];
-
-    btn.onclick = function() {
-        modal.style.display = 'block';
+async function initializeMenteeOptions() {
+    console.log("inside initializeMenteeOptions");
+    try {
+        let currentUserInfo = localStorage.getItem("userInfo");
+        let userInfoObject = JSON.parse(currentUserInfo);
+        let currentUserId = userInfoObject[0].id;
+        let currentRole = userInfoObject[0].role;
+        // Make an HTTP request to your Node.js server
+        let response = await fetch(`/getMentees`);
+        if (response.ok) {
+            let data = await response.json();
+            // find mentees already in a mentorship with mentor
+            let check = await fetch(`/getRelationships?userId=${currentUserId}&userRole=${currentRole}`);
+            if (check.ok) {
+                let checkData = await check.json();
+                let unavailableMentees = []
+                for (let i = 0; i < checkData.length; i++) {
+                    unavailableMentees.push(checkData[i].mentee_id)
+                }
+                let availableMentees = {}
+                for (let i = 0; i < data.length; i++) {
+                    availableMentees[data[i].mentee_id] = data[i].name;
+                }
+                unavailableMentees.forEach(function(id) {
+                    if (availableMentees[id]) {
+                        delete availableMentees[id];
+                    }
+                });
+                // insert available mentees into dropDown
+                insertMenteeOptions(availableMentees);
+            }
+        } 
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
+}
 
-    span.onclick = function() {
-        modal.style.display = 'none';
+function insertMenteeOptions(mentees) {
+    let menteeOptionsBox = document.getElementById("menteesRegistered");
+    console.log("mentee: ");
+    console.log(mentees);
+    /*if (mentees.length == 0) {
+        let noOption = document.createElement("option");
+        noOption.innerHTML = "No Mentees";
+        noOption.value = 0;
+        menteeOptionsBox.appendChild(noOption);
+    }*/
+    for (let key in mentees) {
+        let menteeOption = document.createElement("option");
+        menteeOption.innerHTML = mentees[key];
+        menteeOption.value = key;
+        menteeOptionsBox.appendChild(menteeOption);
     }
+}
 
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+function addMentorship(form) {
+    let selectedMentee = form.menteesRegistered.options[form.menteesRegistered.selectedIndex].text;
+    let startDate = form.startDate.value;
+    let endDate = form.endDate.value;
+
+    if (form.startDate.value == "" || form.endDate.value == "")
+    {
+        alert("Missing date(s) or date(s) are invalid.");
+    }
+    else if (form.menteesRegistered.value === "0") {
+        alert("Please select a mentee.");
+    } 
+    else if (form.startDate.value > form.endDate.value) {
+        alert("End date CANNOT preclude start date");
+    }
+    else {
+        let confirmationMessage = `Are you sure you wish to set sail with ${selectedMentee} from ${startDate} to ${endDate}?`;
+        let confirm = window.confirm(confirmationMessage);
+        if (confirm) {
+            console.log("Will add the relationship to the database");
+            //TODO Add relationship with info
+        }
+        else {
+            console.log("cancelling...");
         }
     }
-});
+}
 
+document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
