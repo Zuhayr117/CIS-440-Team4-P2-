@@ -55,7 +55,7 @@ img {
     list-style: none;
 }
 
-nav button, #progress button {
+nav button, #progress button, #newMentorshipButton {
     background-color: #007bff;
     color: white;
     border: none;
@@ -71,7 +71,7 @@ nav button, #progress button {
     float: right;
 }
 
-nav button:hover, #progress button:hover {
+nav button:hover, #progress button:hover, #newMentorshipButton:hover {
     background-color: #0056b3;
 }
 
@@ -303,4 +303,45 @@ float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+#popupModal {
+    display: none;
+    padding: 10px;
+}
+
+#modalContent {
+    width: 450px;
+    height: 350px;
+}
+
+#popupModal label {
+    float: right;
+    font-size: 1em;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: right;
+}
+
+#popupModal input {
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    float: right;
+    width: 300px;
+    /* border: transparent; */
+}
+
+#menteesRegistered {
+    font-size: 1.75em;
+    float: right;
+    width: 300px;
+    text-align: center;
+    /* border: transparent; */
+} 
+#newMentorshipButton {
+    float: none;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
 }

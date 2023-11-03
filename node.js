@@ -56,7 +56,7 @@ app.get('/getUser', (req, res) => {
 });
 
 app.post('/insertUser', function (req, res) {
-    console.log("inside insertUser");
+    // console.log("inside insertUser");
     let newName = req.body.user_name;
     let newUsername = req.body.user_username;
     let newPassword = req.body.user_password;
@@ -91,16 +91,46 @@ app.post('/insertUser', function (req, res) {
     });
 });
 
+app.post('/insertRelationship', (req, res) => {
+  let newMentor = req.body.mentor_id;
+  let newMentee = req.body.mentee_id;
+  let newStartDate = req.body.start_date;
+  let newEndDate = req.body.end_date;
+  let insertQuery = "INSERT INTO Relationships \
+                      (mentor_id, mentee_id, start_date, end_date) VALUES (?, ?, ?, ?)";
+
+  con.query(insertQuery, [newMentor, newMentee, newStartDate, newEndDate], function(err, insertResult) {
+    if (err) {
+      console.error("Error adding a new relationship: " + err);
+      res.status(500).send("Error adding a new relationship");
+    } else {
+      console.log("New relationship added to the database");
+      
+      // Query the newly inserted row's ID
+      con.query("SELECT LAST_INSERT_ID() AS last_id", (err, result) => {
+        if (err) {
+          console.error('Error fetching new relationship ID: ' + err);
+          res.status(500).send('Error fetching new relationship ID');
+        } else {
+          const lastId = result[0].last_id;
+          console.log('Fetched new relationship ID from the database:', lastId);
+          res.status(200).json({lastId});
+        }
+      });
+    }
+  });
+});
+
 app.get('/getRelationship', (req, res) => {
   const relationshipId = req.query.relationshipId;
   const myQuery = 'SELECT r.start_date, r.end_date FROM Relationships AS r WHERE r.id = ?';
 
   con.query(myQuery, [relationshipId], (err, result, fields) => {
     if (err) {
-      console.error('Error fetching users: ' + err);
-      res.status(500).send('Error fetching users');
+      console.error('Error fetching relationship: ' + err);
+      res.status(500).send('Error fetching relationships');
     } else {
-      console.log('Fetched users from the database');
+      console.log('Fetched relationship from the database');
       res.status(200).json(result);
     }
   });
@@ -166,7 +196,7 @@ app.get('/getRelationships', (req, res) => {
 
 app.get('/getGoals', (req, res) => {
   const stored_id = req.query.relationship_id;
-  console.log("stored_id: ", stored_id);
+  //console.log("stored_id: ", stored_id);
 
   const checkQuery = 'SELECT * FROM Goals WHERE \
                       relationship_id = ? ORDER BY priority;';
@@ -177,6 +207,44 @@ app.get('/getGoals', (req, res) => {
           res.status(500).send('Error fetching relationships');
       } else {
           console.log('Fetched goals from the database');
+          res.status(200).json(result); // Use data2 instead of result
+      }
+  });
+});
+
+app.get('/getMentees', (req, res) => {
+  const checkQuery = 'SELECT m.id AS mentee_id, \
+                      u.name FROM Mentees AS m\
+                      JOIN Users AS u\
+                      ON m.user_id = u.id\
+                      ORDER BY u.name';
+
+  con.query(checkQuery, (err, result) => {
+      if (err) {
+          console.error('Error fetching mentees: ' + err);
+          res.status(500).send('Error fetching mentees');
+      } else {
+          console.log('Fetched mentees from the database');
+          res.status(200).json(result); // Use data2 instead of result
+      }
+  });
+});
+
+app.get('/getMentor', (req, res) => {
+  let userId = req.query.userId;
+  const checkQuery = 'SELECT m.id AS mentor_id, u.id AS user_id\
+                      FROM Mentors AS m\
+                      JOIN Users AS u\
+                      ON u.id = m.user_id\
+                      WHERE u.id = ?;';
+  
+
+  con.query(checkQuery, [userId], (err, result) => {
+      if (err) {
+          console.error('Error fetching mentor data: ' + err);
+          res.status(500).send('Error fetching mentees');
+      } else {
+          console.log('Fetched mentor data from the database');
           res.status(200).json(result); // Use data2 instead of result
       }
   });

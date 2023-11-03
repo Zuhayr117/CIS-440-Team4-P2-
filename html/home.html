@@ -5,10 +5,11 @@
     <title>Marina - Home</title>
     <link rel="stylesheet" type="text/css" href="../css/home.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../js/home.js"></script>
 </head>
 
-<body onload="getRelationships()">
+<body>
       <nav id="navbar" class="navbar">
         <a class="nav-item active" href="#">
             <img src="../images/active-home.jpeg" alt="home link">
@@ -110,38 +111,42 @@
                 </ul>
         </div>
     </div>
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contact Popup</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
-    </head>
-    <body>
-        <!-- Contact button -->
-        <button id="contactBtn">Contact</button>
-    
-        <!-- Popup Modal -->
-        <div id="popupModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Contact Form</h2>
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate"><br><br>
-    
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate"><br><br>
-    
-                <label for="mentees">Mentees:</label>
-                <select id="mentees">
-                    <option value="mentee1">Mentee 1</option>
-                    <option value="mentee2">Mentee 2</option>
-                    <!-- Add other options as required -->
-                </select>
-            </div>
-        </div>
-    </body>
-    </html>
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+        <div id="modalContent" class="modal-content">
+            <span class="close">&times;</span>
+            <form id="newMentorshipForm">
+            <h2>Initiate Mentorship Form</h2>
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <label for="startDate">Start Date:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="startDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endDate">End Date:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="endDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="menteesRegistered">Mentee:</label>
+                    </td>
+                    <td>
+                        <select id="menteesRegistered">
+                            <option value="0" selected>Select a Mentee...</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button id="newMentorshipButton" type="button" onclick="addMentorship(this.form)">Initiate Mentorship</button>
+        </form>
+    </div>
+</html>

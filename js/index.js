@@ -96,7 +96,7 @@ function addUser() {
         return;
     }
     // Create an object to send in the POST request
-    var newRow = {
+    let newRow = {
         user_name: newName,
         user_username: newUsername,
         user_password: newPassword,
