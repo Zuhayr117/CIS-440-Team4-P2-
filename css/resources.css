@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1 {
+    text-align: center;
+    background-color: rgba(0, 123, 255, 0.5);
+    margin: 0;
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1.75em;
+}
+
+.navbar {
+    position: sticky;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    float: left;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+    padding: 10px;
+    float: left;
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 5vh;
+}
+
+.nav-item p {
+    font-size: 1em;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.active {
+    color: #333333;
+}
+
+nav button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 5em;
+    width: 10vw;
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+    float: right;
+}
+
+nav button:hover {
+    background-color: #0056b3;
+}
+
+li a, li a:visited {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+}
+
+li a:hover {
+    cursor: pointer;
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+li {
+    list-style: disc;
+    margin-top: 10px;
+}
+
+p {
+    text-indent: 1.5em;
+    line-height: 2em;
+}
+
+div {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 0;
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+    line-height: 2em;
+}
+
+div p {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#stepsAndResources {
+    width: 80vw;
+    margin-bottom: 10px;
+}
+
+#aboutUs {
+    margin-right: 10px;
+    width: 98.75vw;
+}
+
+#links {
+    width: 18vw;
+}
