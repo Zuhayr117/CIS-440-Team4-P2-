@@ -250,6 +250,39 @@ app.get('/getMentor', (req, res) => {
   });
 });
 
+app.get('/getTopFiveMentees', (req, res) => {
+  const query = 'SELECT u.name, m.points FROM Users AS u \
+    JOIN Mentees AS m ON u.id = m.user_id \
+    ORDER BY m.points DESC, u.name ASC \
+    LIMIT 5';
+
+  con.query(query, (err, result) => {
+      if (err) {
+          console.error('Error fetching top 5 mentees data: ' + err);
+          res.status(500).send('Error fetching mentees');
+      } else {
+          console.log('Fetched top 5 mentees data from the database');
+          res.status(200).json(result);
+      }
+  });
+});
+
+app.get('/getTopFiveMentors', (req, res) => {
+  const query = 'SELECT u.name, m.points FROM Users AS u \
+    JOIN Mentors AS m ON u.id = m.user_id \
+    ORDER BY m.points DESC, u.name ASC \
+    LIMIT 5';
+
+  con.query(query, (err, result) => {
+      if (err) {
+          console.error('Error fetching top 5 mentors data: ' + err);
+          res.status(500).send('Error fetching mentors');
+      } else {
+          console.log('Fetched top 5 mentors data from the database');
+          res.status(200).json(result);
+      }
+  });
+});
 
 app.post('/setTask', (req, res) => {
     const data = req.body;

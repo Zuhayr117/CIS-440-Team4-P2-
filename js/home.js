@@ -1,3 +1,35 @@
+function populateLeaderboardComponent(data, id) {
+    let roleContainer = document.getElementById(id);
+    for (let i = 0; i < data.length; i++) {
+        let userLeader = document.createElement("li");
+        userLeader.innerHTML = `${data[i].name}: ${data[i].points} point(s)`;
+        roleContainer.appendChild(userLeader);
+    }
+}
+
+/// function to set up leaderboard
+async function populateLeaderboard() {
+    console.log("inside populateLeaderboard");
+    try {
+        let response = await fetch(`/getTopFiveMentees`);
+        if (response.ok) {
+            let data = await response.json();
+            console.log("top mentees");
+            console.log(data);
+            populateLeaderboardComponent(data, "topFiveMentees");
+        }
+        response = await fetch(`/getTopFiveMentors`);
+        if (response.ok) {
+            let data = await response.json();
+            console.log("top mentors");
+            console.log(data);
+            populateLeaderboardComponent(data, "topFiveMentors");
+        }
+    } catch (err) {
+        console.error('Error fetching data:', error);
+    }
+}
+
 /// function to get tasks and their saved data from mysql
 async function getTasks(relationshipId) {
     try {
@@ -331,7 +363,7 @@ async function initializeRoadmap(relationshipId) {
             roadMapQ3.style.display = 'none';
             roadMapQ4.style.display = 'none';
             // change colors
-            console.log("currentQuarter: ", currentQuarter);
+            //console.log("currentQuarter: ", currentQuarter);
             switch (currentQuarter) {
                 case 3:
                     roadMapInfoDiv = document.getElementById("roadMap-q3");
@@ -501,3 +533,4 @@ function setDropdown(value) {
 
 document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
 document.addEventListener("DOMContentLoaded", getRelationships(-1));
+document.addEventListener("DOMContentLoaded", populateLeaderboard);
