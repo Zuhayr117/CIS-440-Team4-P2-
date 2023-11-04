@@ -345,3 +345,36 @@ float: right;
     margin: auto;
     margin-top: 50px;
 }
+
+
+[id^="task-up-"] {
+   height: 3vh !important;
+   width: 3vh !important;
+   float: right !important;
+   margin: auto !important;
+   line-height: 0 !important;
+   text-align: center !important;
+   font-size: medium !important;
+   
+}
+
+[id^="task-down-"] {
+    height: 3vh !important;
+   width: 3vh !important;
+   float: right !important;
+   margin: auto !important;
+   line-height: 0 !important;
+   text-align: center !important;
+   font-size: medium !important;
+}
+
+
+[id^="task-x-"] {
+    height: 3vh !important;
+    width: 3vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
