@@ -101,7 +101,7 @@ p {
 }
 
 div {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     padding: 0;
     margin-left: 10px;

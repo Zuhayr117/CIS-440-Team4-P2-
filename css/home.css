@@ -51,8 +51,14 @@ img {
     color: #333333;
 }
 
+
+#taskListId {
+    text-align: center;
+}
+
 #taskListId li {
     list-style: none;
+    text-align: left;
 }
 
 nav button, #progress button, #newMentorshipButton {
@@ -158,6 +164,8 @@ h4 {
     float: right;
     width: calc(100% - 279px);
     height: 86vh;
+    overflow: none;
+    margin-bottom: 10px;
     margin-right: 10px;
     margin-left: 0;
     padding: 0;
@@ -170,11 +178,11 @@ h4 {
     display: none;
 }
 
-#reminders div:hover #roadMap-q1,
-#reminders div:hover #roadMap-q2,
-#reminders div:hover #roadMap-q3,
-#reminders div:hover #roadMap-q4 {
-    display: block;
+#roadMap-1:hover #roadMap-q1,
+#roadMap-2:hover #roadMap-q2,
+#roadMap-3:hover #roadMap-q3,
+#roadMap-4:hover #roadMap-q4 {
+    display: block !important;;
 }
 
 .progress-meter {
@@ -218,6 +226,13 @@ label {
 
 #tasks-container {
     float: left;
+    overflow: scroll;
+    max-height: 60vh;
+    min-width: 450px;
+    background-color: lightgray;
+    border-radius: 20px;
+    margin-left: 5px;
+    padding: 10px;
 }
 
 #logout {
@@ -233,6 +248,7 @@ float: right;
 #relationshipOptions, #relationshipDropdown {
     background-color: rgba(0, 123, 255, 0.5);
     font-size: 1em;
+    border-radius: 5px 5px 0 0;
 }
 #relationshipDropdown {
     background-color: transparent;

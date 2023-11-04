@@ -1,3 +1,5 @@
+var currentRoadmap = "";
+
 function populateLeaderboardComponent(data, id) {
     let roleContainer = document.getElementById(id);
     for (let i = 0; i < data.length; i++) {
@@ -66,7 +68,7 @@ async function getTasks(relationshipId) {
                 // Finally, initialize the progress bar
                 updateProgressBar();
             } else {
-                taskListBox.innerHTML = "No tasks assigned.";
+                taskListBox.innerHTML = "No assigned tasks.";
                 taskListBox.style.marginLeft = "20px";
                 taskListBox.style.marginTop = "20px";
 
@@ -346,51 +348,44 @@ async function initializeRoadmap(relationshipId) {
             const roadMap3 = document.getElementById('roadMap-3');
             const roadMap4 = document.getElementById('roadMap-4');
 
-            const roadMapQ1 = document.getElementById('roadMap-q1');
-            const roadMapQ2 = document.getElementById('roadMap-q2');
-            const roadMapQ3 = document.getElementById('roadMap-q3');
-            const roadMapQ4 = document.getElementById('roadMap-q4');
-
             // Set background color for roadMap-1, roadMap-2, roadMap-3, roadMap-4
             roadMap1.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
             roadMap2.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
             roadMap3.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
             roadMap4.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
-
-            // Set display style for roadMap-q1, roadMap-q2, roadMap-q3, roadMap-q4
-            roadMapQ1.style.display = 'none';
-            roadMapQ2.style.display = 'none';
-            roadMapQ3.style.display = 'none';
-            roadMapQ4.style.display = 'none';
             // change colors
-            //console.log("currentQuarter: ", currentQuarter);
+            console.log("currentQuarter: ", currentQuarter);
+            if (currentRoadmap != "") {
+                currentRoadmap.style.display = "none";
+                currentRoadmap.addEventListener('mouseover', function () {
+                    this.style.display = "block";
+                });
+                currentRoadmap.addEventListener('mouseout', function () {
+                    this.style.display = "none";
+                });
+            }
             switch (currentQuarter) {
                 case 3:
                     roadMapInfoDiv = document.getElementById("roadMap-q3");
-                    roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-3");
-                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
                     break;
                 case 2:
                     roadMapInfoDiv = document.getElementById("roadMap-q2")
-                    roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-2");
-                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
                     break;
                 case 1:
                 case 0:
                     roadMapInfoDiv = document.getElementById("roadMap-q1")
-                    roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-1");
-                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
                     break;
                 case 4:
                 default:
                     roadMapInfoDiv = document.getElementById("roadMap-q4")
-                    roadMapInfoDiv.style.display = "block";
                     roadMapColorDiv = document.getElementById("roadMap-4");
-                    roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
             }
+            currentRoadmap = roadMapInfoDiv
+            roadMapInfoDiv.style.display = "block";
+            roadMapColorDiv.style.backgroundColor = "rgba(0, 123, 255, .8)";
 
         }
     } catch (error) {
@@ -530,6 +525,14 @@ function setDropdown(value) {
         }
     }
 }
+
+const roadMapQElements = document.querySelectorAll('.roadMap-q');
+
+roadMapQElements.forEach((roadMapQ) => {
+    roadMapQ.addEventListener('mouseout', () => {
+        roadMapQ.style.display = 'none'; // Reset the display style to none
+    });
+});
 
 document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
 document.addEventListener("DOMContentLoaded", getRelationships(-1));
