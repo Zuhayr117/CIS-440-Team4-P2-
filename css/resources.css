@@ -116,6 +116,11 @@ div p {
     margin-bottom: 10px;
 }
 
+ul li {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
 #stepsAndResources {
     width: 80vw;
     margin-bottom: 10px;
