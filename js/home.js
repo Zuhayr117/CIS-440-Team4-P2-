@@ -1,4 +1,39 @@
-var currentRoadmap = "";
+var currentRoadmap = ""; //global variable for roadmap functionality
+
+function moveTaskUp(taskElement) {
+    const previousTask = taskElement.previousElementSibling;
+    if (previousTask) {
+        taskElement.parentNode.insertBefore(taskElement, previousTask);
+    }
+}
+
+function moveTaskDown(taskElement) {
+    const nextTask = taskElement.nextElementSibling;
+    if (nextTask) {
+        taskElement.parentNode.insertBefore(nextTask, taskElement);
+    }
+}
+
+function deleteTask(taskElement) {
+    // You can remove the task from the DOM
+    taskElement.parentNode.removeChild(taskElement);
+
+    // Optionally, make an API call to delete the task from the server
+    const taskId = taskElement.id; // Extract the task ID
+    fetch(`/deleteTask?id=${taskId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log(`Task with ID ${taskId} deleted successfully.`);
+        } else {
+            console.error(`Error deleting the task with ID ${taskId}.`);
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
+}
 
 function populateLeaderboardComponent(data, id) {
     let roleContainer = document.getElementById(id);
@@ -48,6 +83,33 @@ async function getTasks(relationshipId) {
             if (tasks.length > 0) {
                 for (let i = 0; i < tasks.length; i++) {
                     let taskList = document.createElement('li');
+
+                    // up button that changes position of items
+                    let moveUpButton = document.createElement('button');
+                    moveUpButton.innerHTML = '↑';
+                    moveUpButton.setAttribute("id", "task-up-" + tasks[i]["id"]);
+                    moveUpButton.addEventListener('click', function() {
+                        moveTaskUp(this.parentNode);
+                    });
+
+                    // down button that changes position of items
+                    let moveDownButton = document.createElement('button');
+                    moveDownButton.innerHTML = '↓';
+                    moveDownButton.setAttribute("id", "task-down-" + tasks[i]["id"]);
+                    moveDownButton.addEventListener('click', function() {
+                        moveTaskDown(this.parentNode);
+                    });
+
+                    // X button to delete tasks
+                    let deleteButton = document.createElement('button');
+                    deleteButton.innerHTML = 'X';
+                    deleteButton.setAttribute("id", "task-x-" + tasks[i]["id"]);
+                    deleteButton.addEventListener('click', function() {
+                    deleteTask(this.parentNode);
+                    });
+
+
+
                     let taskInput = document.createElement('input');
                     taskInput.type = "checkbox";
                     taskInput.checked = tasks[i]["complete"] > 0;
@@ -59,10 +121,20 @@ async function getTasks(relationshipId) {
                     let taskLabel = document.createElement('label');
                     taskLabel.innerHTML = tasks[i]["info"];
                     taskLabel.setAttribute("for", "task-item-" + tasks[i]["id"]);
-    
+                    
+                    // to save up down movement
+                    taskList.appendChild(moveUpButton);
+                    taskList.appendChild(moveDownButton);
+                   
+                    // to delete button                    
+                    taskList.appendChild(deleteButton);
+                    
+
                     taskList.appendChild(taskInput);
                     taskList.appendChild(taskLabel);
                     taskListBox.appendChild(taskList);
+
+                    
                 }
     
                 // Finally, initialize the progress bar

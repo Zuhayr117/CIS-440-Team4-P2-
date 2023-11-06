@@ -361,38 +361,51 @@ app.post('/setTask', (req, res) => {
             return res.status(500).json({ error: 'Error updating goal' });
         }
 
-        if (currentComplete === 1) {
-            // Get the current date
-            const current_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-            // Update the complete_date column with the formatted date
-            const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
-            const dateParams = [current_date, result.insertId];
 
-            con.query(updateDateQuery, dateParams, (dateErr, dateResult) => {
-                if (dateErr) {
-                    console.error('Error adding goal complete_date: ' + dateErr);
-                    return res.status(500).json({ error: 'Error adding goal complete_date' });
-                }
 
-                return res.json({ message: 'Task added successfully' });
-            });
+ // Function to update complete_date or clear it
+ const updateCompleteDate = (taskId, completeStatus) => {
+    const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
+    const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
+
+    const dateParams = [currentDate, taskId];
+
+    const query = completeStatus === 1 ? updateDateQuery : clearDateQuery;
+    con.query(query, dateParams, (dateErr, dateResult) => {
+        if (dateErr) {
+            console.error(`Error ${completeStatus ? 'adding' : 'clearing'} goal complete_date: ${dateErr}`);
+            return res.status(500).json({ error: `Error ${completeStatus ? 'adding' : 'clearing'} goal complete_date` });
+        }
+
+        return res.json({ message: 'Task added successfully' });
+    });
+};
+    });
+});
+
+
+app.delete('/deleteTask', (req, res) => {
+    const taskId = req.query.id; // Extract the task ID from the query parameter
+
+    // Here, you can write code to delete the task with the given ID from your database
+    // For example, if you are using a database like MySQL, you would use a DELETE SQL query.
+    // Make sure to handle any errors appropriately and send the response back.
+
+    // Sample MySQL query to delete a task (using the 'mysql' library):
+    con.query('DELETE FROM Goals WHERE id = ?', taskId, (error, results) => {
+        if (error) {
+            console.error('Error deleting task:', error);
+            res.status(500).json({ error: 'An error occurred while deleting the task.' });
         } else {
-            // Set complete_date to NULL
-            const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
-            const clearDateParams = [result.insertId];
-
-            con.query(clearDateQuery, clearDateParams, (clearDateErr, clearDateResult) => {
-                if (clearDateErr) {
-                    console.error('Error clearing goal complete_date: ' + clearDateErr);
-                    return res.status(500).json({ error: 'Error clearing goal complete_date' });
-                }
-
-                return res.json({ message: 'Task added successfully' });
-            });
+            res.status(200).json({ message: 'Task deleted successfully.' });
         }
     });
 });
+
+
 
 // Define other routes and handlers as needed
 app.use(express.static(__dirname));
