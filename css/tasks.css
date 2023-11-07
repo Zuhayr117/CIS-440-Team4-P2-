@@ -1,6 +1,77 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
 }
+
+h2 {
+    text-align: center;
+}
+
+.navbar {
+    position: sticky;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    float: left;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+    padding: 10px;
+    float: left;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 5vh;
+}
+
+.nav-item p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.active {
+    color: #333333;
+}
+
+nav button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 5em;
+    width: 10vw;
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+    float: right;
+}
+
+nav button:hover {
+    background-color: #0056b3;
+}
+
+/* original */
 tbody{
     display: block;
     margin-left: auto;
@@ -13,8 +84,9 @@ tbody{
 }
 
 .left{
-float: left;
-
+    float: left;
+    margin-left: 25%;
+    margin-top: 10px;
 }
 
 .right{
@@ -24,10 +96,9 @@ float: right;
 
 
 #taskDiv {
-    margin: auto;
+    /*margin: auto;*/
     width: 50%;
     padding: 20px;
-    border: 3px solid #2694ab;
     border-radius: 15px;
     text-align: center;
 }
