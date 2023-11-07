@@ -162,7 +162,7 @@ h4 {
 
 #progress {
     float: right;
-    width: calc(100% - 300px);
+    width: calc(100% - 310px);
     height: 86vh;
     overflow: none;
     margin-bottom: 10px;
