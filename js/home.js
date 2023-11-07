@@ -46,20 +46,20 @@ function populateLeaderboardComponent(data, id) {
 
 /// function to set up leaderboard
 async function populateLeaderboard() {
-    console.log("inside populateLeaderboard");
+    //console.log("inside populateLeaderboard");
     try {
         let response = await fetch(`/getTopFiveMentees`);
         if (response.ok) {
             let data = await response.json();
-            console.log("top mentees");
-            console.log(data);
+            /*console.log("top mentees");
+            console.log(data);*/
             populateLeaderboardComponent(data, "topFiveMentees");
         }
         response = await fetch(`/getTopFiveMentors`);
         if (response.ok) {
             let data = await response.json();
-            console.log("top mentors");
-            console.log(data);
+            /*console.log("top mentors");
+            console.log(data);*/
             populateLeaderboardComponent(data, "topFiveMentors");
         }
     } catch (err) {
@@ -74,6 +74,8 @@ async function getTasks(relationshipId) {
         let response = await fetch(`/getGoals?relationship_id=${relationshipId}`);
         if (response.ok) {
             let data = await response.json();
+            console.log("printing tasks:");
+            console.log(data);
             // Process the data and update your DOM as needed
             let tasks = data;
             let taskListBox = document.getElementById('taskListId');
@@ -108,8 +110,6 @@ async function getTasks(relationshipId) {
                     deleteTask(this.parentNode);
                     });
 
-
-
                     let taskInput = document.createElement('input');
                     taskInput.type = "checkbox";
                     taskInput.checked = tasks[i]["complete"] > 0;
@@ -129,12 +129,20 @@ async function getTasks(relationshipId) {
                     // to delete button                    
                     taskList.appendChild(deleteButton);
                     
+                    // add color functionality
+                    // TODO color
+                    //let response2 = await fetch(`/getRole?user_id=${currentUserId}`);
+                    console.log("printing created by:");
+                    console.log(tasks[i]["created_by"]);
+                    if (tasks[i]["created_by"] == "mentor") {
+                        taskLabel.style.color = "#007bff";
+                    } else if (tasks[i]["created_by"] == "mentee") {
+                        taskLabel.style.color = "green";
+                    }
 
                     taskList.appendChild(taskInput);
                     taskList.appendChild(taskLabel);
                     taskListBox.appendChild(taskList);
-
-                    
                 }
     
                 // Finally, initialize the progress bar
@@ -421,7 +429,7 @@ async function initializeRoadmap(relationshipId) {
             roadMap3.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
             roadMap4.style.backgroundColor = 'rgba(0, 123, 255, 0.5)';
             // change colors
-            console.log("currentQuarter: ", currentQuarter);
+            //console.log("currentQuarter: ", currentQuarter);
             if (currentRoadmap != "") {
                 currentRoadmap.style.display = "none";
                 currentRoadmap.addEventListener('mouseover', function () {
@@ -556,7 +564,6 @@ async function addMentorship(form) {
                         data: JSON.stringify(newRow), // Convert the JavaScript object to JSON
                         success: function (response) {
                             console.log("New mentorship added to the database");
-                            //TODO change currentRelationshipId and switch to tasks.html
                             let modal = document.getElementById('popupModal');
                             modal.style.display = "none";
                             console.log(response);
