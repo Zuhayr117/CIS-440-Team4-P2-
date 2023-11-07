@@ -198,8 +198,12 @@ app.get('/getGoals', (req, res) => {
   const stored_id = req.query.relationship_id;
   //console.log("stored_id: ", stored_id);
 
-  const checkQuery = 'SELECT * FROM Goals WHERE \
-                      relationship_id = ? ORDER BY priority;';
+  const checkQuery = 'SELECT g.id, g.relationship_id, g.priority, \
+                      g.info, g.complete, g.deadline_date, g.complete_date, \
+                      u.role AS created_by FROM Goals AS g\
+                      LEFT JOIN Users AS u ON g.created_by = u.id\
+                      WHERE relationship_id = ? \
+                      ORDER BY priority';
 
   con.query(checkQuery, [stored_id], (err, result) => {
       if (err) {
