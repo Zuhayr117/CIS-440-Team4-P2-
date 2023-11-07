@@ -74,8 +74,8 @@ async function getTasks(relationshipId) {
         let response = await fetch(`/getGoals?relationship_id=${relationshipId}`);
         if (response.ok) {
             let data = await response.json();
-            console.log("printing tasks:");
-            console.log(data);
+            /*console.log("printing tasks:");
+            console.log(data);*/
             // Process the data and update your DOM as needed
             let tasks = data;
             let taskListBox = document.getElementById('taskListId');
@@ -132,8 +132,8 @@ async function getTasks(relationshipId) {
                     // add color functionality
                     // TODO color
                     //let response2 = await fetch(`/getRole?user_id=${currentUserId}`);
-                    console.log("printing created by:");
-                    console.log(tasks[i]["created_by"]);
+                    /*console.log("printing created by:");
+                    console.log(tasks[i]["created_by"]);*/
                     if (tasks[i]["created_by"] == "mentor") {
                         taskLabel.style.color = "#007bff";
                     } else if (tasks[i]["created_by"] == "mentee") {
