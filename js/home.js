@@ -322,11 +322,6 @@ async function getRelationships(selectedId) {
         console.log("selectedId not 0");
         setDropdown(selectedId);
         localStorage.setItem("currentRelationshipId", selectedId);
-        let confirmationMessage = `Would you like to set up tasks for this mentorship now?`;
-        let confirm = window.confirm(confirmationMessage);
-        if(confirm) {
-            window.location.href = "./tasks.html";
-        }
     }
     let relationshipId = localStorage.getItem("currentRelationshipId");
     getTasks(relationshipId);
