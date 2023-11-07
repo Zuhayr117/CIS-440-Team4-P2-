@@ -233,6 +233,7 @@ label {
     border-radius: 20px;
     margin-left: 5px;
     padding: 10px;
+    padding-right: 30px;
 }
 
 #logout {
@@ -382,6 +383,10 @@ float: right;
    line-height: 0 !important;
    text-align: center !important;
    font-size: medium !important;
+}
+
+#taskListId li label {
+    margin-right: 10px;
 }
 
 
