@@ -129,11 +129,7 @@ async function getTasks(relationshipId) {
                     // to delete button                    
                     taskList.appendChild(deleteButton);
                     
-                    // add color functionality
-                    // TODO color
-                    //let response2 = await fetch(`/getRole?user_id=${currentUserId}`);
-                    /*console.log("printing created by:");
-                    console.log(tasks[i]["created_by"]);*/
+                    // add task color functionality
                     if (tasks[i]["created_by"] == "mentor") {
                         taskLabel.style.color = "#007bff";
                     } else if (tasks[i]["created_by"] == "mentee") {
@@ -269,11 +265,10 @@ function hideProgress(role) {
     noRelationshipsElement.style.display = "block";
 }
 
-function showProgress(role) {
-    // TODO create after initiate relationships function complete
+function showProgress() {
     let progressChildren = document.getElementById("progress").children;
     console.log(progressChildren);
-    // To hide child elements
+    // To show child elements
     for (var i = 0; i < progressChildren.length; i++) {
         progressChildren[i].style.display = "block";
     }
@@ -326,12 +321,16 @@ async function getRelationships(selectedId) {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    let relationshipId = localStorage.getItem("currentRelationshipId");
     if (selectedId > 0) {
         console.log("selectedId not 0");
         setDropdown(selectedId);
         localStorage.setItem("currentRelationshipId", selectedId);
+        showProgress();
+        document.getElementById("mentorNoRelationships").style.display = "none";
+        document.getElementById("menteeNoRelationships").style.display = "none";
+        relationshipId = selectedId;
     }
-    let relationshipId = localStorage.getItem("currentRelationshipId");
     getTasks(relationshipId);
     initializeRoadmap(relationshipId);
 }
@@ -566,9 +565,9 @@ async function addMentorship(form) {
                             console.log("New mentorship added to the database");
                             let modal = document.getElementById('popupModal');
                             modal.style.display = "none";
-                            console.log(response);
+                            //console.log(response);
                             let newRelationshipId = response.lastId;
-                            console.log(newRelationshipId);
+                            //console.log(newRelationshipId);
                             getRelationships(newRelationshipId);
                         },
                         error: function (error) {
