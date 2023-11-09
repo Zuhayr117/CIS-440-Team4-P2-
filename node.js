@@ -196,6 +196,7 @@ app.get('/getRelationships', (req, res) => {
 
 app.get('/getGoals', (req, res) => {
   const stored_id = req.query.relationship_id;
+  const goal_id = req.query.relationship_id; // send this to delete task function
   //console.log("stored_id: ", stored_id);
 
   const checkQuery = 'SELECT g.id, g.relationship_id, g.priority, \
@@ -205,7 +206,7 @@ app.get('/getGoals', (req, res) => {
                       WHERE relationship_id = ? \
                       ORDER BY priority';
 
-  con.query(checkQuery, [stored_id], (err, result) => {
+  con.query(checkQuery, [stored_id, goal_id], (err, result) => {
       if (err) {
           console.error('Error fetching relationships: ' + err);
           res.status(500).send('Error fetching relationships');
@@ -424,6 +425,7 @@ app.post('/setTask', (req, res) => {
 
 
 app.delete('/deleteTask', (req, res) => {
+  console.log('Delete Task route called.');
     const taskId = req.query.id; // Extract the task ID from the query parameter
 
     // Here, you can write code to delete the task with the given ID from your database

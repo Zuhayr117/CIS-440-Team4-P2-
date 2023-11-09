@@ -14,12 +14,12 @@ function moveTaskDown(taskElement) {
     }
 }
 
-function deleteTask(taskElement) {
+function deleteTask(taskElement, goalId) {
     // You can remove the task from the DOM
     taskElement.parentNode.removeChild(taskElement);
 
     // Optionally, make an API call to delete the task from the server
-    const taskId = taskElement.id; // Extract the task ID
+    const taskId = goalId; // Extract the task ID
     fetch(`/deleteTask?id=${taskId}`, {
         method: 'DELETE'
     })
@@ -79,7 +79,6 @@ async function getTasks(relationshipId) {
             // Process the data and update your DOM as needed
             let tasks = data;
             let taskListBox = document.getElementById('taskListId');
-            
             // Clear the taskListBox before adding new tasks
             taskListBox.innerHTML = "";
             if (tasks.length > 0) {
@@ -103,11 +102,12 @@ async function getTasks(relationshipId) {
                     });
 
                     // X button to delete tasks
+                    let  goalId = data.goalId;
                     let deleteButton = document.createElement('button');
                     deleteButton.innerHTML = 'X';
                     deleteButton.setAttribute("id", "task-x-" + tasks[i]["id"]);
                     deleteButton.addEventListener('click', function() {
-                    deleteTask(this.parentNode);
+                    deleteTask(this.parentNode, goalId);
                     });
 
                     let taskInput = document.createElement('input');
