@@ -41,6 +41,11 @@ function logInUser() {
     });
 }
 
+function showSignUp() {
+    $("#signupvis").css("display", "block");
+    $("#divider").css("display", "block");
+}
+
 function validateForm() {
     let inputItems = [];
     inputItems.push(document.getElementById("newName"));
@@ -111,9 +116,13 @@ function addUser() {
         data: JSON.stringify(newRow), // Convert the JavaScript object to JSON
         success: function (response) {
             console.log("New row added to the database");
-            $("#signUpStatus").text("Account created. Proceed to login.");
-            $("#signUpStatus").css("color", "#00A000");
-            $("#signUpStatus").css("visibility", "visible");
+            $("#loginStatus").text("Account created. Proceed to login.");
+            $("#loginStatus").css("color", "#00A000");
+            $("#loginStatus").css("visibility", "visible");
+            $("#signupvis").css("display", "none");
+            $("#newName").text("");
+            $("#newUsername").text("");
+            $("#newPassword").text("");
         },
         error: function (error) {
             console.error("Error adding a new row: " + error.responseText);
