@@ -399,3 +399,7 @@ float: right;
     text-align: center !important;
     font-size: medium !important;
 }
+
+button:disabled {
+    background-color: red;
+}
