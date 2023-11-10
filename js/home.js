@@ -231,10 +231,13 @@ function updateProgressBar() {
 
 function updateTaskButtonsDisabled(parent, bool, upBool = false)
 {
-    
     //console.log(parent);
     let buttonChildren = parent.querySelectorAll("button");
     if (upBool) {
+        buttonChildren.forEach(function(element) {
+            element.removeAttribute("style");
+            element.disabled = !bool;
+        });
         console.log("inside upBool");
         upButton = buttonChildren[0];
         console.log(upButton);
@@ -242,8 +245,10 @@ function updateTaskButtonsDisabled(parent, bool, upBool = false)
         upButton.disabled = bool;
         return;
     }
-    /*console.log(buttonChildren);*/
+    console.log(buttonChildren);
     buttonChildren.forEach(function(element) {
+        console.log("forEach");
+        console.log (element);
         if (bool) {
             element.style.backgroundColor = "gray";
         }
@@ -251,7 +256,7 @@ function updateTaskButtonsDisabled(parent, bool, upBool = false)
             element.removeAttribute("style");
         }
         element.disabled = bool;
-    })
+    });
 }
 
 function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
