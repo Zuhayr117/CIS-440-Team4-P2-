@@ -107,7 +107,7 @@ async function getTasks(relationshipId) {
                     deleteButton.innerHTML = 'X';
                     deleteButton.setAttribute("id", "task-x-" + tasks[i]["id"]);
                     deleteButton.addEventListener('click', function() {
-                    deleteTask(this.parentNode, goalId);
+                    deleteTask(this.parentNode, (i+1));
                     });
 
                     let taskInput = document.createElement('input');
