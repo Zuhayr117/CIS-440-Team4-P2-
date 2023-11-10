@@ -4,6 +4,7 @@ body {
   background-image: url("/images/login.jpg");
   background-size: cover;
   background-attachment: fixed;
+  font-family: Arial, sans-serif;
 }
 
 img {
@@ -23,6 +24,10 @@ hr {
 h3 {
   text-align: left;
   margin: 0;
+}
+
+#signupvis, hr {
+  display: none;
 }
 
 /* Style the login and signup buttons */
