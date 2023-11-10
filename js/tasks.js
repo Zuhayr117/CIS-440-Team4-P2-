@@ -38,6 +38,9 @@
 
 
 
+
+
+
 function unhide(){
     document.getElementById('taskAdd').style.visibility = 'visible';
 }
@@ -159,7 +162,7 @@ const relationshipId = localStorage.getItem("currentRelationshipId");
       //option 4
     case "Custom":
       document.getElementById('unhide').style.visibility = 'visible';
-       console.log("Handling Custom");
+       console.log("Allow Custom");
       break;
 
       //option5
@@ -172,7 +175,7 @@ const relationshipId = localStorage.getItem("currentRelationshipId");
 
 
 
-function addCustomTaskButton(){
+function addCustomTaskButton(form){
   //date info
 // Create a Date object for today
 console.log("Inside addCustomTaskButton");
@@ -228,11 +231,3 @@ let currentUserId = userInfoObject[0].id;
         console.error("Fetch error:", error);
       });
   }
-
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  addCustomTaskButton();
-});
-
-
