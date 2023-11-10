@@ -84,7 +84,6 @@ async function getTasks(relationshipId) {
             // Process the data and update your DOM as needed
             let tasks = data;
             let taskListBox = document.getElementById('taskListId');
-            
             // Clear the taskListBox before adding new tasks
             taskListBox.innerHTML = "";
             if (tasks.length > 0) {
@@ -111,12 +110,13 @@ async function getTasks(relationshipId) {
                     });
 
                     // X button to delete tasks
+                    let  goalId = data.goalId;
                     let deleteButton = document.createElement('button');
                     deleteButton.innerHTML = 'X';
                     deleteButton.setAttribute("id", "task-x-" + tasks[i]["id"]);
                     deleteButton.setAttribute("type", "button");
                     deleteButton.addEventListener('click', function() {
-                    deleteTask(this.parentNode);
+                    deleteTask(this.parentNode, (i+1));
                     });
 
                     let taskInput = document.createElement('input');

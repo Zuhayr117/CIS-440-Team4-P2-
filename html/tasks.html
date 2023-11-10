@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
     <link rel="stylesheet" type="text/css" href="../css/tasks.css">
-    <script src="../js/tasks.js"></script>
+    <script type="text/javascript"  src="../js/tasks.js"></script>
+    <script type="text/javascript"  src="../js/tasks.js" defer></script>
 </head>
 <body>
     <nav id="navbar" class="navbar">
@@ -54,7 +55,7 @@
 
         <br>
         <div id="taskAdd" class="center left">
-        <form id="taskForm">
+        <form id="taskForm" onsubmit="addCustomTaskButton()">
             <h1>Custom Task</h1>
             <table id="table">
         <tr>
@@ -86,7 +87,7 @@
             <br> 
           
         </table>
-        <button type="submit" id="addCustomTaskButton" class="center" onclick="addCustomTaskButton()">Add Custom Task</button>
+        <button type="submit" id="addCustomTaskButton" class="center" onclick="addCustomTaskButton(this.Form)">Add Custom Task</button>
           </form>
           
         </div>
