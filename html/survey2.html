@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Feedback Form</title>
+</head>
+
+<style>
+    body{
+        text-align: center;
+    }
+    #prompt{
+        display: flex;
+        margin: auto;
+        border: solid;  
+        width: 500px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+    #mentee_survey {
+         float: left;
+         width: 48%;
+         border: 1px solid grey;
+         box-sizing: border-box;
+         padding: 15px;
+         border-radius: 15px;
+         
+     }
+ 
+     #mentor_survey {
+         float: right;
+         width: 48%;
+         border: 1px solid grey;
+         box-sizing: border-box;
+         padding: 15px;
+         border-radius: 15px;
+         
+     }
+ 
+     .clearfix::after {
+         content: "";
+         display: table;
+         clear: both;
+     }
+ 
+</style>
+
+<body>
+
+
+    <h1>Feedback Survey</h1>
+    <p id="prompt">
+        Your feedback is invaluable to us at Marina, as we are dedicated to enhancing the 
+        experiences of both our mentors and mentees.  We kindly request 
+        your participation in this short survey to help us better understand your 
+        experience with your mentor/mentee, enabling us to make continual improvements to our program.
+    </p>
+    <br>
+    <div id="intake_form">
+        <label id='name_Lbl'> Name:
+            <input type="text" id="name" name="name" placeholder="Enter name"
+            required>
+        </label> <br>
+        <label id='email_Lbl'> Email:
+            <input type="email" id="email" name="email" placeholder="Enter E-mail address"
+            required>
+        </label>
+    </div>
+    <br>
+
+
+
+    <div>
+        <h1>Mentorship Program Feedback</h1>
+        <p>Select the survey you wish to complete:</p>
+        <button onclick="showSurvey('mentor')">Mentor Survey</button>
+        <button onclick="showSurvey('mentee')">Mentee Survey</button>
+        <p>Please take a moment to provide your feedback on your experience in our mentorship program.</p>
+
+
+        <div id="mentorSurvey" style="display:none;">
+
+
+            <h1>Mentee Survey</h1>
+            <h2>Overall Satisfaction</h2>
+                <p>My mentorship expierence was valuable to me.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>I felt comfortable discussing my goals and concerns with my mentor.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>I received guidance and support that was relevant to my needs.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+            <h2>Learning and Growth</h2>
+                <p>I feel more confident in my abilities after the mentorship.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>The mentorship helped me develop new skills and knowledge.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>I have clearer understanding of my career or personal goals.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+            <h2>Feedback and Guidance</h2>
+                <p>My mentor provided constructive feedback and guidance.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>I was able to implement the advice and suggestions from my mentor.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                    <p>The information and guidance I received was valuable and helped me during my journey.</p>
+                    <form>
+                        <input type="radio" id="1" name="rating" value="1">
+                        <label for="1">1</label>
+                        <input type="radio" id="2" name="rating" value="2">
+                        <label for="2">2</label>
+                        <input type="radio" id="3" name="rating" value="3">
+                        <label for="3">3</label>
+                        <input type="radio" id="4" name="rating" value="4">
+                        <label for="4">4</label>
+                        <input type="radio" id="5" name="rating" value="5">
+                        <label for="5">5</label><br>
+                    </form>
+            <h2>Organization and Structure</h2>
+                <p>The mentorship was well-organized and structured.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>The program provided sufficient resources and supprt.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>The content and information received during the mentorship was well-paced.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+            <h2>Support and Relationship Building</h2>
+                <p>The mentorship relationship was respectful and positive.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>I feel that I was adequately supported by my mentor</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+                <p>The mentorship helped me create valuable relationships and connections.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+            
+            <h2>Future Improvement</h2>
+            <p>Please leave any comments and concerns so we can improve!</p>
+               <textarea name="commentsBox" id="cBox" cols="30" rows="10">
+               </textarea>
+               <button>submit!</button>
+            </div>
+
+        </form>
+    </div>
+
+
+
+
+        <div id="menteeSurvey" style="display:none;">
+            <h1>Mentor Survey</h1>
+            <h2>Overall Satisfaction</h2>
+                <p>My mentorship expierence was valuable to me.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>I felt comfortable discussing goals and concerns with my mentee.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>I was able to make a significant impact on my mentee's journey.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+        <h2>Learning and Growth</h2>
+            <p>I feel more confident in my abilities after the mentorship.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>The mentorship helped me develop new skills and knowledge.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>I have a clear understanding of techniques on how to assist a mentee.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+        <h2>Feedback and Guidance</h2>
+            <p>As a mentor, I was able to give solutions considering a mentee's strengths and weaknesses.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>I was able to share meaningful advice.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+                <p>This experience will help me implement changes in future mentorships.</p>
+                <form>
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label><br>
+                </form>
+        <h2>Organization and Structure</h2>
+            <p>The mentorship was well-organized and structured.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>The program provided sufficient resources and supprt.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>As a mentor, I was able to facillitate meetings and sessions in a well coordinated fashion.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+        <h2>Support and Relationship Building</h2>
+            <p>The mentorship relationship was respectful and positive.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>I feel that I was adequately supported by my mentor</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+            <p>The mentorship helped me create valuable relationships and connections.</p>
+            <form>
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5">5</label><br>
+            </form>
+        
+        <h2>Future Improvement</h2>
+        <p>Please leave any comments and concerns so we can improve!</p>
+           <textarea name="commentsBox" id="cBox" cols="30" rows="10">
+           </textarea>
+           <br>
+    
+           <button>submit!</button>
+        </div>
+
+
+    <script>
+        function showSurvey(type) {
+          var mentorSurvey = document.getElementById('mentorSurvey');
+          var menteeSurvey = document.getElementById('menteeSurvey');
+  
+          if (type === 'mentor') {
+            mentorSurvey.style.display = 'block';
+            menteeSurvey.style.display = 'none';
+          } else if (type === 'mentee') {
+            menteeSurvey.style.display = 'block';
+            mentorSurvey.style.display = 'none';
+          }
+        }
+      </script>
+
+
+</body>
+</html>

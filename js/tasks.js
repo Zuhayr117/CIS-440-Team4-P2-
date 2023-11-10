@@ -38,6 +38,9 @@
 
 
 
+
+
+
 function unhide(){
     document.getElementById('taskAdd').style.visibility = 'visible';
 }
@@ -159,7 +162,7 @@ const relationshipId = localStorage.getItem("currentRelationshipId");
       //option 4
     case "Custom":
       document.getElementById('unhide').style.visibility = 'visible';
-       console.log("Handling Custom");
+       console.log("Allow Custom");
       break;
 
       //option5
@@ -171,21 +174,17 @@ const relationshipId = localStorage.getItem("currentRelationshipId");
 }
 
 
-function addCustomTaskButton(){
+
+function addCustomTaskButton(form){
   //date info
 // Create a Date object for today
+console.log("Inside addCustomTaskButton");
+
 const today = new Date();
-// Calculate a date one month from now
-const oneMonthFromNow = new Date(today);
-oneMonthFromNow.setMonth(today.getMonth() + 1);
-// Handle edge cases where the day doesn't exist in the target month
-if (today.getDate() !== oneMonthFromNow.getDate()) {
-    // Set the day to the last day of the previous month
-    oneMonthFromNow.setDate(0);
-}
+
 // You can format the result for display if needed
 const options = { year: 'numeric', month: 'long', day: 'numeric' };
-const formattedDate = oneMonthFromNow.toLocaleDateString('en-US', options);
+const formattedDate = today.toLocaleDateString('en-US', options);
 
 // to get user info
 let currentUserInfo = localStorage.getItem("userInfo");
@@ -210,6 +209,9 @@ let currentUserId = userInfoObject[0].id;
         createdBy,
       };
     
+ console.log("Handling Custom");
+
+
       fetch('/addTask', {
         method: 'POST',
         headers: {
@@ -229,5 +231,3 @@ let currentUserId = userInfoObject[0].id;
         console.error("Fetch error:", error);
       });
   }
-
-
