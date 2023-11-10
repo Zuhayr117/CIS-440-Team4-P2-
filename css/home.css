@@ -229,7 +229,6 @@ label {
     overflow: scroll;
     max-height: 60vh;
     min-width: 450px;
-    max-width: 450px;
     background-color: lightgray;
     border-radius: 20px;
     margin-left: 25%;

@@ -1,38 +1,43 @@
 var currentRoadmap = ""; //global variable for roadmap functionality
-
+var percentTasksDone = 0;
 function moveTaskUp(taskElement) {
     const previousTask = taskElement.previousElementSibling;
     if (previousTask) {
         taskElement.parentNode.insertBefore(taskElement, previousTask);
+        updateProgressBar();
     }
 }
 
-function moveTaskDown(taskElement) {
+async function moveTaskDown(taskElement) {
     const nextTask = taskElement.nextElementSibling;
     if (nextTask) {
         taskElement.parentNode.insertBefore(nextTask, taskElement);
+        updateProgressBar();
     }
 }
 
-function deleteTask(taskElement, goalId) {
-    // You can remove the task from the DOM
-    taskElement.parentNode.removeChild(taskElement);
+async function deleteTask(taskElement) {
+    try {
+        // Remove the task from the DOM
+        taskElement.parentNode.removeChild(taskElement);
+        console.log(taskElement);
+        // Extract the task ID
+        const taskId = taskElement.id;
+        console.log(taskId);
+        // Make an API call to delete the task from the server
+        const response = await fetch(`/deleteTask?id=${taskId}`, {
+            method: 'DELETE'
+        });
 
-    // Optionally, make an API call to delete the task from the server
-    const taskId = goalId; // Extract the task ID
-    fetch(`/deleteTask?id=${taskId}`, {
-        method: 'DELETE'
-    })
-    .then(response => {
         if (response.ok) {
             console.log(`Task with ID ${taskId} deleted successfully.`);
+            updateProgressBar();
         } else {
             console.error(`Error deleting the task with ID ${taskId}.`);
         }
-    })
-    .catch(error => {
+    } catch (error) {
         console.error("Fetch error:", error);
-    });
+    }
 }
 
 function populateLeaderboardComponent(data, id) {
@@ -84,11 +89,13 @@ async function getTasks(relationshipId) {
             if (tasks.length > 0) {
                 for (let i = 0; i < tasks.length; i++) {
                     let taskList = document.createElement('li');
-
+                    let taskId = tasks[i]["id"];
+                    taskList.setAttribute("id", taskId);
                     // up button that changes position of items
                     let moveUpButton = document.createElement('button');
                     moveUpButton.innerHTML = '↑';
                     moveUpButton.setAttribute("id", "task-up-" + tasks[i]["id"]);
+                    moveUpButton.setAttribute("type", "button");
                     moveUpButton.addEventListener('click', function() {
                         moveTaskUp(this.parentNode);
                     });
@@ -97,6 +104,7 @@ async function getTasks(relationshipId) {
                     let moveDownButton = document.createElement('button');
                     moveDownButton.innerHTML = '↓';
                     moveDownButton.setAttribute("id", "task-down-" + tasks[i]["id"]);
+                    moveDownButton.setAttribute("type", "button");
                     moveDownButton.addEventListener('click', function() {
                         moveTaskDown(this.parentNode);
                     });
@@ -106,6 +114,7 @@ async function getTasks(relationshipId) {
                     let deleteButton = document.createElement('button');
                     deleteButton.innerHTML = 'X';
                     deleteButton.setAttribute("id", "task-x-" + tasks[i]["id"]);
+                    deleteButton.setAttribute("type", "button");
                     deleteButton.addEventListener('click', function() {
                     deleteTask(this.parentNode, (i+1));
                     });
@@ -143,6 +152,7 @@ async function getTasks(relationshipId) {
     
                 // Finally, initialize the progress bar
                 updateProgressBar();
+
             } else {
                 taskListBox.innerHTML = "No assigned tasks.";
                 taskListBox.style.marginLeft = "20px";
@@ -215,24 +225,78 @@ function updateProgressBar() {
         newWidth = newWidth + 5;
     }
     progressMeter.style.width = newWidth + "%";
+    percentTasksDone = newWidth;
     updateDisabled(listItemElements, totalTasksCompleted);
 }
 
-function updateDisabled(taskCheckBoxes, currentTaskId) {
+function updateTaskButtonsDisabled(parent, bool, upBool = false)
+{
+    
+    //console.log(parent);
+    let buttonChildren = parent.querySelectorAll("button");
+    if (upBool) {
+        console.log("inside upBool");
+        upButton = buttonChildren[0];
+        console.log(upButton);
+        upButton.style.backgroundColor = "gray";
+        upButton.disabled = bool;
+        return;
+    }
+    /*console.log(buttonChildren);*/
+    buttonChildren.forEach(function(element) {
+        if (bool) {
+            element.style.backgroundColor = "gray";
+        }
+        else {
+            element.removeAttribute("style");
+        }
+        element.disabled = bool;
+    })
+}
+
+function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
+    console.log("currentTasksCompleted");
+    console.log(currentTasksCompleted);
     for (let i=0; i < taskCheckBoxes.length; i++) {
-        if (i == currentTaskId) {
+        if (i == currentTasksCompleted) {
             if (i != 0) {
                 taskCheckBoxes[i-1].disabled = false;
+                updateTaskButtonsDisabled(taskCheckBoxes[i - 1].parentNode, false);
             }
             taskCheckBoxes[i].disabled = false;
         } else {
             taskCheckBoxes[i].disabled = true;
+            if (i > currentTasksCompleted) {
+                updateTaskButtonsDisabled(taskCheckBoxes[i].parentNode, false);
+            } else {
+                updateTaskButtonsDisabled(taskCheckBoxes[i].parentNode, true);
+            }
         }
     }
-    if (currentTaskId == taskCheckBoxes.length)
-    {
-        taskCheckBoxes[currentTaskId - 1].disabled = false;
+    if (currentTasksCompleted != 0 && percentTasksDone < 100) {
+        // disable last completed task
+        //console.log(taskCheckBoxes[currentTasksCompleted + 1]);
+        updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted - 1].parentNode, true)
+
+        // disable move up of current task
+        console.log("adjusting current task");
+        console.log(taskCheckBoxes[currentTasksCompleted]);
+        try {
+            if (taskCheckBoxes[currentTasksCompleted].parentNode) {
+                updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted].parentNode, true, true)
+            }
+        }
+        catch (err) {
+            console.log("Error caught");
+            console.log(err);
+        }
+    } 
+    if (percentTasksDone >= 100) {
+        let tempLast = document.getElementById("taskListId").lastChild;
+        let tempLastCheckbox = tempLast.querySelectorAll("input");
+        tempLastCheckbox[0].disabled = false;
     }
+
 }
 // log out
 function logOut (){
