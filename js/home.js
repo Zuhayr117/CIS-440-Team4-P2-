@@ -231,18 +231,19 @@ function updateProgressBar() {
 
 function updateTaskButtonsDisabled(parent, bool, upBool = false)
 {
-    
     //console.log(parent);
     let buttonChildren = parent.querySelectorAll("button");
     if (upBool) {
-        console.log("inside upBool");
+        buttonChildren.forEach(function(element) {
+            element.removeAttribute("style");
+            element.disabled = !bool;
+        });
         upButton = buttonChildren[0];
-        console.log(upButton);
         upButton.style.backgroundColor = "gray";
         upButton.disabled = bool;
         return;
     }
-    /*console.log(buttonChildren);*/
+    //console.log(buttonChildren);
     buttonChildren.forEach(function(element) {
         if (bool) {
             element.style.backgroundColor = "gray";
@@ -251,12 +252,10 @@ function updateTaskButtonsDisabled(parent, bool, upBool = false)
             element.removeAttribute("style");
         }
         element.disabled = bool;
-    })
+    });
 }
 
 function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
-    console.log("currentTasksCompleted");
-    console.log(currentTasksCompleted);
     for (let i=0; i < taskCheckBoxes.length; i++) {
         if (i == currentTasksCompleted) {
             if (i != 0) {
@@ -279,8 +278,6 @@ function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
         updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted - 1].parentNode, true)
 
         // disable move up of current task
-        console.log("adjusting current task");
-        console.log(taskCheckBoxes[currentTasksCompleted]);
         try {
             if (taskCheckBoxes[currentTasksCompleted].parentNode) {
                 updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted].parentNode, true, true)
@@ -313,7 +310,7 @@ function logOut (){
 
 function hideProgress(role) {
     let progressChildren = document.getElementById("progress").children;
-    console.log(progressChildren);
+    /*console.log(progressChildren);*/
     // To hide child elements
     for (var i = 0; i < progressChildren.length; i++) {
         progressChildren[i].style.display = "none";
@@ -325,13 +322,13 @@ function hideProgress(role) {
     } else if (role == "mentee") {
         noRelationshipsElement = document.getElementById("menteeNoRelationships");
     }
-    console.log(noRelationshipsElement);
+    /*(noRelationshipsElement);*/
     noRelationshipsElement.style.display = "block";
 }
 
 function showProgress() {
     let progressChildren = document.getElementById("progress").children;
-    console.log(progressChildren);
+    /*console.log(progressChildren);*/
     // To show child elements
     for (var i = 0; i < progressChildren.length; i++) {
         progressChildren[i].style.display = "block";
