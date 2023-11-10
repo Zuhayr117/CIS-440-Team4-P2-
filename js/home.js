@@ -1,5 +1,5 @@
 var currentRoadmap = ""; //global variable for roadmap functionality
-
+var percentTasksDone = 0;
 function moveTaskUp(taskElement) {
     const previousTask = taskElement.previousElementSibling;
     if (previousTask) {
@@ -23,6 +23,7 @@ async function deleteTask(taskElement) {
         console.log(taskElement);
         // Extract the task ID
         const taskId = taskElement.id;
+        console.log(taskId);
         // Make an API call to delete the task from the server
         const response = await fetch(`/deleteTask?id=${taskId}`, {
             method: 'DELETE'
@@ -151,6 +152,7 @@ async function getTasks(relationshipId) {
     
                 // Finally, initialize the progress bar
                 updateProgressBar();
+
             } else {
                 taskListBox.innerHTML = "No assigned tasks.";
                 taskListBox.style.marginLeft = "20px";
@@ -223,6 +225,7 @@ function updateProgressBar() {
         newWidth = newWidth + 5;
     }
     progressMeter.style.width = newWidth + "%";
+    percentTasksDone = newWidth;
     updateDisabled(listItemElements, totalTasksCompleted);
 }
 
@@ -270,7 +273,7 @@ function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
             }
         }
     }
-    if (currentTasksCompleted != 0) {
+    if (currentTasksCompleted != 0 && percentTasksDone < 100) {
         // disable last completed task
         //console.log(taskCheckBoxes[currentTasksCompleted + 1]);
         updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted - 1].parentNode, true)
@@ -278,7 +281,20 @@ function updateDisabled(taskCheckBoxes, currentTasksCompleted) {
         // disable move up of current task
         console.log("adjusting current task");
         console.log(taskCheckBoxes[currentTasksCompleted]);
-        updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted].parentNode, true, true)
+        try {
+            if (taskCheckBoxes[currentTasksCompleted].parentNode) {
+                updateTaskButtonsDisabled(taskCheckBoxes[currentTasksCompleted].parentNode, true, true)
+            }
+        }
+        catch (err) {
+            console.log("Error caught");
+            console.log(err);
+        }
+    } 
+    if (percentTasksDone >= 100) {
+        let tempLast = document.getElementById("taskListId").lastChild;
+        let tempLastCheckbox = tempLast.querySelectorAll("input");
+        tempLastCheckbox[0].disabled = false;
     }
 
 }
