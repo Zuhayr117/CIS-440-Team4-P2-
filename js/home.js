@@ -226,6 +226,15 @@ function updateProgressBar() {
     }
     progressMeter.style.width = newWidth + "%";
     percentTasksDone = newWidth;
+    console.log(percentTasksCompleted);
+    if (percentTasksDone >= 100) {
+        console.log("complete");
+        showFeedbackButton(true);
+    }
+    else {
+        console.log("false");
+        showFeedbackButton(false);
+    }
     updateDisabled(listItemElements, totalTasksCompleted);
 }
 
@@ -667,6 +676,21 @@ roadMapQElements.forEach((roadMapQ) => {
         roadMapQ.style.display = 'none'; // Reset the display style to none
     });
 });
+
+function showFeedbackButton(bool) {
+    let feedbackContainer = document.getElementById("tasksCompleteContainer");
+    console.log(feedbackContainer);
+    if (bool) {
+        feedbackContainer.style.display = "block";
+    }
+    else {
+        feedbackContainer.removeAttribute("style");
+    }
+}
+
+function goToSurvey() {
+    window.location.href = "./survey2.html";
+}
 
 document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
 document.addEventListener("DOMContentLoaded", getRelationships(-1));

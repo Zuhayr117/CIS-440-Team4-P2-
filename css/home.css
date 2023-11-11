@@ -61,7 +61,7 @@ img {
     text-align: left;
 }
 
-nav button, #progress button, #newMentorshipButton {
+nav button, #progress button, #newMentorshipButton, #feedbackButton {
     background-color: #007bff;
     color: white;
     border: none;
@@ -77,7 +77,8 @@ nav button, #progress button, #newMentorshipButton {
     float: right;
 }
 
-nav button:hover, #progress button:hover, #newMentorshipButton:hover {
+nav button:hover, #progress button:hover, #newMentorshipButton:hover,
+#feedbackButton:hover {
     background-color: #0056b3;
 }
 
@@ -398,4 +399,25 @@ float: right;
     line-height: 0 !important;
     text-align: center !important;
     font-size: medium !important;
+}
+
+#tasksCompleteContainer {
+    float: right;
+    margin: 0;
+    width: fit-content;
+    max-width: 400px;
+    height: fit-content;
+    font-size: medium;
+    text-align: center;
+    display: none;
+}
+
+#tasksCompleteContainer button {
+    float: right;
+    margin: 10px;
+    width: fit-content;
+    max-width: 400px;
+    height: fit-content;
+    font-size: medium;
+    text-align: center;
 }

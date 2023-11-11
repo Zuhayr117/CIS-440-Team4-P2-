@@ -28,4 +28,16 @@ async function populateLeaderboard() {
     }
 }
 
+function logOut (){
+    fetch('/logOut', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }
+    );
+    localStorage.clear();
+    window.location.href = "/index.html";// changes page to login page after logging out
+}
+
 document.addEventListener("DOMContentLoaded", populateLeaderboard);
