@@ -1,4 +1,22 @@
 var globalCurrentRole = ""
+var currentMenteeId = "";
+var currentMentorId = "";
+var currentRelationshipId = localStorage.getItem("currentRelationshipId");
+
+async function getRelationshipInfo() {
+    let currentUserInfo = localStorage.getItem("userInfo");
+    let userInfoObject = JSON.parse(currentUserInfo);
+    let currentRole = userInfoObject[0].role;
+    globalCurrentRole = currentRole;
+
+    let response = await fetch(`/getRelationshipInfo?relationshipId=${currentRelationshipId}`);
+        if (response.ok) {
+            let data = await response.json();
+            console.log(data);
+            currentMenteeId = data[0].mentee_id;
+            currentMentorId = data[0].mentor_id;
+        }
+}
 
 async function showSurvey() {
     let currentUserInfo = localStorage.getItem("userInfo");
@@ -6,7 +24,7 @@ async function showSurvey() {
     let currentUserId = userInfoObject[0].id;
     let currentRole = userInfoObject[0].role;
     globalCurrentRole = currentRole;
-    let currentRelationshipId = localStorage.getItem("currentRelationshipId");
+    
 
     console.log("current role: ", currentRole);
     if (currentRole == 'mentor') {
@@ -68,7 +86,9 @@ async function recordResponses(form) {
     // Get the value of the textarea for future improvement
     surveyResponses['extraComment'] = form.querySelector('textarea[name="commentsBox"]').value;
 
-    surveyResponses['relationshipId'] = localStorage.getItem("currentRelationshipId");
+    surveyResponses['relationshipId'] = currentRelationshipId;
+    surveyResponses['menteeId'] = currentMenteeId;
+    surveyResponses['mentorId'] = currentMentorId;
     // Log the responses object
     console.log(surveyResponses);
     if(globalCurrentRole == "mentee") {
@@ -80,7 +100,6 @@ async function recordResponses(form) {
         data: JSON.stringify(surveyResponses), // Convert the JavaScript object to JSON
         success: function (response) {
             console.log("Feedback for mentor added to the database");
-            /*window.location.href = "./home.html";*/
         },
         error: function (error) {
             console.error("Error adding a feedback for mentor to the database: "
@@ -123,3 +142,4 @@ function logOut (){
 }
 
 document.addEventListener("DOMContentLoaded", showSurvey);
+document.addEventListener("DOMContentLoaded", getRelationshipInfo);

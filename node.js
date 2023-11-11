@@ -91,168 +91,198 @@ app.post('/insertUser', function (req, res) {
     });
 });
 
-app.post('/insertFeedbackForMentee', (req, res) => {
-  const { fieldset1, fieldset2, fieldset3, fieldset4, fieldset5, extraComment, relationshipId } = req.body;
+app.post('/insertFeedbackForMentee', async (req, res) => {
+  const { fieldset1, fieldset2, fieldset3, fieldset4, 
+    fieldset5, extraComment, relationshipId, menteeId, 
+    mentorId } = req.body;
 
   // Create your SQL query using the extracted values
-  let insertQuery = "INSERT INTO Mentee_Score_Feedback (relationship_id, score, info) VALUES (?, ?, ?)";
+  let insertQuery = "INSERT INTO Mentee_Score_Feedback (mentee_id, relationship_id, score, info) VALUES (?, ?, ?, ?)";
 
   for (const key in fieldset1) {
     const value = fieldset1[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [menteeId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
+
   }
   for (const key in fieldset2) {
     const value = fieldset2[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [menteeId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset3) {
     const value = fieldset3[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [menteeId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset4) {
     const value = fieldset4[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [menteeId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset5) {
     const value = fieldset5[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [menteeId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
 
   //handle comment
   if (extraComment != "") {
-    let insertCommentQuery = "INSERT INTO Mentee_Comment_Feedback (relationship_id, comment) VALUES (?, ?)";
-    con.query(insertCommentQuery, [relationshipId, extraComment], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback for mentee to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback for mentee added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    let insertCommentQuery = "INSERT INTO Mentee_Comment_Feedback (mentee_id, relationship_id, comment) VALUES (?, ?)";
+    await new Promise((resolve, reject) => {
+      con.query(insertCommentQuery, [menteeId, relationshipId, extraComment], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback for mentee to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback for mentee added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
+    
   }
 });
 
-app.post('/insertFeedbackForMentor', (req, res) => {
-  const { fieldset1, fieldset2, fieldset3, fieldset4, fieldset5, extraComment, relationshipId } = req.body;
+app.post('/insertFeedbackForMentor', async (req, res) => {
+  const { fieldset1, fieldset2, fieldset3, fieldset4, 
+    fieldset5, extraComment, relationshipId,
+    menteeId, mentorId} = req.body;
 
   // Create your SQL query using the extracted values
-  let insertQuery = "INSERT INTO Mentor_Score_Feedback (relationship_id, score, info) VALUES (?, ?, ?)";
+  let insertQuery = "INSERT INTO Mentor_Score_Feedback (mentor_id, relationship_id, score, info) VALUES (?, ?, ?, ?)";
 
   // Iterate through each key-value pair in the current fieldset
   for (const key in fieldset1) {
     const value = fieldset1[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [mentorId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset2) {
     const value = fieldset2[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [mentorId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset3) {
     const value = fieldset3[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [mentorId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset4) {
     const value = fieldset4[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [mentorId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
   for (const key in fieldset5) {
     const value = fieldset5[key];
-    con.query(insertQuery, [relationshipId, value, key], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
+    await new Promise((resolve, reject) => {
+      con.query(insertQuery, [mentorId, relationshipId, value, key], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
     });
   }
 
   // handle comment
   if (extraComment != "") {
-    let insertCommentQuery = "INSERT INTO Mentee_Comment_Feedback (relationship_id, comment) VALUES (?, ?)";
-    con.query(insertCommentQuery, [relationshipId, extraComment], (err, result) => {
-      if (err) {
-        console.error("Error inserting feedback for mentee to the database:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Feedback for mentee added to the database");
-        res.status(200).send("Feedback added successfully");
-      }
-    });
+    let insertCommentQuery = "INSERT INTO Mentee_Comment_Feedback (mentor_id, relationship_id, comment) VALUES (?, ?)";
+    await new Promise((resolve, reject) => {
+      con.query(insertCommentQuery, [mentorId, relationshipId, extraComment], (err, result) => {
+        if (err) {
+          console.error("Error inserting feedback for mentee to the database:", err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log("Feedback for mentee added to the database");
+          res.status(200).send("Feedback added successfully");
+        }
+      });
+    })
   }
 });
 
@@ -310,6 +340,21 @@ app.get('/getMentorInfo', (req, res) => {
                     JOIN Mentors AS m ON r.mentee_id = m.id\
                     JOIN Users AS u ON m.user_id = u.id\
                     WHERE r.id = ?';
+
+  con.query(myQuery, [relationshipId], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching relationship: ' + err);
+      res.status(500).send('Error fetching relationships');
+    } else {
+      console.log('Fetched relationship from the database');
+      res.status(200).json(result);
+    }
+  });
+});
+
+app.get('/getRelationshipInfo', (req, res) => {
+  const relationshipId = req.query.relationshipId;
+  const myQuery = 'SELECT mentor_id, mentee_id FROM Relationships WHERE id = ?';
 
   con.query(myQuery, [relationshipId], (err, result, fields) => {
     if (err) {

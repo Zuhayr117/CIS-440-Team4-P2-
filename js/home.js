@@ -364,13 +364,13 @@ async function getRelationships(selectedId) {
             for (let i = 0; i < data.length; i++) {
                 let relationshipId = data[i].id;
                 if (i == 0) {
-                    localStorage.setItem("currentRelationshipId", relationshipId + 1);
+                    localStorage.setItem("currentRelationshipId", relationshipId);
                 }
                 let mentorName = data[i].mentor_name;
                 let menteeName = data[i].mentee_name;
                 let relationshipParser = document.createElement("option");
                 relationshipParser.innerHTML = `${mentorName} (Mentor) and ${menteeName} (Mentee)`;
-                relationshipParser.value = relationshipId + 1;
+                relationshipParser.value = relationshipId;
                 relationshipDropdown.appendChild(relationshipParser);
             }
             // if no relationship...
