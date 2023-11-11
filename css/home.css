@@ -410,14 +410,19 @@ float: right;
     font-size: medium;
     text-align: center;
     display: none;
+    padding: 10px;
 }
 
 #tasksCompleteContainer button {
     float: right;
-    margin: 10px;
-    width: fit-content;
-    max-width: 400px;
-    height: fit-content;
+    margin: 30px;
+    width: 300px;
+    height: 100px;
     font-size: medium;
     text-align: center;
+}
+
+#feedbackButton {
+    width: 300px;
+    background-color: red;
 }

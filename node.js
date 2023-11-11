@@ -334,6 +334,36 @@ app.get('/getMenteeInfo', (req, res) => {
   });
 });
 
+app.get('/getMentorFeedback', (req, res) => {
+  const relationshipId = req.query.relationshipId;
+  const myQuery = 'SELECT * FROM Mentor_Score_Feedback\
+                    WHERE relationship_id = ?';
+  con.query(myQuery, [relationshipId], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching feedback table: ' + err);
+      res.status(500).send('Error fetching relationships');
+    } else {
+      console.log('Fetched feedback table from the database');
+      res.status(200).json(result);
+    }
+  });
+});
+
+app.get('/getMenteeFeedback', (req, res) => {
+  const relationshipId = req.query.relationshipId;
+  const myQuery = 'SELECT * FROM Mentee_Score_Feedback\
+                    WHERE relationship_id = ?';
+  con.query(myQuery, [relationshipId], (err, result, fields) => {
+    if (err) {
+      console.error('Error fetching feedback table: ' + err);
+      res.status(500).send('Error fetching relationships');
+    } else {
+      console.log('Fetched feedback table from the database');
+      res.status(200).json(result);
+    }
+  });
+});
+
 app.get('/getMentorInfo', (req, res) => {
   const relationshipId = req.query.relationshipId;
   const myQuery = 'SELECT r.id, u.name FROM Relationships AS r\

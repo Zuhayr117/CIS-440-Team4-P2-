@@ -533,6 +533,8 @@ async function initializeRoadmap(relationshipId) {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+
+    disableFeedback();
 }
 
 async function initializeMenteeOptions() {
@@ -688,6 +690,36 @@ function showFeedbackButton(bool) {
 
 function goToSurvey() {
     window.location.href = "./survey2.html";
+}
+
+async function disableFeedback() {
+    console.log("inside disableFeedback");
+    let feedbackButton = document.getElementById("feedbackButton")
+    let relationshipId = localStorage.getItem("currentRelationshipId");
+    let currentUserInfo = localStorage.getItem("userInfo");
+    let userInfoObject = JSON.parse(currentUserInfo);
+    let currentRole = userInfoObject[0].role;
+    let response;
+    if (currentRole == "mentee") {
+        response = await fetch(`/getMentorFeedback?relationshipId=${relationshipId}`);
+    } else if (currentRole == "mentor") {
+        response = await fetch(`/getMenteeFeedback?relationshipId=${relationshipId}`);
+    }
+    if (response.ok) {
+        let data = await response.json();
+        console.log(data);
+        if (data.length > 0) {
+            console.log("disabled");
+            feedbackButton.disabled = true;
+            feedbackButton.style.backgroundColor = "gray";
+            feedbackButton.innerHTML = "Feedback Already Complete";
+        } else {
+            console.log("enabled");
+            feedbackButton.disabled = false;
+            feedbackButton.removeAttribute("style");
+            feedbackButton.innerHTML = "Click Here to Provide Feedback About Your Mentorship Experience";
+        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", initializeMenteeOptions);
