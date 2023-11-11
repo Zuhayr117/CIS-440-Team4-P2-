@@ -1,6 +1,72 @@
 var currentRoadmap = ""; //global variable for roadmap functionality
 var percentTasksDone = 0;
-function moveTaskUp(taskElement) {
+
+
+
+async function edit(taskElement) {
+    // const taskInfo = getTaskInfo(taskElement);
+
+    // Create an edit form
+    const editForm = document.createElement('form');
+    editForm.id = 'editForm'; // Set an ID for easy reference
+
+    // Populate the form fields with the existing task information
+     editForm.innerHTML = `
+     <div id="taskEdit" class="center right">
+     <h1>Edit Task</h1>
+     <table id="EditTable">
+ <tr>
+ <td>
+     <input type="text" id="priority" placeholder="Priority" class="center">
+ </td>
+ <td>
+     <input type="text" id="deadlineDate" placeholder="Deadline Date" class="center">
+ </td>
+ </tr>
+     <tr><td>
+     <input type="text" id="info" placeholder="Task information" class="center">
+ </td>
+ </tr>
+ <tr>
+ </tr> 
+     <tr>
+         <td>
+             <label for="currentComplete">Is task complete?</label>
+         </td>
+     <td>
+     <input type="checkbox" id="currentComplete" class="left" value="1">
+ </td>
+ </tr>
+     <br> 
+   
+ </table>
+ <button type="submit" id="EditTaskButton" class="center" onclick="edit(taskElement)"> Edit Task</button>
+   
+ </div>
+    `;
+
+    // Append the edit form to the document body (or another container)
+    document.body.appendChild(editForm);
+
+    // Handle the form submission for editing
+    editForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // Extract edited task information from the form
+        const editedTaskInfo = extractEditedTaskInfo(editForm);
+
+        // Perform the editing logic
+        await performTaskEditing(taskInfo, editedTaskInfo);
+
+        // Remove the edit form from the DOM
+        editForm.remove();
+    });
+    
+}
+
+
+
+async function moveTaskUp(taskElement) {
     const previousTask = taskElement.previousElementSibling;
     if (previousTask) {
         taskElement.parentNode.insertBefore(taskElement, previousTask);
@@ -91,6 +157,16 @@ async function getTasks(relationshipId) {
                     let taskList = document.createElement('li');
                     let taskId = tasks[i]["id"];
                     taskList.setAttribute("id", taskId);
+
+                    // edit button that changes position of items
+                    let editButton = document.createElement('button');
+                    editButton.innerHTML = 'E';
+                    editButton.setAttribute("id", "edit-" + tasks[i]["id"]);
+                    editButton.setAttribute("type", "button");
+                    editButton.addEventListener('click', function() {
+                        edit(this.parentNode);
+                        });
+    
                     // up button that changes position of items
                     let moveUpButton = document.createElement('button');
                     moveUpButton.innerHTML = '↑';
@@ -137,6 +213,7 @@ async function getTasks(relationshipId) {
                    
                     // to delete button                    
                     taskList.appendChild(deleteButton);
+                    taskList.appendChild(editButton);
                     
                     // add task color functionality
                     if (tasks[i]["created_by"] == "mentor") {

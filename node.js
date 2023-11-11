@@ -442,8 +442,96 @@ app.delete('/deleteTask', (req, res) => {
         }
     });
 });
+// Function to update a task in the database
+async function updateTaskInDatabase(taskInfo, updatedTaskInfo) {
+  try {
+      const updateQuery = `
+          UPDATE Goals
+          SET
+              priority = ?,
+              info = ?,
+              complete = ?,
+              deadline_date = ?,
+              complete_date = ?
+          WHERE
+              id = ? AND created_by = ?;
+      `;
+
+      const params = [
+          updatedTaskInfo.priority,
+          updatedTaskInfo.info,
+          updatedTaskInfo.currentComplete,
+          updatedTaskInfo.deadlineDate,
+          updatedTaskInfo.completeDate,
+          taskInfo.id,
+          taskInfo.createdBy
+      ];
+
+      const [result] = await con.promise().execute(updateQuery, params);
+
+      // Check the result and handle success or failure accordingly
+      if (result.affectedRows > 0) {
+          console.log('Task updated successfully in the database.');
+      } else {
+          console.error('Error updating the task. Task not found or no changes made.');
+      }
+
+  } catch (error) {
+      console.error('Error updating task in the database:', error);
+      // Handle the error appropriately
+  }
+}
+// Add a new route to handle the task editing
+app.put('/editTask/:taskId', (req, res) => {
+  const taskId = req.params.taskId;
+  const updatedTaskInfo = req.body.updatedTaskInfo;
+
+  // Call the function to update the task in the database
+  updateTaskInDatabase(taskId, updatedTaskInfo);
+
+  // Return a response or handle it in your preferred way
+  res.json({ message: 'Task updated successfully.' });
+});
 
 
+// Modify the updateTaskInDatabase function to handle task editing
+async function updateTaskInDatabase(taskId, updatedTaskInfo) {
+  try {
+      const updateQuery = `
+          UPDATE Goals
+          SET
+              priority = ?,
+              info = ?,
+              complete = ?,
+              deadline_date = ?,
+              complete_date = ?
+          WHERE
+              id = ?;
+      `;
+
+      const params = [
+          updatedTaskInfo.priority,
+          updatedTaskInfo.info,
+          updatedTaskInfo.complete,
+          updatedTaskInfo.deadlineDate,
+          updatedTaskInfo.completeDate,
+          taskId
+      ];
+
+      const [result] = await con.promise().execute(updateQuery, params);
+
+      // Check the result and handle success or failure accordingly
+      if (result.affectedRows > 0) {
+          console.log('Task updated successfully in the database.');
+      } else {
+          console.error('Error updating the task. Task not found or no changes made.');
+      }
+
+  } catch (error) {
+      console.error('Error updating task in the database:', error);
+      // Handle the error appropriately
+  }
+}
 
 // Define other routes and handlers as needed
 app.use(express.static(__dirname));

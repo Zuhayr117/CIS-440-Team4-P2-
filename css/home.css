@@ -399,3 +399,22 @@ float: right;
     text-align: center !important;
     font-size: medium !important;
 }
+
+[id^="edit-"] {
+    height: 3vh !important;
+    width: 3vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+#taskEdit {
+    margin-top: 10px;
+    background-color: #FFFFFF;
+    /*margin: auto;*/
+    width: 50%;
+    padding: 20px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
