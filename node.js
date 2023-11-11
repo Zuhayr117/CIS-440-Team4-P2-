@@ -337,7 +337,7 @@ app.get('/getMenteeInfo', (req, res) => {
 app.get('/getMentorInfo', (req, res) => {
   const relationshipId = req.query.relationshipId;
   const myQuery = 'SELECT r.id, u.name FROM Relationships AS r\
-                    JOIN Mentors AS m ON r.mentee_id = m.id\
+                    JOIN Mentors AS m ON r.mentor_id = m.id\
                     JOIN Users AS u ON m.user_id = u.id\
                     WHERE r.id = ?';
 

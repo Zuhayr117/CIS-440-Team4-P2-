@@ -36,25 +36,18 @@ async function showSurvey() {
         document.getElementById("surveyForMentor").style.display = 'block';
         /*surveyForMentor.style.display = 'block';
         surveyForMentee.style.display = 'none';*/
-        console.log("currentR id: ");
-        console.log(currentRelationshipId);
         let response = await fetch(`/getMenteeInfo?relationshipId=${currentRelationshipId}`);
         if (response.ok) {
             let data = await response.json();
-            console.log(data);
             let mentorSurveyTitle = document.getElementById("mentorSurveyTitle");
             mentorSurveyTitle.innerHTML = `Feedback for ${data[0].name} (Mentee):`
         }
     } else if (currentRole == 'mentee') {
-        console.log("mentee role");
-        console.log("currentR id: ");
-        console.log(currentRelationshipId);
         document.getElementById("surveyForMentee").style.display = 'block';
         //document.getElementById("surveyForMentor").style.display = 'none';
         let response = await fetch(`/getMentorInfo?relationshipId=${currentRelationshipId}`);
         if (response.ok) {
             let data = await response.json();
-            console.log(data);
             let menteeSurveyTitle = document.getElementById("menteeSurveyTitle");
             menteeSurveyTitle.innerHTML = `Feedback for ${data[0].name} (Mentor):`
         }
@@ -100,6 +93,7 @@ async function recordResponses(form) {
         data: JSON.stringify(surveyResponses), // Convert the JavaScript object to JSON
         success: function (response) {
             console.log("Feedback for mentor added to the database");
+            window.location.href = "./home.html";
         },
         error: function (error) {
             console.error("Error adding a feedback for mentor to the database: "
@@ -118,7 +112,7 @@ async function recordResponses(form) {
         data: JSON.stringify(surveyResponses), // Convert the JavaScript object to JSON
         success: function (response) {
             console.log("Feedback for mentee added to the database");
-            /*window.location.href = "./home.html";*/
+            window.location.href = "./home.html";
         },
         error: function (error) {
             console.error("Error adding a feedback for mentee to the database: "

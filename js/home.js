@@ -226,13 +226,13 @@ function updateProgressBar() {
     }
     progressMeter.style.width = newWidth + "%";
     percentTasksDone = newWidth;
-    console.log(percentTasksCompleted);
+    //console.log(percentTasksCompleted);
     if (percentTasksDone >= 100) {
-        console.log("complete");
+        //console.log("complete");
         showFeedbackButton(true);
     }
     else {
-        console.log("false");
+        //console.log("false");
         showFeedbackButton(false);
     }
     updateDisabled(listItemElements, totalTasksCompleted);
@@ -357,8 +357,6 @@ async function getRelationships(selectedId) {
         let response = await fetch(`/getRelationships?userId=${currentUserId}&userRole=${currentRole}`);
         if (response.ok) {
             let data = await response.json(); // Await the JSON parsing
-            /*console.log("relationships retrieved");
-            console.log(data);*/
             let relationshipDropdown = document.getElementById("relationshipDropdown");
             relationshipDropdown.innerHTML = "";
             for (let i = 0; i < data.length; i++) {
@@ -393,7 +391,7 @@ async function getRelationships(selectedId) {
     }
     let relationshipId = localStorage.getItem("currentRelationshipId");
     if (selectedId > 0) {
-        console.log("selectedId not 0");
+        //console.log("selectedId not 0");
         setDropdown(selectedId);
         localStorage.setItem("currentRelationshipId", selectedId);
         showProgress();
@@ -432,7 +430,7 @@ function dropdownChanged(value) {
     } else {
         localStorage.setItem("currentRelationshipId", value);
         let newRelationshipId = localStorage.getItem("currentRelationshipId");
-        console.log("newRelationshipId", newRelationshipId);
+        //console.log("newRelationshipId", newRelationshipId);
         getTasks(newRelationshipId);
         initializeRoadmap(newRelationshipId);
     }
@@ -657,7 +655,7 @@ async function addMentorship(form) {
 }
 
 function setDropdown(value) {
-    console.log('inside setDropdown');
+    //console.log('inside setDropdown');
     let dropdown = document.getElementById("relationshipDropdown");
 
     for (let option of dropdown.options) {
@@ -679,7 +677,7 @@ roadMapQElements.forEach((roadMapQ) => {
 
 function showFeedbackButton(bool) {
     let feedbackContainer = document.getElementById("tasksCompleteContainer");
-    console.log(feedbackContainer);
+    //console.log(feedbackContainer);
     if (bool) {
         feedbackContainer.style.display = "block";
     }
