@@ -425,6 +425,7 @@ float: right;
 #feedbackButton {
     width: 300px;
     background-color: red;
+}
 
 [id^="edit-"] {
     height: 3vh !important;
