@@ -1,10 +1,52 @@
 var currentRoadmap = ""; //global variable for roadmap functionality
 var percentTasksDone = 0;
 
+// global variables
+let relationshipId = "";
+let priority = "";
+let info = "";
+let currentComplete ="";
+let deadlineDate ="";
+let createdBy = "";
+let data ="";
+ // to get user info
+ let currentUserInfo = localStorage.getItem("userInfo");
+ let userInfoObject = JSON.parse(currentUserInfo);
+ let currentUserId = userInfoObject[0].id;
+ const today = new Date();
+ const oneMonthFromNow = new Date(today);
+ const options = { year: 'numeric', month: 'long', day: 'numeric' };
+const formattedDate = oneMonthFromNow.toLocaleDateString('en-US', options);
 
+async function cancel() {
+    const editModal = document.getElementById("editForm");
+    editModal.remove();
+}
+async function getTaskInfo(taskElement) {
+    const priorityElement = taskElement.querySelector('#priority');
+    const deadlineDateElement = taskElement.querySelector('#deadlineDate');
+    const infoElement = taskElement.querySelector('#info');
+    const currentCompleteElement = taskElement.querySelector('#currentComplete');
 
+    if (!priorityElement || !deadlineDateElement || !infoElement || !currentCompleteElement) {
+        console.error('One or more elements not found in the taskElement.');
+        return null;
+    }
+
+    const priority = priorityElement.value;
+    const deadlineDate = deadlineDateElement.value;
+    const info = infoElement.value;
+    const currentComplete = currentCompleteElement.checked;
+
+    return {
+        priority,
+        deadlineDate,
+        info,
+        currentComplete,
+    };
+}
 async function edit(taskElement) {
-    // const taskInfo = getTaskInfo(taskElement);
+    const taskInfo = getTaskInfo(taskElement);
 
     // Create an edit form
     const editForm = document.createElement('form');
@@ -40,26 +82,69 @@ async function edit(taskElement) {
      <br> 
    
  </table>
+ <button type="button" id="closeTaskButton" class="left" onclick="cancel()">close</button>
  <button type="submit" id="EditTaskButton" class="center" onclick="edit(taskElement)"> Edit Task</button>
    
  </div>
     `;
 
     // Append the edit form to the document body (or another container)
-    document.body.appendChild(editForm);
+    document.getElementById('editTask').appendChild(editForm);
 
     // Handle the form submission for editing
     editForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+        // Calculate a date one month from now
 
-        // Extract edited task information from the form
-        const editedTaskInfo = extractEditedTaskInfo(editForm);
+oneMonthFromNow.setMonth(today.getMonth() + 1);
+// Handle edge cases where the day doesn't exist in the target month
+if (today.getDate() !== oneMonthFromNow.getDate()) {
+    // Set the day to the last day of the previous month
+    oneMonthFromNow.setDate(0);
+}
+// You can format the result for display if needed
 
-        // Perform the editing logic
-        await performTaskEditing(taskInfo, editedTaskInfo);
 
+//
+      relationshipId = localStorage.getItem("currentRelationshipId");
+      priority = document.getElementById('priority').value;
+      info = document.getElementById('info').value;
+      currentComplete = document.getElementById('currentComplete').checked ? 1 : 0;
+      deadlineDate = document.getElementById('deadlineDate').value;
+      createdBy = currentUserId;
+    
+      data = {
+        relationshipId,
+        priority,
+        info,
+        currentComplete,
+        deadlineDate,
+        createdBy,
+      };
+      
+      try {
+        const response = await fetch("/editTask", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            console.log("Task edited successfully.");
+            // Optionally, you can reset the form fields or perform other actions here.
+        } else {
+            console.error("Error editing the task.");
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+
+        
         // Remove the edit form from the DOM
         editForm.remove();
+        updateProgressBar();
     });
     
 }

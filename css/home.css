@@ -437,11 +437,39 @@ float: right;
     font-size: medium !important;
 }
 #taskEdit {
-    margin-top: 10px;
-    background-color: #FFFFFF;
+    margin-top: 10px !important;
+    background-color: #FFFFFF !important;
     /*margin: auto;*/
-    width: 50%;
-    padding: 20px;
-    border-radius: 20px;
-    box-sizing: border-box;
+    width: 47% !important;
+    padding: 40px !important;
+    border-radius: 33px !important;
+    box-sizing: border-box !important;
+}
+[id^="EditTaskButton"] {
+    height: 2vh !important;
+    width: 11vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+[id^="editForm"] {
+    height: 5vh !important;
+    width: 100vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: .75 !important;
+    text-align: center !important;
+    font-size: medium !important;
+    float: right !important;
+}
+[id^="closeTaskButton"] {
+    height: 2vh !important;
+    width: 11vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
 }
