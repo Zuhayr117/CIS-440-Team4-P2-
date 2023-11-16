@@ -719,55 +719,73 @@ app.delete('/deleteTask', (req, res) => {
     });
 });
 
-// Modify the updateTaskInDatabase function to handle task editing
-async function updateTaskInDatabase(req, res) {
-  const taskId = req.params.taskId;
-  const updatedTaskInfo = req.body;
 
-  try {
-    const updateQuery = `
-        UPDATE Goals
-        SET
-            priority = ?,
-            info = ?,
-            complete = ?,
-            deadline_date = ?,
-            complete_date = ?
-        WHERE
-            id = ?;
-    `;
 
-    const params = [
-      updatedTaskInfo.priority,
-      updatedTaskInfo.info,
-      updatedTaskInfo.complete,
-      updatedTaskInfo.deadlineDate,
-      updatedTaskInfo.completeDate,
-      taskId
-    ];
+app.post('/editTask', (req, res) => {
+  const data = req.body;
+  console.log(data);
+  const currentComplete = data.currentComplete;
+  const goalId = data.Id;
+  const updateQuery = `
+    UPDATE Goals
+    SET
+        priority = ?,
+        info = ?,
+        complete = ?,
+        deadline_date = ?,
+        complete_date = ?
+    WHERE
+        id = ?;
+  `;
 
-    const [result] = await con.promise().execute(updateQuery, params);
-
-    // Check the result and handle success or failure accordingly
-    if (result.affectedRows > 0) {
-      console.log('Task updated successfully in the database.');
-      res.json({ message: 'Task updated successfully.' });
-    } else {
-      console.error('Error updating the task. Task not found or no changes made.');
-      res.status(404).json({ error: 'Task not found or no changes made.' });
+  const params = [
+    data.priority,
+    data.info,
+    data.complete,
+    data.deadlineDate,
+    data.completeDate,
+    data.id
+  ];
+  con.query(updateQuery, params, (err, result) => {
+    if (err) {
+      console.error('Error updating goal:', err);
+      return;
     }
 
-  } catch (error) {
-    console.error('Error updating task in the database:', error);
-    // Handle the error appropriately
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.log('Task updated successfully');
+  });
+
+  if (currentComplete === 1) {
+    // Get the current date
+    const current_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    // Update the complete_date column with the formatted date
+    const updateDateQuery = 'UPDATE Goals SET complete_date = ? WHERE id = ?';
+    const dateParams = [current_date, goalId];
+
+    con.query(updateDateQuery, dateParams, (dateErr, dateResult) => {
+      if (dateErr) {
+        console.error('Error updating goal complete_date: ' + dateErr);
+        return res.status(500).json({ error: 'Error updating goal complete_date' });
+      }
+
+      return res.json({ message: 'Task updated successfully' });
+    });
+  } else {
+    // Set complete_date to NULL
+    const clearDateQuery = 'UPDATE Goals SET complete_date = NULL WHERE id = ?';
+    const clearDateParams = [goalId];
+
+    con.query(clearDateQuery, clearDateParams, (clearDateErr, clearDateResult) => {
+      if (clearDateErr) {
+        console.error('Error clearing goal complete_date: ' + clearDateErr);
+        return res.status(500).json({ error: 'Error clearing goal complete_date' });
+      }
+
+      return res.json({ message: 'Task updated successfully' });
+    });
   }
-}
-
-// Add a new route to handle the task editing
-app.put('/editTask/:taskId', updateTaskInDatabase);
-
-
+});
 
 
 // Define other routes and handlers as needed

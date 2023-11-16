@@ -13,6 +13,7 @@ let data ="";
  let currentUserInfo = localStorage.getItem("userInfo");
  let userInfoObject = JSON.parse(currentUserInfo);
  let currentUserId = userInfoObject[0].id;
+ let goalIDSQL = 0
  const today = new Date();
  const oneMonthFromNow = new Date(today);
  const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -22,78 +23,66 @@ async function cancel() {
     const editModal = document.getElementById("editForm");
     editModal.remove();
 }
-async function getTaskInfo(taskElement) {
-    const priorityElement = taskElement.querySelector('#priority');
-    const deadlineDateElement = taskElement.querySelector('#deadlineDate');
-    const infoElement = taskElement.querySelector('#info');
-    const currentCompleteElement = taskElement.querySelector('#currentComplete');
 
-    if (!priorityElement || !deadlineDateElement || !infoElement || !currentCompleteElement) {
-        console.error('One or more elements not found in the taskElement.');
-        return null;
-    }
 
-    const priority = priorityElement.value;
-    const deadlineDate = deadlineDateElement.value;
-    const info = infoElement.value;
-    const currentComplete = currentCompleteElement.checked;
+// populates edit popup
+async function popEdit(id){
+    goalIDSQL = id;
+      // Create an edit form
+      const editForm = document.createElement('form');
+      editForm.id = 'editForm'; // Set an ID for easy reference
+  
+      // Populate the form fields with the existing task information
+       editForm.innerHTML = `
+       <div id="taskEdit" class="center right">
+       <h1>Edit Task</h1>
+       <table id="EditTable">
+   <tr>
+   <td>
+       <input type="text" id="priority" placeholder="Priority" class="center">
+   </td>
+   <td>
+       <input type="text" id="deadlineDate" placeholder="Deadline Date" class="center">
+   </td>
+   </tr>
+       <tr><td>
+       <input type="text" id="info" placeholder="Task information" class="center">
+   </td>
+   </tr>
+   <tr>
+   </tr> 
+       <tr>
+           <td>
+               <label for="currentComplete">Is task complete?</label>
+           </td>
+       <td>
+       <input type="checkbox" id="currentComplete" class="left" value="1">
+   </td>
+   </tr>
+       <br> 
+     
+   </table>
+   <button type="button" id="closeTaskButton" class="left" onclick="cancel()">close</button>
+   <button type="submit" id="EditTaskButton" class="center" onclick="edit(Number(id))"> Edit Task</button>
+     
+   </div>
+      `;
+  
+      // Append the edit form to the document body (or another container)
+      document.getElementById('editTask').appendChild(editForm);
+  
+      // Handle the form submission for editing
+      editForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+        
+});
 
-    return {
-        priority,
-        deadlineDate,
-        info,
-        currentComplete,
-    };
 }
-async function edit(taskElement) {
-    const taskInfo = getTaskInfo(taskElement);
 
-    // Create an edit form
-    const editForm = document.createElement('form');
-    editForm.id = 'editForm'; // Set an ID for easy reference
 
-    // Populate the form fields with the existing task information
-     editForm.innerHTML = `
-     <div id="taskEdit" class="center right">
-     <h1>Edit Task</h1>
-     <table id="EditTable">
- <tr>
- <td>
-     <input type="text" id="priority" placeholder="Priority" class="center">
- </td>
- <td>
-     <input type="text" id="deadlineDate" placeholder="Deadline Date" class="center">
- </td>
- </tr>
-     <tr><td>
-     <input type="text" id="info" placeholder="Task information" class="center">
- </td>
- </tr>
- <tr>
- </tr> 
-     <tr>
-         <td>
-             <label for="currentComplete">Is task complete?</label>
-         </td>
-     <td>
-     <input type="checkbox" id="currentComplete" class="left" value="1">
- </td>
- </tr>
-     <br> 
-   
- </table>
- <button type="button" id="closeTaskButton" class="left" onclick="cancel()">close</button>
- <button type="submit" id="EditTaskButton" class="center" onclick="edit(taskElement)"> Edit Task</button>
-   
- </div>
-    `;
-
-    // Append the edit form to the document body (or another container)
-    document.getElementById('editTask').appendChild(editForm);
-
-    // Handle the form submission for editing
-    editForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+async function edit(id) {
+console.log(id);
+  
         // Calculate a date one month from now
 
 oneMonthFromNow.setMonth(today.getMonth() + 1);
@@ -112,19 +101,21 @@ if (today.getDate() !== oneMonthFromNow.getDate()) {
       currentComplete = document.getElementById('currentComplete').checked ? 1 : 0;
       deadlineDate = document.getElementById('deadlineDate').value;
       createdBy = currentUserId;
+    id = goalIDSQL
     
-      data = {
+     let data = {
         relationshipId,
         priority,
         info,
         currentComplete,
         deadlineDate,
         createdBy,
+        id
       };
-      
+      console.log(data);
       try {
         const response = await fetch("/editTask", {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -145,9 +136,7 @@ if (today.getDate() !== oneMonthFromNow.getDate()) {
         // Remove the edit form from the DOM
         editForm.remove();
         updateProgressBar();
-    });
-    
-}
+    }
 
 
 
@@ -249,7 +238,8 @@ async function getTasks(relationshipId) {
                     editButton.setAttribute("id", "edit-" + tasks[i]["id"]);
                     editButton.setAttribute("type", "button");
                     editButton.addEventListener('click', function() {
-                        edit(this.parentNode);
+                        popEdit(tasks[i]["id"]);
+                        console.log(this.id +" this should match sql rows")
                         });
     
                     // up button that changes position of items
