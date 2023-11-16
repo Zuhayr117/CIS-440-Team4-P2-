@@ -456,7 +456,7 @@ float: right;
 }
 [id^="editForm"] {
     height: 5vh !important;
-    width: 100vh !important;
+    width: 74vh  !important;
     float: right !important;
     margin: auto !important;
     line-height: .75 !important;
@@ -473,3 +473,10 @@ float: right;
     text-align: center !important;
     font-size: medium !important;
 }
+[id^="deadlineDate"] {
+    max-width: 90px;
+}
+[id^="currentComplete"] {
+    font-size: 1.1em
+}
+

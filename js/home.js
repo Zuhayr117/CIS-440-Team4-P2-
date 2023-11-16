@@ -164,6 +164,7 @@ if (today.getDate() !== oneMonthFromNow.getDate()) {
         // Remove the edit form from the DOM
         editForm.remove();
         updateProgressBar();
+        location.reload(); 
     }
 
 
@@ -267,7 +268,7 @@ async function getTasks(relationshipId) {
                     editButton.setAttribute("type", "button");
                     editButton.addEventListener('click', function() {
                         popEdit(tasks[i]["id"]);
-                        console.log(this.id +" this should match sql rows")
+                        console.log(this.id)
                         });
     
                     // up button that changes position of items
