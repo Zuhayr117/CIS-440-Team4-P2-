@@ -198,4 +198,5 @@ if (today.getDate() !== oneMonthFromNow.getDate()) {
         console.error("Fetch error:", error);
       });
       console.log("Handling Custom Task");
+      document.getElementById('taskAdd').style.visibility = 'hidden';
     }
