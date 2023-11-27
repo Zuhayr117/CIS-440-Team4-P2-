@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h2 {
+    text-align: center;
+}
+
+.row {
+    display: inline-block;
+}
+
+.points {
+    float: left;
+}
+
+.navbar {
+    position: sticky;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    float: left;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+    padding: 10px;
+    float: left;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 5vh;
+}
+
+.nav-item p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.active {
+    color: #333333;
+}
+
+label {
+    font-size: 1.5em; /* Adjust the font size as needed */
+    margin-left: 10px;
+}
+
+#logout {
+float: right;
+}
+
+nav button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 5em;
+    width: 10vw;
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+    float: right;
+}
+
+nav button:hover {
+    background-color: #0056b3;
+}
+
+#miniLeaderboard {
+    float: left;
+    clear: left;
+    min-width: 249px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: 35%;
+    /*top:  130px;
+    left: 50%;
+    transform: translate(-50%,-50%);*/
+}
+
+h4 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#miniLeaderboard li {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.top-container {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.right-container {
+    margin-right: 10px;
+}
+
+.top {
+    margin: 10px 0;
+}
+
+.container {
+    background-color: white;
+    border-radius: 5px;
+}
+
+#topMentors {
+    border-right: 2px solid black;
+    padding-right: 20px;
+}
+
+#menteeContainer, #mentorContainer {
+    overflow: scroll;
+    max-height: 70vh;
+}

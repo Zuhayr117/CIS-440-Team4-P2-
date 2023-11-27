@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+#prompt{
+    margin: auto;
+    border: solid;  
+    width: 500px;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+#mentee_survey {
+     float: left;
+     width: 48%;
+     border: 1px solid grey;
+     box-sizing: border-box;
+     padding: 15px;
+     border-radius: 15px;
+     
+ }
+
+ #mentor_survey {
+     float: right;
+     width: 48%;
+     border: 1px solid grey;
+     box-sizing: border-box;
+     padding: 15px;
+     border-radius: 15px;
+ }
+
+ /*.clearfix::after {
+     content: "";
+     display: table;
+     clear: both;
+ }*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h2 {
+    text-align: center;
+}
+
+.navbar {
+    position: sticky;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    float: left;
+    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+    padding: 10px;
+    float: left;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 5vh;
+}
+
+.nav-item p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.active {
+    color: #333333;
+}
+
+nav button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 5em;
+    width: 10vw;
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+    float: right;
+}
+
+div button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    /*height: 5em;
+    width: 10vw;*/
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+button:hover, div button:hover  {
+    background-color: #0056b3;
+}
+
+#feedbackContainer {
+    background-color: white;
+    width: 750px;
+    margin-left: 30%;
+    float: left;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#feedbackIntro {
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin: 10px;
+}
+
+fieldset {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+form {
+    margin-top: 10px;
+}
+
+legend {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#surveyForMentor, #surveyForMentee {
+    display: none;
+}

@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  background-position: 0 0;
+  background-image: url("/images/login.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+}
+
+img {
+  max-width: 80%;
+  height: auto; /* Maintain the aspect ratio */
+  display: block; /* Make the image a block element for margin: auto to work */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+hr {
+  border: 10px dashed rgba(0, 0, 0, 0.5);
+  width: 90%;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  text-align: left;
+  margin: 0;
+}
+
+#signupvis, hr {
+  display: none;
+}
+
+/* Style the login and signup buttons */
+input[type="submit"], button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0; /* Adjust padding as needed for height and width */
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  line-height: 1.5; /* Adjust line height as needed */
+  text-align: center;
+  font-family: monospace;
+  width: 225px;
+}
+
+input[type="submit"]:hover, button:hover {
+  background-color: #0056b3;
+}
+
+button {
+  display: inline-block;
+}
+
+#logoImage {
+  margin: 0;
+}
+
+#loginElements {
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 50px;
+  max-width: 250px;
+  width: 75%;
+}
+
+#loginvis {
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+}
+
+.message {
+  font-weight: 600;
+  color: blue;
+
+}
+
+#appTitleId {
+  color: darkcyan;
+  text-align: center;
+}
+
+.center {
+  margin: auto;
+  display: table;
+}
+
+input {
+  text-align: left;
+  font-family: monospace;
+  font-size: 1.2em;
+  width: 15em;
+  height: 1.5em;
+}
+
+input::placeholder {
+  font-family: sans-serif;
+  text-align: left;
+}
+
+input[type=text], input[type=password] {
+  border-radius: 5px;
+  border-color: 1px solid #000000;
+  box-shadow: none;
+}
+
+input:focus:valid {
+  color: black;
+}
+
+input[type="radio"] {
+  font-size: 1em;
+  font-family: sans-serif;
+  width: auto; /* Set to "auto" to revert to default width */
+  height: auto; /* Set to "auto" to revert to default height */
+}
+
+button {
+  font-size: 1.2em;
+  margin: 10px;
+}
+
+nav {
+  float: left;
+}
+
+#signUpStatus, #loginStatus {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  visibility: hidden;
+}
+
+#hide{
+  visibility: hidden;
+}

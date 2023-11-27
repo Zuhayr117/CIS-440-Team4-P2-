@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" type="text/css" href="../css/tasks.css">
+   <script type="text/javascript"  src="../js/tasks.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <nav id="navbar" class="navbar">
+        <a class="nav-item" href="./home.html">
+            <img src="../images/inactive-home.png" alt="home link">
+            <p>Home</p>
+        </a>
+        <a class="nav-item" href="./leaderboard.html">
+            <img src="../images/inactive-leaderboard.png" alt="leaderboard link">
+            <p>Leaderboard</p>
+        </a>
+        <a class="nav-item" href="./resources.html">
+            <img src="../images/inactive-resources.png" alt="resources link">
+            <p>Resources</p>
+        </a>
+        <a class="nav-item active" href="#">
+            <img src="../images/active-tasks.png" alt="tasks link">
+            <p>Create Tasks</p>
+        </a>
+        <button id="logout" type="button" onclick="logOut()">Logout</button>
+    </nav>
+    <div id="taskDiv" class="left center">
+        <h1>Task Manager</h1>
+            <div class="taskOpt">
+            <input type="radio" name="task" id="feedbackSesh" value="Feedback Session">
+                <label for="feedbackSesh">Feedback Session</label><br>
+            <input type="radio" name="task" id="careerDev" value="Career Development">
+                <label for="careerDev">Career Development</label><br>
+            <input type="radio" name="task" id="planning" value="Planning">
+                <label for="planning">Planning</label><br>
+            <input type="radio" name="task" id="custom" value="Custom">
+                <label for="custom">Custom</label><br>
+            </div>
+      
+        <h1>Assigned By:</h1>
+            <div class="taskOpt">
+            <input type="radio" name="assigner" id="assignMentee" value="Mentee">
+                <label for="assignMentee">Mentee</label><br>
+            <input type="radio" name="assigner" id="assignMentor" value="Mentor">
+            <label for="assignMentor">Mentor</label><br>
+            <button type="submit" id="addTaskButton" onclick="unhideCustom()">Add Task</button>
+            <button type="button" id="unhide" onclick="unhide()">Create Custom Task</button>
+        </div>
+        </div>
+
+        <br>
+        <div id="taskAdd" class="center left">
+
+            <h1>Custom Task</h1>
+            <table id="table">
+        <tr>
+        <td>
+            <input type="text" id="priority" placeholder="Priority Number" class="center">
+        </td>
+        
+        <td>
+            <input type="text" id="deadlineDate" placeholder="Deadline Date" class="center">
+        </td>
+        </tr>
+            <tr><td>
+            <input type="text" id="info" placeholder="Task information" class="center">
+        </td>
+        </tr>
+        <tr>
+        
+        </tr> 
+            <tr>
+                <td>
+                    <label for="currentComplete">Is task complete?</label>
+                </td>
+            <td>
+            <input type="checkbox" id="currentComplete" class="left" value="1">
+        </td>
+        
+     
+        </tr>
+            <br> 
+          
+        </table>
+        <button type="submit" id="addCustomTaskButton" class="center" onclick="addCustomTaskButton()">Add Custom Task</button>
+          
+          
+        </div>
+</body>
+</html>

@@ -1,0 +1,482 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-position: 0 0;
+    background-image: url("/images/login.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h2 {
+    text-align: center;
+}
+
+.navbar {
+    position: sticky;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    float: left;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777777;
+    text-decoration: none;
+    padding: 10px;
+    float: left;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+.nav-item:hover {
+    background-color: lightgray;
+}
+
+img {
+    height: 5vh;
+}
+
+.nav-item p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.active {
+    color: #333333;
+}
+
+
+#taskListId {
+    text-align: center;
+}
+
+#taskListId li {
+    list-style: none;
+    text-align: left;
+}
+
+nav button, #progress button, #newMentorshipButton, #feedbackButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 5em;
+    width: 10vw;
+    margin-right: 10px;
+    margin-top: 13px;
+    line-height: 1.5;
+    text-align: center;
+    float: right;
+}
+
+nav button:hover, #progress button:hover, #newMentorshipButton:hover,
+#feedbackButton:hover {
+    background-color: #0056b3;
+}
+
+#miniLeaderboard {
+    float: left;
+    clear: left;
+    min-width: 249px;
+    width: 15vw;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+h4 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#miniLeaderboard li {
+    text-align: right;
+}
+
+#roadmap {
+    float: right;
+    width: 15vw;
+}
+
+.top-container {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.left-container {
+    width: 15vw;
+    margin: 10px;
+    margin-bottom: 0;
+    margin-right: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    float: left;
+}
+
+.right-container {
+    margin-right: 10px;
+}
+
+.white {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.top {
+    margin: 10px 0;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+#reminders {
+    clear: left;
+    min-width: 249px;
+    width: 15vw;
+    padding: 10px;
+}
+
+#reminders div {
+    word-wrap: break-word; 
+    background-color: rgba(0, 123, 255, 0.5);
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+#reminders div ul li {
+    font-size: medium;
+    text-align: left;
+}
+
+#progress {
+    float: right;
+    width: calc(100% - 310px);
+    height: 86vh;
+    overflow: none;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 0;
+    padding: 0;
+}
+
+#roadMap-q1,
+#roadMap-q2,
+#roadMap-q3,
+#roadMap-q4 {
+    display: none;
+}
+
+#roadMap-1:hover #roadMap-q1,
+#roadMap-2:hover #roadMap-q2,
+#roadMap-3:hover #roadMap-q3,
+#roadMap-4:hover #roadMap-q4 {
+    display: block !important;;
+}
+
+.progress-meter {
+    width: 95%;
+    height: 10vh;
+    margin: auto;
+    background-color: lightgray;
+    border-radius: 20px;
+}
+
+.progress-inside {
+    padding: 0;
+    width: 95%;
+    height: 10vh;
+    background-color: green;
+    border-radius: 20px;
+}
+
+#progress h1 {
+    text-align: center;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5); /* Adjust the scale factor as needed */
+    margin-left: 50px;
+}
+
+input[type=checkbox]:checked + label {
+    text-decoration: line-through;
+}
+
+input[type=checkbox], label {
+    margin-bottom: 15px;
+}
+
+/* Increase the font size of the label text */
+label {
+    font-size: 1.5em; /* Adjust the font size as needed */
+    margin-left: 10px;
+}
+
+#tasks-container {
+    float: left;
+    overflow: scroll;
+    max-height: 60vh;
+    min-width: 450px;
+    background-color: lightgray;
+    border-radius: 20px;
+    margin-left: 25%;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+#logout {
+float: right;
+}
+
+#relationshipOptions {
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#relationshipOptions, #relationshipDropdown {
+    background-color: rgba(0, 123, 255, 0.5);
+    font-size: 1em;
+    border-radius: 5px 5px 0 0;
+}
+#relationshipDropdown {
+    background-color: transparent;
+    border: 0px;
+    font-size: 1.5em;
+}
+
+#mentorNoRelationships, #menteeNoRelationships {
+    display: none;
+}
+
+#progress button {
+    float: left;
+    width: 98.5%;
+    height: 83.5vh;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: xx-large;
+}
+
+#menteeNoRelationships {
+    background-color: transparent;
+    margin: auto;
+    text-align: center;
+    font-size: xx-large;
+    margin: 10px;
+    margin-top: calc(76vh / 2);
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#popupModal {
+    display: none;
+    padding: 10px;
+}
+
+#modalContent {
+    width: 450px;
+    height: 350px;
+}
+
+#popupModal label {
+    float: right;
+    font-size: 1em;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: right;
+}
+
+#popupModal input {
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    float: right;
+    width: 300px;
+    /* border: transparent; */
+}
+
+#menteesRegistered {
+    font-size: 1.75em;
+    float: right;
+    width: 300px;
+    text-align: center;
+    /* border: transparent; */
+} 
+#newMentorshipButton {
+    float: none;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+
+
+[id^="task-up-"] {
+   height: 3vh !important;
+   width: 3vh !important;
+   float: right !important;
+   margin: auto !important;
+   line-height: 0 !important;
+   text-align: center !important;
+   font-size: medium !important;
+   
+}
+
+[id^="task-down-"] {
+    height: 3vh !important;
+   width: 3vh !important;
+   float: right !important;
+   margin: auto !important;
+   line-height: 0 !important;
+   text-align: center !important;
+   font-size: medium !important;
+}
+
+#taskListId li label {
+    margin-right: 10px;
+}
+
+
+[id^="task-x-"] {
+    height: 3vh !important;
+    width: 3vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+
+#tasksCompleteContainer {
+    float: right;
+    margin: 0;
+    width: fit-content;
+    max-width: 400px;
+    height: fit-content;
+    font-size: medium;
+    text-align: center;
+    display: none;
+    padding: 10px;
+}
+
+#tasksCompleteContainer button {
+    float: right;
+    margin: 30px;
+    width: 300px;
+    height: 100px;
+    font-size: medium;
+    text-align: center;
+}
+
+#feedbackButton {
+    width: 300px;
+    background-color: red;
+}
+
+[id^="edit-"] {
+    height: 3vh !important;
+    width: 3vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+#taskEdit {
+    margin-top: 10px !important;
+    background-color: #FFFFFF !important;
+    /*margin: auto;*/
+    width: 47% !important;
+    padding: 40px !important;
+    border-radius: 33px !important;
+    box-sizing: border-box !important;
+}
+[id^="EditTaskButton"] {
+    height: 2vh !important;
+    width: 11vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+[id^="editForm"] {
+    height: 5vh !important;
+    width: 74vh  !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: .75 !important;
+    text-align: center !important;
+    font-size: medium !important;
+    float: right !important;
+}
+[id^="closeTaskButton"] {
+    height: 2vh !important;
+    width: 11vh !important;
+    float: right !important;
+    margin: auto !important;
+    line-height: 0 !important;
+    text-align: center !important;
+    font-size: medium !important;
+}
+[id^="deadlineDate"] {
+    max-width: 90px;
+}
+[id^="currentComplete"] {
+    font-size: 1.1em
+}
+

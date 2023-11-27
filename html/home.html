@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Marina - Home</title>
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/home.js"></script>
+</head>
+
+<body>
+      <nav id="navbar" class="navbar">
+        <a class="nav-item active" href="#">
+            <img src="../images/active-home.png" alt="home link">
+            <p>Home</p>
+        </a>
+        <a class="nav-item" href="./leaderboard.html">
+            <img src="../images/inactive-leaderboard.png" alt="leaderboard link">
+            <p>Leaderboard</p>
+        </a>
+        <a class="nav-item" href="./resources.html">
+            <img src="../images/inactive-resources.png" alt="resources link">
+            <p>Resources</p>
+        </a>
+        <a class="nav-item" href="./tasks.html">
+            <img src="../images/inactive-tasks.png" alt="tasks link">
+            <p>Create Tasks</p>
+        </a>
+        <button id="logout" type="button" onclick="logOut()">Logout</button>
+    </nav>
+    <div id="miniLeaderboard" class="container left-container top-container">
+        <h2>Leaderboard</h2>
+        <h4>Top Five Mentors</h4>
+        <ol id="topFiveMentors">
+        </ol>
+        <h4>Top Five Mentees</h4>
+        <ol id="topFiveMentees">
+        </ol>
+    </div>
+    <div id="progress" class="container top-container">
+        <div id="relationshipOptions">
+            <label for="relationshipDropdown" id="selectedRelationship"><strong>Current Mentorship:</strong></label>
+            <select id="relationshipDropdown" onchange="dropdownChanged(this.value)">
+            </select>
+          </div>
+        <h1>Progress</h1>
+        <br>
+        <div class="progress-meter" id="progressMeterId">
+            <div class="progress-inside" id="progressId"></div>
+        </div>
+        <br>
+        <div id="tasks-container">
+            <h1>Tasks</h1>
+            <div id="taskListId">
+            </div>
+        </div>
+        <div id="edit-tasks-container">
+        
+            <div id="editTask">
+            </div>
+        </div>
+        <button id="mentorNoRelationships" type="button" onclick="initiateRelationship()">
+            No registered mentorships.
+            Click to initiate a mentorship now.
+        </button>
+        <div id="menteeNoRelationships">
+            No registered mentorships. Please wait for your
+            mentor to initiate the mentorship.
+        </div>
+        <div id="tasksCompleteContainer">
+            <p>Congratulations completing your mentorship journey!</p>
+            <button type="button" id="feedbackButton" onclick="goToSurvey()"></button>
+        </div>
+    </div>
+    <div id="reminders" class="container left-container">
+        <h2>Roadmap</h2>
+        <div id="roadMap-1">
+            <h4>Self-Reflection</h4>
+                <ul id="roadMap-q1">
+                    <li>What do I need?</li>
+                    <li>When do I need it?</li>
+                    <li>Where/in what area?</li>
+                    <li>Where can I find it?</li>
+                </ul>
+        </div>
+        <div id="roadMap-2">
+            <h4>Establishment</h4>
+                <ul id="roadMap-q2">
+                    <li>What is the framework?</li>
+                    <li>Frequency of meeting?</li>
+                    <li>Goals of meeting / interaction?</li>
+                    <li>Expectations?</li>
+                </ul>
+        </div>
+        <div id="roadMap-3">
+            <h4>Maintenance</h4>
+                <ul id="roadMap-q3">
+                    <li>Framework?</li>
+                    <li>Nurture bilateral interactions</li>
+                </ul>
+        </div>
+        <div id="roadMap-4">
+            <h4>Moving Ahead</h4>
+                <ul id="roadMap-q4">
+                    <li>Periodic review of goals</li>
+                    <li>Renegotiation</li>
+                    <li>Is it complete?</li>
+                </ul>
+        </div>
+    </div>
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+        <div id="modalContent" class="modal-content">
+            <span class="close">&times;</span>
+            <form id="newMentorshipForm">
+            <h2>Initiate Mentorship Form</h2>
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <label for="startDate">Start Date:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="startDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endDate">End Date:</label>
+                    </td>
+                    <td>
+                        <input type="date" id="endDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="menteesRegistered">Mentee:</label>
+                    </td>
+                    <td>
+                        <select id="menteesRegistered">
+                            <option value="0" selected>Select a Mentee...</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button id="newMentorshipButton" type="button" onclick="addMentorship(this.form)">Initiate Mentorship</button>
+        </form>
+    </div>
+</html>

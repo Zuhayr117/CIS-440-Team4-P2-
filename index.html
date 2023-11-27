@@ -1,0 +1,107 @@
+<!-- 
+               _==|             
+            _==| )_)_==|
+              )_))__) )_)
+             )___))__))__)
+        _   )___))___))___)\
+         _____|___/|___|___\\
+^^^^^^^^^\   oo oo oo oo   /~~^^^^^^^
+     ~^^^^ ~~~~^^~~~~^^~~^^~~~~~
+        ~~^^  ~^^~  ~^~ ~^ ~^
+             ~^~~        ~~~^^~ 
+
+             art done by asciiart.cc
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <title>Marina</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+   
+    
+
+    <div class="center" id="loginElements">
+        <div id="loginvis">
+            <div id="logoImage" class="center">
+                <img src="./images/marina.png">
+            </div>
+            <!-- Title of app  -->
+            <!-- form to get login info  -->
+            <form id="inputFormId">
+                <h3>Login:</h3>
+                <!-- Input Table  -->
+                <table id="inputTableId" class="center">
+                    <tr>
+                        <td>
+                            <label for="inputUserName"> Username: </label>
+                            <br>
+                            <input id="inputUserName" type="text" name="Username" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputPassword"> Password: </label>
+                            <br>
+                            <input id="inputPassword" type="password" name="Password" required>
+                        </td>
+                    </tr>
+                </table>
+                <!-- buttons under input  -->
+                <div id="buttonDivId" class="center">
+                    <button type="button" id="loginButton" onclick="logInUser()">Login</button>
+                </div>
+                <p id="loginStatus">placeholder</p>
+            </form>
+            <br>
+        </div>
+        <button type="button" onclick="showSignUp()">Create New User</button>
+        <br>
+        <hr id="divider">
+        <br>
+        <div id="signupvis">
+            <!-- form for request account -->
+            <form id="signupForm">
+                <div class="center">
+                    <h3>Sign Up:</h3>
+                    <div>
+                        <label for="newName">Name:</label>
+                        <br>
+                        <input type="text" id="newName" name="newName" required><br>
+                    </div>
+                    <div>
+                        <label for="newUsername">New Username:</label>
+                        <br>
+                        <input type="text" id="newUsername" name="newUsername" required><br>
+                    </div>
+                    <div>
+                        <label for="newPassword">New Password:</label>
+                        <br>
+                        <input type="password" id="newPassword" name="newPassword" required><br>
+                    </div>
+                    <div>
+                        <label for="mentorRole">Role:</label><br>
+                        <input type="radio" id="mentorRole" name="role" value="mentor" required>
+                        <label for="mentorRole">Mentor</label>
+                        
+                        <input type="radio" id="menteeRole" name="role" value="mentee" required>
+                        <label for="menteeRole">Mentee</label>
+                    </div>
+                    <div class="center">
+                        <button type="button" onclick="addUser()">Sign Up</button>
+                    </div>
+                    <p id="signUpStatus">placeholder</p>
+                </div>
+        </div>
+        </form>
+    </div>
+</body>
+
+</html>
